@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	¿Ö ¾ÈµÆÁö??
+	can't read Korean
 </body>
 </html>
