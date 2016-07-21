@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecCert {
-
-	
 	private String recCertCode; 		//추천도서코드
 	private String recUniteCode;		//추천통합코드
 	private String infoCertCode;		//자격증분류번호

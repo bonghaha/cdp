@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecUnite {
-
-	
 	private String recUniteCode;			//추천통합번호
 	private String infoMemberCode;			//회원번호
 	private String infoJobCode; 			//직업분류번호+직업명

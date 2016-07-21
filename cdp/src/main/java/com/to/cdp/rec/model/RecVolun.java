@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecVolun {
-
-	
 	private String recVolunCode; 			//추천봉사활동코드
 	private String recUniteCode;			//추천통합코드
 	private String infoVolunCode;			//봉사활동분류번호

@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecLang {
-
-	
 	private String recLangCode; 		//추천언어코드
 	private String recUniteCode;		//추천통합코드
 	private String infoLangCode;		//언어분류번호

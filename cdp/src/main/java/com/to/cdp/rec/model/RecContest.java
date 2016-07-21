@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecContest {
-	
-	
 	private String recContestCode; 			//추천공모전코드
 	private String recUniteCode;			//추천통합코드
 	private String infoContestCode;			//공모전분류번호

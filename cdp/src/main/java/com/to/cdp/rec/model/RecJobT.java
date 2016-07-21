@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecJobT {
-	
-	
 	private String recRecJobTCode; 		//추천직업훈련코드
 	private String recUniteCode;		//추천통합코드
 	private String infoJobTCode;		//직업훈련분류번호

@@ -1,8 +1,6 @@
 package com.to.cdp.rec.model;
 
 public class RecSchool {
-
-	
 	private String recSchoolCode; 			//추천학교코드
 	private String recUniteCode;			//추천통합코드
 	private String infoSchoolCode;			//학교분류번호
