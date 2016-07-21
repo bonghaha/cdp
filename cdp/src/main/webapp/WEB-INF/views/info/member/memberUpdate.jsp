@@ -6,7 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	git test 123 test test 111
-	test 222
+	다 지운거 업뎃
 </body>
 </html>
