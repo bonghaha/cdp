@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.CdpMapper">
+
+<!--*****************************************************************
+	***************************InfoMember****************************
+	***************************************************************** -->
+	
+	<!-- 회원가입 -->
+	<insert id="infoMemberInsert"
+			parameterType="com.to.cdp.info.model.InfoMember">
+		INSERT INTO info_member (
+			info_member_code,
+			info_member_id, 
+			info_member_pw, 
+			info_member_name, 
+			info_member_phone, 
+			info_member_email, 
+			info_member_birth, 
+			info_member_level, 
+			info_member_joindate
+			)
+		VALUES (
+			#{infoMemberCode}, 
+			#{infoMemberId}, 
+			#{infoMemberPw}, 
+			#{infoMemberName}, 
+			#{infoMemberPhone}, 
+			#{infoMemberEmail}, 
+			#{infoMemberBirth}, 
+			#{infoMemberLevel}, 
+			now()
+			)
+	</insert>
+	
+	<!-- 전체 회원 수 구하기 (회원등록용) -->
+	<select id="infoMemberCount"
+			resultType="integer">
+		SELECT
+			count(*)
+		FROM info_member
+	</select>
+	
+	<!-- 전체 회원 수 구하기 (조건검색 포함)-->
+	<select id="infoMemberCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_member
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_member_level')">
+						info_member_level LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_id')">
+						info_member_id LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_name')">
+			 			info_member_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 회원상세보기 -->
+	<select id="infoMemberDetail"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_id infoMemberId,
+		 	info_member_pw infoMemberPw,
+		 	info_member_name infoMemberName,
+		 	info_member_phone infoMemberPhone,
+		 	info_member_email infoMemberEmail,
+		 	info_member_birth infoMemberBirth,
+		 	info_member_level infoMemberLevel,
+		 	info_member_joindate infoMemberJoinDate
+		FROM info_member
+		WHERE info_member_code = #{infoMemberCode}
+	</select>
+	
+	<!-- 회원리스트 -->
+	<select id="infoMemberList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_code infoMemberCode,
+			info_member_id infoMemberId,
+			info_member_name infoMemberName,
+			info_member_phone infoMemberPhone,
+			info_member_email infoMemberEmail,
+			info_member_birth infoMemberBirth,
+			info_member_level infoMemberLevel,
+			info_member_joindate infoMemberJoinDate
+		FROM info_member
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_member_level')">
+						info_member_level LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_id')">
+						info_member_id LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_name')">
+			 			info_member_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+		ORDER BY info_member_joindate DESC
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoVolun*****************************
+	***************************************************************** -->
+	<!-- 봉사활동기본정보 등록 -->
+	<insert id="infoVolunInsert"
+			parameterType="com.to.cdp.info.model.InfoVolun">
+		INSERT INTO info_volun	(
+			info_volun_code,
+			info_volun_continent, 
+			info_volun_country,
+			info_volun_title,
+			info_volun_name
+			)
+		VALUES (
+			#{infoVolunCode}, 
+			#{infoVolunContinent},
+			#{infoVolunCountry},
+			#{infoVolunTitle},
+			#{infoVolunName}
+			)
+	</insert>
+	
+	<!-- 봉사활동기본정보 리스트 -->
+	<select id="infoVolunList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoVolun">
+		SELECT 
+			info_volun_code infoVolunCode,
+			info_volun_continent infoVolunContinent,
+			info_volun_country infoVolunCountry,
+			info_volun_title infoVolunTitle,
+			info_volun_name infoVolunName
+		FROM info_volun
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_volun_continent')">
+						info_volun_continent LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_country')">
+						info_volun_country LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_title')">
+			 			info_volun_title LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_name')">
+						info_volun_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+		ORDER BY info_volun_code DESC
+	</select>
+	
+	<!-- 봉사활동기본정보 수 (등록용) -->
+	<select id="infoVolunCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_volun
+	</select>
+	
+	<!-- 봉사활동기본정보 수 (조건검색 포함)-->
+	<select id="infoVolunCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_volun
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_volun_continent')">
+						info_volun_continent LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_country')">
+						info_volun_country LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_title')">
+			 			info_volun_title LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_name')">
+			 			info_volun_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 봉사활동기본정보 상세보기 -->
+	<select id="infoVolunDetail"
+			parameterType="com.to.cdp.info.model.InfoVolun"
+			resultType="com.to.cdp.info.model.InfoVolun">
+		SELECT 
+			info_volun_code infoVolunCode,
+			info_volun_continent infoVolunContinent,
+			info_volun_country infoVolunCountry,
+			info_volun_title infoVolunTitle,
+			info_volun_name infoVolunName
+		FROM info_volun
+		WHERE info_volun_code = #{infoVolunCode}
+	</select>	
+	
+	
+	
+	
+<!--*****************************************************************
+	***************************InfoBook******************************
+	***************************************************************** -->
+	<!-- InfoBookInsert  -->
+	<insert id="infoBookInsert"
+			parameterType="com.to.cdp.info.model.InfoBook">
+		INSERT INTO info_book (
+			info_book_code,
+			info_book_genre,
+			info_book_institute,
+			info_book_writer,
+			info_book_name
+			)
+		VALUES (
+			#{infoBookCode}, 
+			#{infoBookGenre}, 
+			#{infoBookInstitute},
+			#{infoBookWriter},
+			#{infoBookName}
+			)
+	</insert>
+	
+	<!-- infoBookCount -->
+	<select id="infoBookCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_book
+	</select>
+	
+	<!-- 전체 도서 수 구하기 (조건검색 포함)-->
+	<select id="infoBookCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_book
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_book_name')">
+						info_book_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_genre')">
+						info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_institute')">
+			 			info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_writer')">
+			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- infoBookList + 검색 -->
+	<select id="infoBookList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoBook">
+		SELECT 
+			info_book_code infoBookCode,
+			info_book_genre infoBookGenre,
+			info_book_institute infoBookInstitute,
+			info_book_writer infoBookWriter,
+			info_book_name infoBookName
+		FROM info_book
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_book_name')">
+						info_book_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_genre')">
+						info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_institute')">
+			 			info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_writer')">
+			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- infoBookDetail -->
+	<select id="infoBookDetail"
+			parameterType="com.to.cdp.info.model.InfoBook"
+			resultType="com.to.cdp.info.model.InfoBook">
+		SELECT 
+			info_book_code infoBookCode,
+			info_book_genre infoBookGenre,
+			info_book_institute infoBookInstitute,
+			info_book_writer infoBookWriter,
+			info_book_name infoBookName
+		FROM info_book
+		WHERE info_book_code = #{infoBookCode}
+	</select>
+	
+	
+<!--*****************************************************************
+	***************************InfoCert******************************
+	***************************************************************** -->
+	<!-- infoCertInsert  -->
+	<insert id="infoCertInsert"
+			parameterType="com.to.cdp.info.model.InfoCert">
+		INSERT INTO info_cert (
+			info_cert_code,
+			info_cert_type,
+			info_cert_institute,
+			info_cert_name
+			)
+		VALUES (
+			#{infoCertCode}, 
+			#{infoCertType}, 
+			#{infoCertInstitute},
+			#{infoCertName}
+			)
+	</insert>
+	
+	<!-- infoCertCount -->
+	<select id="infoCertCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_cert
+	</select>
+	
+	<!-- infoCertList + 검색 -->
+	<select id="infoCertList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoCert">
+		SELECT 
+			info_cert_code infoCertCode,
+			info_cert_type infoCertType,
+			info_cert_institute infoCertInstitute,
+			info_cert_name infoCertName
+		FROM info_cert
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_cert_name')">
+						info_cert_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_cert_institute')">
+						info_cert_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_cert_type')">
+			 			info_cert_type LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 전체 자격증 수 구하기 (조건검색 포함)-->
+	<select id="infoCertCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_cert
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_cert_name')">
+						info_cert_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_cert_type')">
+						info_cert_type LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_cert_institute')">
+			 			info_cert_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- infoCertDetail -->
+	<select id="infoCertDetail"
+			parameterType="com.to.cdp.info.model.InfoCert"
+			resultType="com.to.cdp.info.model.InfoCert">
+		SELECT 
+			info_cert_code infoCertCode,
+			info_cert_type infoCertType,
+			info_cert_institute infoCertInstitute,
+			info_cert_name infoCertName
+		FROM info_cert
+		WHERE info_cert_code = #{infoCertCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoContest***************************
+	***************************************************************** -->
+	<!-- infoContestInsert  -->
+	<insert id="infoContestInsert"
+			parameterType="com.to.cdp.info.model.InfoContest">
+		INSERT INTO info_contest (
+			info_contest_code,
+			info_contest_institute,
+			info_contest_prize,
+			info_contest_content,
+			info_contest_name
+			)
+		VALUES (
+			#{infoContestCode}, 
+			#{infoContestInstitute}, 
+			#{infoContestPrize},
+			#{infoContestContent}, 
+			#{infoContestName}
+			)
+	</insert>
+	
+	<!-- infoContestCount -->
+	<select id="infoContestCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_contest
+	</select>
+	
+	<!-- infoContestList + 검색 -->
+	<select id="infoContestList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoContest">
+		SELECT 
+			info_contest_code infoContestCode,
+			info_contest_institute infoContestInstitute,
+			info_contest_prize infoContestPrize,
+			info_contest_content infoContestContent,
+			info_contest_name infoContestName
+		FROM info_contest
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_contest_name')">
+						info_contest_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_institute')">
+						info_contest_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_prize')">
+			 			info_contest_prize LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_content')">
+			 			info_contest_content LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 전체 공모전 수 구하기 (조건검색 포함)-->
+	<select id="infoContestCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_contest
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_contest_name')">
+						info_contest_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_institute')">
+						info_contest_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_prize')">
+			 			info_contest_prize LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_contest_content')">
+			 			info_contest_content LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- infoContestDetail -->
+	<select id="infoContestDetail"
+			parameterType="com.to.cdp.info.model.InfoContest"
+			resultType="com.to.cdp.info.model.InfoContest">
+		SELECT 
+			info_contest_code infoContestCode,
+			info_contest_institute infoContestInstitute,
+			info_contest_prize infoContestPrize,
+			info_contest_content infoContestContent,
+			info_contest_name infoContestName
+		FROM info_contest
+		WHERE info_contest_code = #{infoContestCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoDept******************************
+	***************************************************************** -->
+	<!-- InfoDeptInsert  -->
+	<insert id="infoDeptInsert"
+			parameterType="com.to.cdp.info.model.InfoDept">
+		INSERT INTO info_dept (
+			info_dept_code,
+			info_dept_bigcode,
+			info_dept_bigname,
+			info_dept_middlecode,
+			info_dept_middlename,
+			info_dept_smallcode,
+			info_dept_smallname,
+			info_school_code
+			)
+		VALUES (
+			#{infoDeptCode},
+			#{infoDeptBigCode}, 
+			#{infoDeptBigName},
+			#{infoDeptMiddleCode},
+			#{infoDeptMiddleName}, 
+			#{infoDeptSmallCode},
+			#{infoDeptSmallName},
+			#{infoSchoolCode}
+			)
+	</insert>
+	
+	<!-- infoDeptCount -->
+	<select id="infoDeptCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_dept
+	</select>
+	
+	<!-- infoDeptList + 검색 -->
+	<select id="infoDeptList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoDept">
+		SELECT 
+			info_dept_code infoDeptCode,
+			info_dept_bigname infoDeptBigName,
+			info_dept_middlename infoDeptMiddleName,
+			info_dept_smallname infoDeptSmallName
+		FROM info_dept
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_dept_bigname')">
+						info_dept_bigname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_dept_middlename')">
+						info_dept_middlename LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_dept_smallname')">
+			 			info_dept_smallname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 전체 학과 수 구하기 (조건검색 포함)-->
+	<select id="infoDeptCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_dept
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_dept_name')">
+						info_dept_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_dept_big_name')">
+						info_dept_big_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_dept_middle_name')">
+			 			info_dept_middle_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_dept_small_name')">
+			 			info_dept_small_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- infoDeptDetail -->
+	<select id="infoDeptDetail"
+			parameterType="com.to.cdp.info.model.InfoDept"
+			resultType="com.to.cdp.info.model.InfoDept">
+		SELECT 
+			info_dept_code infoDeptCode,
+			info_dept_bigname infoDeptBigName,
+			info_dept_middlename infoDeptMiddleName,
+			info_dept_smallname infoDeptSmallName
+		FROM info_dept
+		WHERE info_dept_code = #{infoDeptCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoJob*******************************
+	***************************************************************** -->
+		
+		<!-- 직업 등록 -->
+	<insert id="infoJobInsert"
+			parameterType="com.to.cdp.info.model.InfoJob">
+		INSERT INTO info_job (
+			info_job_code,
+			info_job_bigcode, 
+			info_job_bigname,
+			info_job_middlecode, 
+			info_job_middlename,
+			info_job_smallcode, 
+			info_job_smallname,
+			info_job_detailcode, 
+			info_job_detailname,
+			info_job_unitname, 
+			info_job_detailinfo, 
+			info_job_info, 
+			info_job_condition,
+			info_job_applyyear,
+			info_job_changecount,
+			info_job_registerdate,
+			info_job_registername
+			)
+		VALUES (
+			#{infoJobCode}, 
+			#{infoJobBigCode}, 
+			#{infoJobBigName},
+			#{infoJobMiddleCode}, 
+			#{infoJobMiddleName},
+			#{infoJobSmallCode}, 
+			#{infoJobSmallName},
+			#{infoJobDetailCode}, 
+			#{infoJobDetailName},
+			#{infoJobUnitName}, 
+			#{infoJobDetailInfo}, 
+			#{infoJobInfo}, 
+			#{infoJobCondition}, 
+			#{infoJobApplyYear}, 
+			#{infoJobChangeCount}, 
+			now(), 
+			#{infoJobRegisterName} 
+			)
+	</insert>
+	
+	<!-- 직업 수 구하기 -->
+	<select id="infoJobCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_job
+	</select>
+	
+	<!-- 직업 리스트보기 -->
+	<select id="infoJobList"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.info.model.InfoJob">
+		SELECT 
+			info_job_code infoJobCode, 
+			info_job_bigname infoJobBigName,
+			info_job_middlename infoJobMiddleName,
+			info_job_smallname infoJobSmallName,
+			info_job_detailname infoJobDetailName,
+			info_job_unitname infoJobUnitName, 
+			info_job_detailinfo infoJobDetailInfo, 
+			info_job_info infoJobInfo, 
+			info_job_condition infoJobCondition, 
+			info_job_applyyear infoJobApplyYear, 
+			info_job_changecount infoJobChangeCount, 
+			info_job_registerdate infoJobRegisterDate, 
+			info_job_registername infoJobRegisterName
+		FROM info_job
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_job_bigname')">
+						info_job_bigname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_job_middlename')">
+						info_job_middlename LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_job_smallname')">
+						info_job_smallname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_job_detailname')">
+						info_job_detailname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_job_unitname')">
+						info_job_unitname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+<!-- 		ORDER BY info_job_code DESC -->
+	</select>
+	
+	<!-- 직업 상세보기 -->
+	<select id="infoJobDetail"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.info.model.InfoJob">
+		SELECT 
+			info_job_code infoJobCode,
+			info_job_bigname infoJobBigName, 
+			info_job_middlename infoJobMiddleName, 
+			info_job_smallname infoJobSmallName, 
+			info_job_detailname infoJobDetailName, 
+			info_job_unitname infoJobUnitName, 
+			info_job_detailinfo infoJobDetailInfo, 
+			info_job_info infoJobInfo, 
+			info_job_condition infoJobCondition, 
+			info_job_applyyear infoJobApplyYear, 
+			info_job_changecount infoJobChangeCount, 
+			info_job_registerdate infoJobRegisterDate, 
+			info_job_registername infoJobRegisterName
+		FROM info_job
+		Where info_job_code = #{infoJobCode}
+	</select>
+
+<!--*****************************************************************
+	***************************InfoJobT******************************
+	***************************************************************** -->
+	<!-- 직업 훈련 등록 -->
+	<insert id="infoJobTInsert"
+			parameterType="com.to.cdp.info.model.InfoJobT">
+		INSERT INTO info_jobt (
+			info_jobt_code, 
+			info_jobt_target, 
+			info_jobt_location,
+			info_jobt_institute,
+			info_jobt_course, 
+			info_jobt_startdate, 
+			info_jobt_enddate
+			)
+		VALUES (
+			#{infoJobTCode}, 
+			#{infoJobTTarget}, 
+			#{infoJobTLocation},
+			#{infoJobTInstitute}, 
+			#{infoJobTCourse},
+			#{infoJobTStartDate}, 
+			#{infoJobTEndDate}
+			)
+	</insert>
+	
+	<!-- 직업 훈련 수 구하기 -->
+	<select id="infoJobTCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_jobt
+	</select>
+	
+	<!-- 전체 직업훈련 갯수 구하기 (조건검색 포함)-->
+	<select id="infoJobTCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_jobt
+		<where>
+			<if test="searchWord != null">
+				<choose>
+					<when test="searchType.equals('info_jobt_target')">
+						info_jobt_target LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_location')">
+						info_jobt_location LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_institute')">
+						info_jobt_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_course')">
+						info_jobt_course LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 직업훈련 리스트보기 -->
+	<select id="infoJobTList"
+			parameterType="com.to.cdp.info.model.InfoJobT"
+			resultType="com.to.cdp.info.model.InfoJobT">
+		SELECT 
+			info_jobt_code infoJobTCode, 
+			info_jobt_target infoJobTTarget,
+			info_jobt_location infoJobTLocation,
+			info_jobt_institute infoJobTInstitute,
+			info_jobt_course infoJobTCourse,
+			info_jobt_startdate infoJobTStartDate,
+			info_jobt_enddate infoJobTEndDate
+		FROM info_jobt
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_jobt_target')">
+						info_jobt_target LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_location')">
+						info_jobt_location LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_institute')">
+						info_jobt_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_jobt_course')">
+						info_jobt_course LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 직업훈련 상세보기 -->
+	<select id="infoJobTDetail"
+			parameterType="com.to.cdp.info.model.InfoJobT"
+			resultType="com.to.cdp.info.model.InfoJobT">
+		SELECT 
+			info_jobt_code infoJobTTarget,
+			info_jobt_target infoJobTBigName, 
+			info_jobt_location infoJobTLocation, 
+			info_jobt_institute infoJobTInstitute, 
+			info_jobt_course infoJobTCourse, 
+			info_jobt_startdate infoJobTStartDate, 
+			info_jobt_enddate infoJobTEndDate
+		FROM info_jobt
+		Where info_jobt_code = #{infoJobTCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoLang******************************
+	***************************************************************** -->
+	<!-- 언어 등록 -->
+	<insert id="infoLangInsert"
+			parameterType="com.to.cdp.info.model.InfoLang">
+		INSERT INTO info_lang (
+			info_lang_code,
+			info_lang_name, 
+			info_lang_testname
+			)
+		VALUES (
+			#{infoLangCode}, 
+			#{infoLangName}, 
+			#{infoLangTestName}
+			)
+	</insert>
+	
+	<!-- 전체 언어 수 구하기 -->
+	<select id="infoLangCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_lang
+	</select>
+	
+	<!-- 전체 언어 갯수 구하기 (조건검색 포함)-->
+	<select id="infoLangCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_lang
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_lang_name')">
+						info_lang_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_lang_testname')">
+						info_lang_testname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 언어 리스트보기 -->
+	<select id="infoLangList"
+			parameterType="com.to.cdp.info.model.InfoLang"
+			resultType="com.to.cdp.info.model.InfoLang">
+		SELECT 
+			info_lang_code infoLangCode, 
+			info_lang_name infoLangName,
+			info_lang_testname infoLangTestName
+		FROM info_lang
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_lang_name')">
+						info_lang_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_lang_testname')">
+						info_lang_testname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 언어 상세보기 -->
+	<select id="infoLangDetail"
+			parameterType="com.to.cdp.info.model.InfoLang"
+			resultType="com.to.cdp.info.model.InfoLang">
+		SELECT 
+			info_lang_code infoLangCode, 
+			info_lang_name infoLangName,
+			info_lang_testname infoLangTestName
+		FROM info_lang
+		Where info_lang_code = #{infoLangCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoStudyAb***************************
+	***************************************************************** -->
+
+	<!-- 어학연수 등록 -->
+	<insert id="infoStudyAbInsert"
+			parameterType="com.to.cdp.info.model.InfoStudyAb">
+		INSERT INTO info_studyab (
+			info_studyab_code, 
+			info_studyab_location, 
+			info_studyab_institute,
+			info_studyab_lang
+			)
+		VALUES (
+			#{infoStudyAbCode}, 
+			#{infoStudyAbLocation}, 
+			#{infoStudyAbInstitute},
+			#{infoStudyAbLang}
+			)
+	</insert>
+	
+	<!-- 어학연수 수 구하기 -->
+	<select id="infoStudyAbCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_studyab
+	</select>
+	
+	<!-- 전체 어학연수 갯수 구하기 (조건검색 포함)-->
+	<select id="infoStudyAbCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_studyab
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_studyab_location')">
+						info_studyab_location LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_studyab_institute')">
+						info_studyab_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_studyab_lang')">
+						info_studyab_lang LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 어학연수 리스트보기 -->
+	<select id="infoStudyAbList"
+			parameterType="com.to.cdp.info.model.InfoStudyAb"
+			resultType="com.to.cdp.info.model.InfoStudyAb">
+		SELECT 
+			info_studyab_code infoStudyAbCode, 
+			info_studyab_location infoStudyAbLocation,
+			info_studyab_institute infoStudyAbInstitute,
+			info_studyab_lang infoStudyAbLang
+		FROM info_studyab
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_studyab_location')">
+						info_studyab_location LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_studyab_institute')">
+						info_studyab_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_studyab_lang')">
+						info_studyab_lang LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 어학연수 상세보기 -->
+	<select id="infoStudyAbDetail"
+			parameterType="com.to.cdp.info.model.InfoStudyAb"
+			resultType="com.to.cdp.info.model.InfoStudyAb">
+		SELECT 
+			info_studyab_code infoStudyAbCode, 
+			info_studyab_location infoStudyAbLocation,
+			info_studyab_institute infoStudyAbInstitute,
+			info_studyab_lang infoStudyAbLang
+		FROM info_studyab
+		Where info_studyab_code = #{infoStudyAbCode}
+	</select>
+	
+<!--*****************************************************************
+	***************************InfoSchool****************************
+	***************************************************************** -->
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!수정중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	
+	<!-- 학교 등록 -->
+	<insert id="infoSchoolInsert"
+			parameterType="com.to.cdp.info.model.InfoSchool">
+		INSERT INTO info_school (
+			info_school_code,
+			info_school_bigcode, 
+			info_school_bigname,
+			info_school_middlecode,
+			info_school_middlename, 
+			info_school_name
+			)
+		VALUES (
+			#{infoSchoolCode}, 
+			#{infoSchoolBigCode}, 
+			#{infoSchoolBigName},
+			#{infoSchoolMiddleCode}, 
+			#{infoSchoolMiddleName},
+			#{infoSchoolName}
+			)
+	</insert>
+	
+	<!-- 전체 학교 수 구하기 (등록용) -->
+	<select id="infoSchoolCount"
+			resultType="integer">
+		SELECT
+			count(*)
+		FROM info_school
+	</select>
+
+	<!-- 전체 학교 수 구하기 (조건검색 포함)-->
+	<select id="infoSchoolCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_school
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_school_bigname')">
+						info_school_bigname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_school_middlename')">
+						info_school_middlename LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_school_name')">
+			 			info_school_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 학교상세보기 -->
+	<select id="infoSchoolDetail"
+			parameterType="com.to.cdp.info.model.InfoSchool"
+			resultType="com.to.cdp.info.model.InfoSchool">
+		SELECT 
+			info_school_code infoSchoolCode,
+			info_school_bigname infoSchoolBigName,
+			info_school_middlename infoSchoolMiddleName, 
+			info_school_name infoSchoolName
+		FROM info_school
+		WHERE info_school_code = #{infoSchoolCode}
+	</select>
+	
+	<!-- 학교리스트 -->
+	<select id="infoSchoolList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoSchool">
+		SELECT 
+			info_school_code infoSchoolCode,
+			info_school_bigname infoSchoolBigName,
+			info_school_middlename infoSchoolMiddleName, 
+			info_school_name infoSchoolName
+		FROM info_school
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_school_bigname')">
+						info_school_bigname LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_school_middlename')">
+						info_school_middlename LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_school_name')">
+			 			info_school_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+</mapper>
