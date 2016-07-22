@@ -10,8 +10,46 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#goJobList").click(function(){
+		$("#jobDetailAction").attr("action", "/infoJobList");
 		$("#jobDetailAction").submit();
 	});
+	$("#recSchoolInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recSchoolInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recDeptInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recDeptInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recLangInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recLangInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recCertInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recCertInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recContestInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recContestInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recStudyAbInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recStudyAbInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recVolunInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recVolunInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recJobTInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recJobTInsert");
+		$("#jobDetailAction").submit();
+	});
+	$("#recBookInsert").click(function(){
+		$("#jobDetailAction").attr("action", "/recBookInsert");
+		$("#jobDetailAction").submit();
+	});
+	
 });
 </script>		
 <style>
@@ -61,10 +99,24 @@ $(document).ready(function(){
 					</c:if>
 				</table>
 				<div>
-					<form id="jobDetailAction" action="/infoJobList">
+					<form id="jobDetailAction" action="">
+						<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}"/>
 						<input type="hidden" name="searchType" value="${searchType}"/>
 						<input type="hidden" name="searchWord" value="${searchWord}"/>
-						<input id="goJobList" type="button" value="리스트로 가기"/>
+						<div>
+							<span><input id="goJobList" type="button" value="리스트로 가기"/></span>
+						</div>
+						<div>
+							<span><input id="recSchoolInsert" type="button" value="추천학교추가"/></span>
+							<span><input id="recDeptInsert" type="button" value="추천학과추가"/></span>
+							<span><input id="recLangInsert" type="button" value="추천언어추가"/></span>
+							<span><input id="recCertInsert" type="button" value="추천자격증추가"/></span>
+							<span><input id="recContestInsert" type="button" value="추천공모전추가"/></span>
+							<span><input id="recStudyAbInsert" type="button" value="추천어학연수추가"/></span>
+							<span><input id="recVolunInsert" type="button" value="추천봉사활동추가"/></span>
+							<span><input id="recJobTInsert" type="button" value="추천직업훈련추가"/></span>
+							<span><input id="recBookInsert" type="button" value="추천도서훈련추가"/></span>
+						</div>
 					</form>
 				</div>
 			</div>

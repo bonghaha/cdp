@@ -1,10 +1,15 @@
 package com.to.cdp.rec.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.to.cdp.PageHelper;
 import com.to.cdp.rec.model.RecUnite;
 import com.to.cdp.rec.service.RecUniteService;
 
@@ -48,7 +53,16 @@ public class RecUniteController {
 	
 	// 4. recUniteList
 	@RequestMapping(value="/recUniteList", method=RequestMethod.GET)
-	public String recUniteList(){
+	public String recUniteList(
+			Model model,
+			Map<String, Object> map,
+			PageHelper pageHelper,
+			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
+			@RequestParam(value="linePerPage", defaultValue = "10")  int linePerPage,
+			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
+		
+		
 		return "recUniteList";
 	}
 	

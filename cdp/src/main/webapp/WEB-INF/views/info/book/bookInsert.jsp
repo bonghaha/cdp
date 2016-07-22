@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#insertCancle").click(function(){
+		$("#insertCancel").click(function(){
 			$("#insertAction").attr("action", "/infoBookList");
 			$("#insertAction").attr("method", "get");
 			$("#insertAction").submit();
@@ -47,7 +47,7 @@
 					</div>
 				
 					<div>
-						<span><input id="insertCancle" type="button" value="취소"/></span>
+						<span><input id="insertCancel" type="button" value="취소"/></span>
 						<span><input id="insertSubmit" type="button" value="확인"/></span>
 					</div>
 				</form>

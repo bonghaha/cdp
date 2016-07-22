@@ -37,6 +37,7 @@ public class InfoBookDao {
 	
 	// infoBookCountBySearch
 	public int infoBookCountBySearch(Map<String, Object> map){
+		System.out.println("InfoBookDao infoBookCountBySearch ½ÇÇà");
 		return sqlSession.selectOne(NS + ".infoBookCountBySearch", map);
 	}
 		

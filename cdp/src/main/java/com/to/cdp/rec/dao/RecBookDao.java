@@ -1,6 +1,7 @@
 package com.to.cdp.rec.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,13 @@ import com.to.cdp.rec.model.RecBook;
 
 @Repository
 public class RecBookDao {
-	private final String NS="com.to.cdp.repository.CdpMapper";
+	private final String NS="com.to.cdp.repository.RecMapper";
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	// recBookInsert
-	public int recBookInsert(RecBook recBook){
-		return sqlSession.insert(NS + ".recBookInsert", recBook);
+	public int recBookInsert(Map<String, Object> map){
+		return sqlSession.insert(NS + ".recBookInsert", map);
 	}
 	
 	// recBookUpdate
@@ -39,5 +40,13 @@ public class RecBookDao {
 	// recBookDetail
 	public RecBook recBookDetail(RecBook recBook){
 		return sqlSession.selectOne(NS + ".recBookDetail", recBook);
+	}
+
+	public int infoBookCountAtRec(Map<String, Object> map) {
+		return sqlSession.selectOne(NS + ".infoBookCountAtRec", map);
+	}
+
+	public int recBookCount() {
+		return sqlSession.selectOne(NS + ".recBookCount");
 	}
 }
