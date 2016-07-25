@@ -15,6 +15,7 @@ import com.to.cdp.PageHelper;
 import com.to.cdp.info.model.InfoBook;
 import com.to.cdp.info.model.InfoJob;
 import com.to.cdp.info.service.InfoBookService;
+import com.to.cdp.info.service.InfoJobService;
 import com.to.cdp.rec.model.RecBook;
 import com.to.cdp.rec.service.RecBookService;
 
@@ -22,13 +23,18 @@ import com.to.cdp.rec.service.RecBookService;
 public class RecBookController {
 	@Autowired
 	private RecBookService recBookService;
+	
 	@Autowired
 	private InfoBookService infoBookService;
+	
+	@Autowired
+	private InfoJobService infoJobService;
 	
 	// 1. recBookInsert
 	@RequestMapping(value="/recBookInsert", method=RequestMethod.GET)
 	public String recBookInsert(
 			InfoJob infoJob,
+			RecBook recBook,
 			Model model,
 			Map<String, Object> map,
 			PageHelper pageHelper,
@@ -39,6 +45,7 @@ public class RecBookController {
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord,
 			@RequestParam(value="infoJobUnitName", required = false, defaultValue = "") String infoJobUnitName){
 	
+		//infoBookList 셋팅(+페이징)
 		map = new HashMap<>();
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
@@ -47,41 +54,58 @@ public class RecBookController {
 		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//페이지 셋팅하기
 		System.out.println("pageHelper InfoBookController :" + pageHelper);
 		map.put("pageHelper", pageHelper);
+		map.put("infoJob", infoJob);
+		model.addAttribute("infoJob", infoJob);
+
+		// info_job_code로 rec_book테이블의 info_book_code select
+		List<RecBook> infoBookCodeListAtRecBook = recBookService.recBookSelectInfoBookCodeByInfoJob(infoJob);
+		model.addAttribute("recBookList", infoBookCodeListAtRecBook);
 		
 		List<InfoBook> infoBookList = infoBookService.infoBookList(map);
-		model.addAttribute("infoJob", infoJob);
+		
+//		map.put("recBook", infoBookCodeListAtRecBook);
+		
+		// infoJobCode를 입력받아 info_book의 info_book_code와 rec_book의 info_book_code이 같은 리스트 출력
+//		List<Map<String, Object>> infoBookListWithRecBookCondition = recBookService.infoBookListWithRecBookCondition(map);
+//		model.addAttribute("infoBookListWithRecBookCondition", infoBookListWithRecBookCondition);
+		
 		model.addAttribute("infoBookList", infoBookList);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);
 		return "rec/book/bookInsert";
 	}
+	
+	//도서 추천이유와 추천내용 등록
 	@RequestMapping(value="/recBookDetailInsert", method=RequestMethod.GET)
 	public String recBookDetailInsert(
-			InfoBook infoBook,
 			InfoJob infoJob,
+			InfoBook infoBook,
 			Model model){
 		
-		model.addAttribute("infoBook", infoBook);
 		model.addAttribute("infoJob", infoJob);
+		model.addAttribute("infoBook", infoBook);
 		return "rec/book/bookDetailInsert";
 	}
-	
-	
 	
 	@RequestMapping(value="/recBookInsert", method=RequestMethod.POST)
 	public String recBookInsert(
 			InfoBook infoBook,
 			InfoJob infoJob,
-			Map<String, Object> map){
+			RecBook recBook,
+			Model model){
 		
-		map = new HashMap<>();
-		map.put("infoBook", infoBook);
-		map.put("infoJob", infoJob);
+		System.out.println("RecBookController recBookInsert infoBook : " + infoBook);
+		System.out.println("RecBookController recBookInsert infoJob : " + infoJob);
+		System.out.println("RecBookController recBookInsert recBook : " + recBook);
 		
-		recBookService.recBookInsert(map);
-		
-		return "recBookDetail";
+		recBook.setInfoBookCode(infoBook.getInfoBookCode());
+		recBook.setInfoJobCode(infoJob.getInfoJobCode());
+		recBookService.recBookInsert(recBook);
+		infoJob = infoJobService.infoJobDetail(infoJob);
+		model.addAttribute("infoJob", infoJob);
+		model.addAttribute("recBook", recBook);
+		return "info/job/jobDetail";
 	}
 	
 	// 2. recBookUpdate
@@ -108,8 +132,14 @@ public class RecBookController {
 	
 	// 4. recBookList
 	@RequestMapping(value="/recBookList", method=RequestMethod.GET)
-	public String recBookList(){
-		return "recBookList";
+	public String recBookList(
+			InfoJob infoJob,
+			Model model){
+		infoJob = recBookService.selectInfoJobCodeByInfoJobUnitName(infoJob);
+		List<RecBook> recBookList = recBookService.recBookListByInfoJobCode(infoJob);
+		List<Map<String,Object>> recBookListWithDetail = recBookService.recBookListWithDetail(recBookList);
+		model.addAttribute("recBookList", recBookList);
+		return "rec/book/bookList";
 	}
 	
 	@RequestMapping(value="/recBookList", method=RequestMethod.POST)

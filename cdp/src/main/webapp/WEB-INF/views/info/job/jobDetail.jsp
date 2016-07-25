@@ -106,6 +106,7 @@ $(document).ready(function(){
 						<div>
 							<span><input id="goJobList" type="button" value="리스트로 가기"/></span>
 						</div>
+						<hr>
 						<div>
 							<span><input id="recSchoolInsert" type="button" value="추천학교추가"/></span>
 							<span><input id="recDeptInsert" type="button" value="추천학과추가"/></span>
@@ -115,7 +116,7 @@ $(document).ready(function(){
 							<span><input id="recStudyAbInsert" type="button" value="추천어학연수추가"/></span>
 							<span><input id="recVolunInsert" type="button" value="추천봉사활동추가"/></span>
 							<span><input id="recJobTInsert" type="button" value="추천직업훈련추가"/></span>
-							<span><input id="recBookInsert" type="button" value="추천도서훈련추가"/></span>
+							<span><input id="recBookInsert" type="button" value="추천도서추가"/></span>
 						</div>
 					</form>
 				</div>

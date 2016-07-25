@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.to.cdp.info.model.InfoJob;
 import com.to.cdp.rec.dao.RecBookDao;
 import com.to.cdp.rec.model.RecBook;
 
@@ -19,16 +20,15 @@ public class RecBookService {
 	private RecBookDao recBookDao;
 	
 	// recBookInsert
-	public int recBookInsert(Map<String, Object> map){
-		RecBook recBook = new RecBook();
+	public int recBookInsert(RecBook recBook){
 		String recBookCode = null;
 		int recBookCount=0;
+		
 		recBookCount = recBookDao.recBookCount()+1;
 		recBookCode = "rec_book_" + recBookCount;
 		
 		recBook.setRecBookCode(recBookCode);
-		map.put("recBook", recBook);
-		return recBookDao.recBookInsert(map);
+		return recBookDao.recBookInsert(recBook);
 	}
 	
 	// recBookUpdate
@@ -42,8 +42,8 @@ public class RecBookService {
 	}
 	
 	// recBookList
-	public List<RecBook> recBookList(RecBook recBook){
-		return recBookDao.recBookList(recBook);
+	public List<RecBook> recBookList(InfoJob infoJob){
+		return recBookDao.recBookList(infoJob);
 	}
 	
 	// recBookDetail
@@ -53,6 +53,26 @@ public class RecBookService {
 
 	public int infoBookCountAtRec(Map<String, Object> map) {
 		return recBookDao.infoBookCountAtRec(map);
+	}
+
+	public List<RecBook> recBookSelectInfoBookCodeByInfoJob(InfoJob infoJob) {
+		return recBookDao.recBookSelectInfoBookCodeByInfoJob(infoJob);
+	}
+
+	public List<Map<String, Object>> infoBookListWithRecBookCondition(Map<String, Object> map) {
+		return recBookDao.infoBookListWithRecBookCondition(map);
+	}
+
+	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {
+		return recBookDao.selectInfoJobCodeByInfoJobUnitName(infoJob);
+	}
+
+	public List<RecBook> recBookListByInfoJobCode(InfoJob infoJob) {
+		return recBookDao.recBookListByInfoJobCode(infoJob);
+	}
+
+	public List<Map<String, Object>> recBookListWithDetail(List<RecBook> recBookList) {
+		return recBookDao.recBookListWithDetail(recBookList);
 	}
 
 

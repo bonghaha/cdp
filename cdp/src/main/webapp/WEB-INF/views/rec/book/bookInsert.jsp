@@ -30,20 +30,34 @@
 			<div>
 				<table>
 					<tr>
-						<th>선택</th>
 						<th>번호</th>
 						<th>장르</th>
 						<th>출판사</th>
 						<th>저자</th>
 						<th>도서명</th>
+						<th>추천상태</th>
 					</tr>
-					<c:forEach var="ib" items="${infoBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="ibl" items="${infoBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
-							<td>${ib.infoBookCode}</td>
-							<td>${ib.infoBookGenre}</td>
-							<td>${ib.infoBookInstitute}</td>
-							<td>${ib.infoBookWriter}</td>
-							<td><a href="/recBookDetailInsert?infoBookCode=${ib.infoBookCode}&infoJobCode=${infoJob.infoJobCode}&searchWord=${searchWord}">${ib.infoBookName}</a></td>
+							<td>${ibl.infoBookCode}</td>
+							<td>${ibl.infoBookGenre}</td>
+							<td>${ibl.infoBookInstitute}</td>
+							<td>${ibl.infoBookWriter}</td>
+							<td><a href="/recBookDetailInsert?infoBookCode=${ibl.infoBookCode}&infoJobCode=${infoJob.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ibl.infoBookName}</a></td>
+
+<%-- 						추천상태 추가하기!!!!!!!!!!!!!!!!!!!!!	
+							<c:forEach var="rbl" items="${recBookList}">
+								<c:if test="${recBook.recBookCondition == null}">
+									<td>비적용</td>
+								</c:if>
+								<c:if test="${ibl.infoBookCode == }">
+									<td>${recBook.recBookCondition}</td>
+								</c:if>
+							</c:forEach>
+ --%>							
+ 
+<%-- 							<c:if test="${ibwrbc.infoBookCode ==  }"></c:if> --%>
+<%-- 							<td>${ibwrbc.recBookCondition}</td> --%>
 						</tr>
 					</c:forEach>
 				</table>

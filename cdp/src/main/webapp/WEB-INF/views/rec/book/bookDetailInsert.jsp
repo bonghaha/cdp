@@ -27,18 +27,36 @@
 	<form id="bookDetailInsertAction" action="">
 		<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}"/>
 		<input type="hidden" name="infoBookCode" value="${infoBook.infoBookCode}"/>
+		
 		<div>
-			<textarea rows="15" cols="25" name="recBookReason"></textarea>
+			<span>추천이유</span>
 		</div>
 		<div>
-			<textarea rows="15" cols="25" name="recBookContent"></textarea>
+			<textarea rows="10" cols="30" name="recBookReason"></textarea>
 		</div>
+		
+		<div>
+			<span>도서내용</span>
+		</div>
+		<div>
+			<textarea rows="10" cols="30" name="recBookContent"></textarea>
+		</div>
+		
+		<div>
+			<span>추천상태</span>
+		</div>
+		<div>
+			<select name="recBookCondition">
+				<option value="">:::추천상태:::</option>
+				<option value="적용">적용</option>
+				<option value="비적용">비적용</option>
+			</select>
+		</div>
+		
 		<div>		
 			<input type="button" id="insertCancel" value="취소"/>
 			<input type="button" id="insertSubmit" value="등록하기"/>
 		</div>
-		
 	</form>
-	
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.to.cdp.info.model.InfoJob;
 import com.to.cdp.rec.model.RecBook;
 
 
@@ -18,8 +19,8 @@ public class RecBookDao {
 	private SqlSessionTemplate sqlSession;
 	
 	// recBookInsert
-	public int recBookInsert(Map<String, Object> map){
-		return sqlSession.insert(NS + ".recBookInsert", map);
+	public int recBookInsert(RecBook recBook){
+		return sqlSession.insert(NS + ".recBookInsert", recBook);
 	}
 	
 	// recBookUpdate
@@ -33,8 +34,8 @@ public class RecBookDao {
 	}
 	
 	// recBookList
-	public List<RecBook> recBookList(RecBook recBook){
-		return sqlSession.selectList(NS + ".recBookList", recBook);
+	public List<RecBook> recBookList(InfoJob infoJob){
+		return sqlSession.selectList(NS + ".recBookList", infoJob);
 	}
 	
 	// recBookDetail
@@ -48,5 +49,25 @@ public class RecBookDao {
 
 	public int recBookCount() {
 		return sqlSession.selectOne(NS + ".recBookCount");
+	}
+
+	public List<RecBook> recBookSelectInfoBookCodeByInfoJob(InfoJob infoJob) {
+		return sqlSession.selectList(NS + ".recBookSelectInfoBookCodeByInfoJob", infoJob);
+	}
+
+	public List<Map<String, Object>> infoBookListWithRecBookCondition(Map<String, Object> map) {
+		return sqlSession.selectList(NS + ".infoBookListWithRecBookCondition", map);
+	}
+
+	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {
+		return sqlSession.selectOne(NS + ".selectInfoJobCodeByInfoJobUnitName", infoJob);
+	}
+
+	public List<RecBook> recBookListByInfoJobCode(InfoJob infoJob) {
+		return sqlSession.selectList(NS + ".recBookListByInfoJobCode", infoJob);
+	}
+
+	public List<Map<String, Object>> recBookListWithDetail(List<RecBook> recBookList) {
+		return sqlSession.selectList(NS + ".recBookListWithDetail", recBookList);
 	}
 }

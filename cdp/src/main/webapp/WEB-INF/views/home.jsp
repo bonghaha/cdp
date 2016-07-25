@@ -54,7 +54,7 @@
 				<span><a href="/infoSchoolInsert">학교 등록</a></span>
 				<span><a href="/infoSchoolList">학교 리스트</a></span>
 			</div>
-			<form action="/recBookInsert">
+			<form action="/recBookList">
 			<div>
 				<span><input type="text" name="infoJobUnitName"></span>
 				<span><input type="submit" value="직업입력"/></span>

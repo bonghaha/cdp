@@ -2,25 +2,18 @@ package com.to.cdp.rec.model;
 
 public class RecBook {
 	private String recBookCode; 		//추천도서코드
-	private String recUniteCode;		//추천통합코드
+//	private String recUniteCode;		//추천통합코드
 	private String infoBookCode;		//도서분류번호
 	private String recBookReason;		//추천이유
 	private String recBookContent;		//내용 및 절차
 	private String recBookCondition;	//구분(상태)
 	private String recBookRegisterDate;	//적용년도
 	private String infoJobCode;
-	
 	public String getRecBookCode() {
 		return recBookCode;
 	}
 	public void setRecBookCode(String recBookCode) {
 		this.recBookCode = recBookCode;
-	}
-	public String getRecUniteCode() {
-		return recUniteCode;
-	}
-	public void setRecUniteCode(String recUniteCode) {
-		this.recUniteCode = recUniteCode;
 	}
 	public String getInfoBookCode() {
 		return infoBookCode;
@@ -60,10 +53,9 @@ public class RecBook {
 	}
 	@Override
 	public String toString() {
-		return "RecBook [recBookCode=" + recBookCode + ", recUniteCode=" + recUniteCode + ", infoBookCode="
-				+ infoBookCode + ", recBookReason=" + recBookReason + ", recBookContent=" + recBookContent
-				+ ", recBookCondition=" + recBookCondition + ", recBookRegisterDate=" + recBookRegisterDate
-				+ ", infoJobCode=" + infoJobCode + "]";
+		return "RecBook [recBookCode=" + recBookCode + ", infoBookCode=" + infoBookCode + ", recBookReason="
+				+ recBookReason + ", recBookContent=" + recBookContent + ", recBookCondition=" + recBookCondition
+				+ ", recBookRegisterDate=" + recBookRegisterDate + ", infoJobCode=" + infoJobCode + "]";
 	}
-	
+
 }

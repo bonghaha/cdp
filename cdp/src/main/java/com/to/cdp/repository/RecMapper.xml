@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- recBookInsert -->
 	<insert id="recBookInsert"
-			parameterType="java.util.Map">
+			parameterType="com.to.cdp.rec.model.RecBook">
 		INSERT INTO rec_book (
 			rec_book_code, 
 			info_book_code, 
@@ -23,18 +23,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			info_job_code
 			)
 		VALUES (
-			#{recBook.recBookCode}, 
+			#{recBookCode}, 
 			#{infoBookCode}, 
-			#{recBook.recBookReason}, 
-			#{recBook.recBookContent},
-			#{recBook.recBookCondition}, 
+			#{recBookReason}, 
+			#{recBookContent},
+			#{recBookCondition}, 
 			now(),
-			#{infoJob.infoJobCode}
+			#{infoJobCode}
 			)
 	</insert>
 		
 
-	<!-- count  -->
+	<!-- recBookCount  -->
 	<select id="recBookCount"
 			resultType="integer">
 		SELECT 
@@ -65,6 +65,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
 					</when>
 					
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- recBookSelectInfoBookCodeByInfoJob -->
+	<select id="recBookSelectInfoBookCodeByInfoJob"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.rec.model.RecBook">
+		SELECT
+			info_book_code infoBookCode,
+			rec_book_condition recBookCondition
+		FROM rec_book
+		WHERE info_job_code = #{infoJobCode}
+	</select>
+	
+	<!-- infoBookList + recBookCondition + 검색 -->
+	<select id="infoBookListWithRecBookCondition"
+			parameterType="java.util.Map"
+			resultType="java.util.Map">
+		SELECT
+			info_b.info_book_code infoBookCode,
+			info_b.info_book_genre infoBookGenre,
+			info_b.info_book_institute infoBookInstitute,
+			info_b.info_book_writer infoBookWriter,
+			info_b.info_book_name infoBookName
+<!-- 			rec_b.rec_book_condition recBookCondition -->
+		FROM info_book info_b
+<!-- 		JOIN rec_book rec_b -->
+<!-- 		ON rec_b.info_job_code = #{infoJob.infoJobCode} -->
+<!-- 		<if test="recBook.infoBookCode != null"> -->
+<!-- 			AND info_b.info_book_code = #{recBook.infoBookCode} -->
+<!-- 		</if> -->
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_book_name')">
+						info_book_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_genre')">
+						info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_institute')">
+			 			info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_writer')">
+			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
 				</choose>
 			</if>
 		</where>
@@ -115,5 +163,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE info_book_code = #{infoBookCode}
 	</select>
 	
+	<!-- infoJobUnitName으로 infoJobCode select -->
+	<select id="selectInfoJobCodeByInfoJobUnitName"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.info.model.InfoJob">
+		SELECT
+			info_job_code infoJobCode
+		FROM info_job
+		WHERE info_job_unitname = #{infoJobUnitName}
+	</select>
+	
+	<!-- 직업명으로 추천도서리스트 select -->
+	<select id="recBookListByInfoJobCode"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.rec.model.RecBook">
+		SELECT
+			rec_book_code recBookCode,
+			info_book_code infoBookCode,
+			rec_book_reason recBookReason,
+			rec_book_content recBookContent,
+			rec_book_condition recBookCondition,
+			rec_book_registerdate recBookRegisterDate,
+			info_job_code infoJobCode
+		FROM rec_book
+		WHERE info_job_code = #{infoJobCode}
+	</select>
+	
+	<!-- recBookList -->
+	<select id="recBookList"
+			parameterType="com.to.cdp.info.model.InfoJob"
+			resultType="com.to.cdp.rec.model.RecBook">
+		SELECT
+			rec_book_code recBookCode,
+			info_book_code infoBookCode,
+			rec_book_reason recBookReason,
+			rec_book_content recBookContent,
+			rec_book_condition recBookCondition,
+			rec_book_registerdate recBookRegisterDate,
+			info_job_code infoJobCode
+		FROM rec_book
+	</select>
+	
+	<!-- recBookListWithDetail infoBookCode 이용해서 rec_book과 info_book 조인하기 -->
+	<select id="recBookListWithDetail"
+			parameterType="List"
+			resultType="Map">
+		SELECT
+			
+	
+	</select>
 	
 </mapper>
