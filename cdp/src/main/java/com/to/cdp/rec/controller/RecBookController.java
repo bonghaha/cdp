@@ -56,18 +56,7 @@ public class RecBookController {
 		map.put("pageHelper", pageHelper);
 		map.put("infoJob", infoJob);
 		
-
-		// info_job_code로 rec_book테이블의 info_book_code select
-//		List<RecBook> infoBookCodeListAtRecBook = recBookService.recBookSelectInfoBookCodeByInfoJob(infoJob);
-		
 		List<InfoBook> infoBookList = infoBookService.infoBookList(map);
-		
-//		map.put("recBook", infoBookCodeListAtRecBook);
-		
-//		infoJobCode를 입력받아 info_book의 info_book_code와 rec_book의 info_book_code이 같은 리스트 출력
-//		List<Map<String, Object>> infoBookListWithRecBookCondition = recBookService.infoBookListWithRecBookCondition(map);
-//		model.addAttribute("infoBookListWithRecBookCondition", infoBookListWithRecBookCondition);
-//		model.addAttribute("recBookList", infoBookCodeListAtRecBook);
 		model.addAttribute("infoBookList", infoBookList);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("pageHelper", pageHelper);

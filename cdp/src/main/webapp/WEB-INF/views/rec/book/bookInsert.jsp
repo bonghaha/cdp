@@ -18,8 +18,8 @@
 			$("#bookInsertAction").submit();
 		});
 
-		$("#recBookInsert").click(function(){
-			$("#bookInsertAction").attr("action","/recBookInsert");
+		$("#goRecBookList").click(function(){
+			$("#bookInsertAction").attr("action","/recBookList");
 			$("#bookInsertAction").submit();
 		});
 	});
@@ -29,8 +29,8 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- 도서 리스트 -->
-			<h1>도서 리스트</h1>
+			<!-- 추천도서 등록 -->
+			<h1>추천도서 등록</h1>
 			<div>
 				<table>
 					<tr>
@@ -115,7 +115,7 @@
 						<div>
 							<span><input id="goBack" type="button" value="뒤로가기"/></span>
 							<span><input id="goHome" type="button" value="홈으로 가기"/></span>
-							<span><input id="recBookInsert" type="button" value="등록"/></span>
+							<span><input id="goRecBookList" type="button" value="추천도서리스트"/></span>
 						</div>
 					</form>
 				</div>

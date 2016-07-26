@@ -42,32 +42,20 @@ public class RecBookDao {
 	public RecBook recBookDetail(RecBook recBook){
 		return sqlSession.selectOne(NS + ".recBookDetail", recBook);
 	}
-
+	
+	// 추천도서 총 개수
 	public int infoBookCountAtRec(Map<String, Object> map) {
 		return sqlSession.selectOne(NS + ".infoBookCountAtRec", map);
 	}
 
+	// 추천도서코드번호 증가 위한 count
 	public int recBookCount() {
 		return sqlSession.selectOne(NS + ".recBookCount");
 	}
-
-	public List<RecBook> recBookSelectInfoBookCodeByInfoJob(InfoJob infoJob) {
-		return sqlSession.selectList(NS + ".recBookSelectInfoBookCodeByInfoJob", infoJob);
-	}
-
+	
+	// 추천도서리스트
 	public List<Map<String, Object>> recBookListWithRecBookCondition(Map<String, Object> map) {
 		return sqlSession.selectList(NS + ".recBookListWithRecBookCondition", map);
 	}
 
-	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {
-		return sqlSession.selectOne(NS + ".selectInfoJobCodeByInfoJobUnitName", infoJob);
-	}
-
-	public List<RecBook> recBookListByInfoJobCode(InfoJob infoJob) {
-		return sqlSession.selectList(NS + ".recBookListByInfoJobCode", infoJob);
-	}
-
-	public List<Map<String, Object>> recBookListWithDetail(List<RecBook> recBookList) {
-		return sqlSession.selectList(NS + ".recBookListWithDetail", recBookList);
-	}
 }

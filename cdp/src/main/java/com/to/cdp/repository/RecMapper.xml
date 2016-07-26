@@ -33,7 +33,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 	</insert>
 		
-
 	<!-- recBookCount  -->
 	<select id="recBookCount"
 			resultType="integer">
@@ -68,17 +67,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</choose>
 			</if>
 		</where>
-	</select>
-	
-	<!-- recBookSelectInfoBookCodeByInfoJob -->
-	<select id="recBookSelectInfoBookCodeByInfoJob"
-			parameterType="com.to.cdp.info.model.InfoJob"
-			resultType="com.to.cdp.rec.model.RecBook">
-		SELECT
-			info_book_code infoBookCode,
-			rec_book_condition recBookCondition
-		FROM rec_book
-		WHERE info_job_code = #{infoJobCode}
 	</select>
 	
 	<!-- 추천Book 리스트보기 -->
@@ -121,140 +109,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-	
-<!-- 
-	<select id="infoBookListWithRecBookCondition"
-			parameterType="java.util.Map"
-			resultType="java.util.Map">	
-		SELECT
-			info_b.info_book_code infoBookCode,
-			info_b.info_book_genre infoBookGenre,
-			info_b.info_book_institute infoBookInstitute,
-			info_b.info_book_writer infoBookWriter,
-			info_b.info_book_name infoBookName
-			rec_b.rec_book_condition recBookCondition
-		FROM info_book info_b
-		JOIN rec_book rec_b
-		ON rec_b.info_job_code = #{infoJob.infoJobCode}
-		<if test="recBook.infoBookCode != null">
-			AND info_b.info_book_code = #{recBook.infoBookCode}
-		</if>
-		<where>
-			<if test="searchWord != null">
-				<choose>
-		 			<when test="searchType.equals('info_book_name')">
-						info_book_name LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_genre')">
-						info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_institute')">
-			 			info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_writer')">
-			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-				</choose>
-			</if>
-		</where>
-	</select>
- -->	
-	<!-- recBookList + 검색 -->
-	<select id="recBookList"
-			parameterType="java.util.Map"
-			resultType="com.to.cdp.rec.model.RecBook">
-		SELECT 
-			rec_book_code recBookCode,
-			rec_book_genre recBookGenre,
-			rec_book_institute recBookInstitute,
-			rec_book_writer recBookWriter,
-			rec_book_name recBookName
-		FROM info_book
-		<where>
-			<if test="searchWord != null">
-				<choose>
-		 			<when test="searchType.equals('rec_book_name')">
-						rec_book_name LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('rec_book_genre')">
-						rec_book_genre LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('rec_book_institute')">
-			 			rec_book_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('rec_book_writer')">
-			 			rec_book_writer LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-				</choose>
-			</if>
-		</where>
-	</select>
-	
-	<!-- recBookDetail -->
-	<select id="recBookDetail"
-			parameterType="com.to.cdp.rec.model.RecBook"
-			resultType="com.to.cdp.rec.model.RecBook">
-		SELECT 
-			info_book_code infoBookCode,
-			info_book_genre infoBookGenre,
-			info_book_institute infoBookInstitute,
-			info_book_writer infoBookWriter,
-			info_book_name infoBookName
-		FROM info_book
-		WHERE info_book_code = #{infoBookCode}
-	</select>
-	
-	<!-- infoJobUnitName으로 infoJobCode select -->
-	<select id="selectInfoJobCodeByInfoJobUnitName"
-			parameterType="com.to.cdp.info.model.InfoJob"
-			resultType="com.to.cdp.info.model.InfoJob">
-		SELECT
-			info_job_code infoJobCode
-		FROM info_job
-		WHERE info_job_unitname = #{infoJobUnitName}
-	</select>
-
-<!-- 	
-	직업명으로 추천도서리스트 select
-	<select id="recBookListByInfoJobCode"
-			parameterType="com.to.cdp.info.model.InfoJob"
-			resultType="com.to.cdp.rec.model.RecBook">
-		SELECT
-			rec_book_code recBookCode,
-			info_book_code infoBookCode,
-			rec_book_reason recBookReason,
-			rec_book_content recBookContent,
-			rec_book_condition recBookCondition,
-			rec_book_registerdate recBookRegisterDate,
-			info_job_code infoJobCode
-		FROM rec_book
-		WHERE info_job_code = #{infoJobCode}
-	</select>
- -->	
-
-	<!-- recBookList
-	<select id="recBookList"
-			parameterType="com.to.cdp.info.model.InfoJob"
-			resultType="com.to.cdp.rec.model.RecBook">
-		SELECT
-			rec_book_code recBookCode,
-			info_book_code infoBookCode,
-			rec_book_reason recBookReason,
-			rec_book_content recBookContent,
-			rec_book_condition recBookCondition,
-			rec_book_registerdate recBookRegisterDate,
-			info_job_code infoJobCode
-		FROM rec_book
-	</select>
- -->
-<!-- 	
-	recBookListWithDetail infoBookCode 이용해서 rec_book과 info_book 조인하기
-	<select id="recBookListWithDetail"
-			parameterType="List"
-			resultType="Map">
-		SELECT
-			
-	
-	</select>
- -->	
 </mapper>

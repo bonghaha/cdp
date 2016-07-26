@@ -18,7 +18,7 @@
 			$("#bookListAction").submit();
 		});
 
-		$("#recBookInsert").click(function(){
+		$("#goRecBookInsert").click(function(){
 			$("#bookListAction").attr("action","/recBookInsert");
 			$("#bookListAction").submit();
 		});
@@ -120,7 +120,7 @@
 						<div>
 							<span><input id="goBack" type="button" value="뒤로가기"/></span>
 							<span><input id="goHome" type="button" value="HOME"/></span>
-							<span><input id="goInsert" type="button" value="입력"/></span>
+							<span><input id="goRecBookInsert" type="button" value="도서리스트보기"/></span>
 						</div>
 					</form>
 				</div>

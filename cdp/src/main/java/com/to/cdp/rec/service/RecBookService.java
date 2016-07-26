@@ -51,29 +51,14 @@ public class RecBookService {
 		return recBookDao.recBookDetail(recBook);
 	}
 
+	// 추천도서 총 개수
 	public int infoBookCountAtRec(Map<String, Object> map) {
 		return recBookDao.infoBookCountAtRec(map);
 	}
 
-	public List<RecBook> recBookSelectInfoBookCodeByInfoJob(InfoJob infoJob) {
-		return recBookDao.recBookSelectInfoBookCodeByInfoJob(infoJob);
-	}
-	
+	// 추천도서리스트
 	public List<Map<String, Object>> recBookListWithRecBookCondition(Map<String, Object> map) {
 		return recBookDao.recBookListWithRecBookCondition(map);
 	}
-
-	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {
-		return recBookDao.selectInfoJobCodeByInfoJobUnitName(infoJob);
-	}
-
-	public List<RecBook> recBookListByInfoJobCode(InfoJob infoJob) {
-		return recBookDao.recBookListByInfoJobCode(infoJob);
-	}
-
-	public List<Map<String, Object>> recBookListWithDetail(List<RecBook> recBookList) {
-		return recBookDao.recBookListWithDetail(recBookList);
-	}
-
 
 }
