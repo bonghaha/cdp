@@ -85,19 +85,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="infoBookListWithRecBookCondition"
 			parameterType="java.util.Map"
 			resultType="java.util.Map">
+		SELECT                                               
+			info_b.info_book_code infobookCode,               
+			info_b.info_book_genre infoBookGenre,             
+			info_b.info_book_institute infoBookInstitute,     
+			info_b.info_book_writer infoBookWriter,           
+			info_b.info_book_name infoBookName,               
+			rec_b.rec_book_code recBookCode,                  
+			rec_b.rec_book_condition recBookCondition         
+		FROM info_book info_b, rec_book rec_b                
+		WHERE rec_b.info_job_code = #{infoJob.infoJobCode}                                          
+		AND info_b.info_book_code = rec_b.info_book_code
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_book_name')">
+						AND info_book_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_genre')">
+						AND info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_institute')">
+			 			AND info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_book_writer')">
+			 			AND info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('rec_book_condition')">
+						AND rec_book_condition LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+<!-- 
+	<select id="infoBookListWithRecBookCondition"
+			parameterType="java.util.Map"
+			resultType="java.util.Map">	
 		SELECT
 			info_b.info_book_code infoBookCode,
 			info_b.info_book_genre infoBookGenre,
 			info_b.info_book_institute infoBookInstitute,
 			info_b.info_book_writer infoBookWriter,
 			info_b.info_book_name infoBookName
-<!-- 			rec_b.rec_book_condition recBookCondition -->
+			rec_b.rec_book_condition recBookCondition
 		FROM info_book info_b
-<!-- 		JOIN rec_book rec_b -->
-<!-- 		ON rec_b.info_job_code = #{infoJob.infoJobCode} -->
-<!-- 		<if test="recBook.infoBookCode != null"> -->
-<!-- 			AND info_b.info_book_code = #{recBook.infoBookCode} -->
-<!-- 		</if> -->
+		JOIN rec_book rec_b
+		ON rec_b.info_job_code = #{infoJob.infoJobCode}
+		<if test="recBook.infoBookCode != null">
+			AND info_b.info_book_code = #{recBook.infoBookCode}
+		</if>
 		<where>
 			<if test="searchWord != null">
 				<choose>
@@ -117,7 +155,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-	
+ -->	
 	<!-- recBookList + 검색 -->
 	<select id="recBookList"
 			parameterType="java.util.Map"
@@ -172,8 +210,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM info_job
 		WHERE info_job_unitname = #{infoJobUnitName}
 	</select>
-	
-	<!-- 직업명으로 추천도서리스트 select -->
+
+<!-- 	
+	직업명으로 추천도서리스트 select
 	<select id="recBookListByInfoJobCode"
 			parameterType="com.to.cdp.info.model.InfoJob"
 			resultType="com.to.cdp.rec.model.RecBook">
@@ -188,8 +227,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM rec_book
 		WHERE info_job_code = #{infoJobCode}
 	</select>
-	
-	<!-- recBookList -->
+ -->	
+
+	<!-- recBookList
 	<select id="recBookList"
 			parameterType="com.to.cdp.info.model.InfoJob"
 			resultType="com.to.cdp.rec.model.RecBook">
@@ -203,8 +243,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			info_job_code infoJobCode
 		FROM rec_book
 	</select>
-	
-	<!-- recBookListWithDetail infoBookCode 이용해서 rec_book과 info_book 조인하기 -->
+ -->
+<!-- 	
+	recBookListWithDetail infoBookCode 이용해서 rec_book과 info_book 조인하기
 	<select id="recBookListWithDetail"
 			parameterType="List"
 			resultType="Map">
@@ -212,5 +253,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 	
 	</select>
-	
+ -->	
 </mapper>

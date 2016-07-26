@@ -37,14 +37,14 @@
 						<th>도서명</th>
 						<th>추천상태</th>
 					</tr>
-					<c:forEach var="ibl" items="${infoBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="ibl" items="${infoBookListWithRecBookCondition}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
 							<td>${ibl.infoBookCode}</td>
 							<td>${ibl.infoBookGenre}</td>
 							<td>${ibl.infoBookInstitute}</td>
 							<td>${ibl.infoBookWriter}</td>
 							<td><a href="/recBookDetailInsert?infoBookCode=${ibl.infoBookCode}&infoJobCode=${infoJob.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ibl.infoBookName}</a></td>
-
+							<td></td>
 <%-- 						추천상태 추가하기!!!!!!!!!!!!!!!!!!!!!	
 							<c:forEach var="rbl" items="${recBookList}">
 								<c:if test="${recBook.recBookCondition == null}">
@@ -61,9 +61,9 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}">
 				<div>
 					<form id="bookListAction" action="">
+						<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}">
 						<div>
 							<span>
 								<select name="searchType">
@@ -72,6 +72,7 @@
 									<option value="info_book_genre">장르</option>
 									<option value="info_book_institute">출판사</option>
 									<option value="info_book_writer">저자</option>
+									<option value="rec_book_condition">추천상태</option>
 								</select>
 							</span>
 							<span><input type="text" name="searchWord"/></span>
