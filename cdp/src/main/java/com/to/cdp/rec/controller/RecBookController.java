@@ -60,15 +60,15 @@ public class RecBookController {
 		// info_job_code로 rec_book테이블의 info_book_code select
 //		List<RecBook> infoBookCodeListAtRecBook = recBookService.recBookSelectInfoBookCodeByInfoJob(infoJob);
 		
-//		List<InfoBook> infoBookList = infoBookService.infoBookList(map);
+		List<InfoBook> infoBookList = infoBookService.infoBookList(map);
 		
 //		map.put("recBook", infoBookCodeListAtRecBook);
 		
-		// infoJobCode를 입력받아 info_book의 info_book_code와 rec_book의 info_book_code이 같은 리스트 출력
-		List<Map<String, Object>> infoBookListWithRecBookCondition = recBookService.infoBookListWithRecBookCondition(map);
-		model.addAttribute("infoBookListWithRecBookCondition", infoBookListWithRecBookCondition);
+//		infoJobCode를 입력받아 info_book의 info_book_code와 rec_book의 info_book_code이 같은 리스트 출력
+//		List<Map<String, Object>> infoBookListWithRecBookCondition = recBookService.infoBookListWithRecBookCondition(map);
+//		model.addAttribute("infoBookListWithRecBookCondition", infoBookListWithRecBookCondition);
 //		model.addAttribute("recBookList", infoBookCodeListAtRecBook);
-//		model.addAttribute("infoBookList", infoBookList);
+		model.addAttribute("infoBookList", infoBookList);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);
@@ -134,11 +134,34 @@ public class RecBookController {
 	@RequestMapping(value="/recBookList", method=RequestMethod.GET)
 	public String recBookList(
 			InfoJob infoJob,
-			Model model){
-		infoJob = recBookService.selectInfoJobCodeByInfoJobUnitName(infoJob);
-		List<RecBook> recBookList = recBookService.recBookListByInfoJobCode(infoJob);
-		List<Map<String,Object>> recBookListWithDetail = recBookService.recBookListWithDetail(recBookList);
-		model.addAttribute("recBookList", recBookList);
+			Map<String, Object> map,
+			Model model,
+			PageHelper pageHelper,
+			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
+			@RequestParam(value="linePerPage", defaultValue = "30")  int linePerPage,
+			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
+			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord,
+			@RequestParam(value="infoJobUnitName", required = false, defaultValue = "") String infoJobUnitName){
+		
+		// infoBookList 셋팅(+페이징)
+		map = new HashMap<>();
+		map.put("searchType", searchType);
+		map.put("searchWord", searchWord);
+		System.out.println("RecBookController recBookInsert 실행");
+		int totalCount = recBookService.infoBookCountAtRec(map);	// totalCount 구하기
+		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//페이지 셋팅하기
+		System.out.println("pageHelper InfoBookController :" + pageHelper);
+		map.put("pageHelper", pageHelper);
+		map.put("infoJob", infoJob);
+		
+		// 추천도서리스트 select
+		List<Map<String, Object>> recBookListWithRecBookCondition = recBookService.recBookListWithRecBookCondition(map);
+		model.addAttribute("recBookListWithRecBookCondition", recBookListWithRecBookCondition);
+		model.addAttribute("infoJob", infoJob);
+		model.addAttribute("pageHelper", pageHelper);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
 		return "rec/book/bookList";
 	}
 	

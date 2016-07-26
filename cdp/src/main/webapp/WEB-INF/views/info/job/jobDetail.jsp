@@ -13,6 +13,7 @@ $(document).ready(function(){
 		$("#jobDetailAction").attr("action", "/infoJobList");
 		$("#jobDetailAction").submit();
 	});
+	/* 추천등록 */
 	$("#recSchoolInsert").click(function(){
 		$("#jobDetailAction").attr("action", "/recSchoolInsert");
 		$("#jobDetailAction").submit();
@@ -47,6 +48,44 @@ $(document).ready(function(){
 	});
 	$("#recBookInsert").click(function(){
 		$("#jobDetailAction").attr("action", "/recBookInsert");
+		$("#jobDetailAction").submit();
+	});
+	
+	/* 추천리스트 */
+	$("#recSchoolList").click(function(){
+		$("#jobDetailAction").attr("action", "/recSchoolList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recDeptList").click(function(){
+		$("#jobDetailAction").attr("action", "/recDeptList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recLangList").click(function(){
+		$("#jobDetailAction").attr("action", "/recLangList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recCertList").click(function(){
+		$("#jobDetailAction").attr("action", "/recCertList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recContestList").click(function(){
+		$("#jobDetailAction").attr("action", "/recContestList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recStudyAbList").click(function(){
+		$("#jobDetailAction").attr("action", "/recStudyAbList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recVolunList").click(function(){
+		$("#jobDetailAction").attr("action", "/recVolunList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recJobTList").click(function(){
+		$("#jobDetailAction").attr("action", "/recJobTList");
+		$("#jobDetailAction").submit();
+	});
+	$("#recBookList").click(function(){
+		$("#jobDetailAction").attr("action", "/recBookList");
 		$("#jobDetailAction").submit();
 	});
 	
@@ -108,15 +147,48 @@ $(document).ready(function(){
 						</div>
 						<hr>
 						<div>
+							<span><input id="recSchoolList" type="button" value="추천학교리스트"/></span>
 							<span><input id="recSchoolInsert" type="button" value="추천학교추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recDeptList" type="button" value="추천학과리스트"/></span>
 							<span><input id="recDeptInsert" type="button" value="추천학과추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recLangList" type="button" value="추천언어리스트"/></span>
 							<span><input id="recLangInsert" type="button" value="추천언어추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recCertList" type="button" value="추천자격증리스트"/></span>
 							<span><input id="recCertInsert" type="button" value="추천자격증추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recContestList" type="button" value="추천공모전리스트"/></span>
 							<span><input id="recContestInsert" type="button" value="추천공모전추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recStudyAbList" type="button" value="추천어학연수리스트"/></span>
 							<span><input id="recStudyAbInsert" type="button" value="추천어학연수추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recVolunList" type="button" value="추천봉사활동리스트"/></span>
 							<span><input id="recVolunInsert" type="button" value="추천봉사활동추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recJobTList" type="button" value="추천직업훈련리스트"/></span>
 							<span><input id="recJobTInsert" type="button" value="추천직업훈련추가"/></span>
-							<span><input id="recBookInsert" type="button" value="추천도서추가"/></span>
+						</div>
+						<br>
+						<div>
+							<span><input id="recBookList" type="button" value="추천도서리스트"/></span>	
+							<span><input id="recBookInsert" type="button" value="추천도서추가"/></span>					
 						</div>
 					</form>
 				</div>

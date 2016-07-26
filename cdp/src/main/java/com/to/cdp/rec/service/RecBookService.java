@@ -58,9 +58,9 @@ public class RecBookService {
 	public List<RecBook> recBookSelectInfoBookCodeByInfoJob(InfoJob infoJob) {
 		return recBookDao.recBookSelectInfoBookCodeByInfoJob(infoJob);
 	}
-
-	public List<Map<String, Object>> infoBookListWithRecBookCondition(Map<String, Object> map) {
-		return recBookDao.infoBookListWithRecBookCondition(map);
+	
+	public List<Map<String, Object>> recBookListWithRecBookCondition(Map<String, Object> map) {
+		return recBookDao.recBookListWithRecBookCondition(map);
 	}
 
 	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {

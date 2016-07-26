@@ -55,8 +55,8 @@ public class RecBookDao {
 		return sqlSession.selectList(NS + ".recBookSelectInfoBookCodeByInfoJob", infoJob);
 	}
 
-	public List<Map<String, Object>> infoBookListWithRecBookCondition(Map<String, Object> map) {
-		return sqlSession.selectList(NS + ".infoBookListWithRecBookCondition", map);
+	public List<Map<String, Object>> recBookListWithRecBookCondition(Map<String, Object> map) {
+		return sqlSession.selectList(NS + ".recBookListWithRecBookCondition", map);
 	}
 
 	public InfoJob selectInfoJobCodeByInfoJobUnitName(InfoJob infoJob) {

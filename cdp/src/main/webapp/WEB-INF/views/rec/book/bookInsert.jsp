@@ -9,14 +9,18 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("#goBack").click(function(){
+			$("#bookInsertAction").attr("action", "/infoJobDetail");
+			$("#bookInsertAction").submit();
+		});
 		$("#goHome").click(function(){
-			$("#bookListAction").attr("action", "/home");
-			$("#bookListAction").submit();
+			$("#bookInsertAction").attr("action", "/home");
+			$("#bookInsertAction").submit();
 		});
 
 		$("#recBookInsert").click(function(){
-			$("#bookListAction").attr("action","/recBookInsert");
-			$("#bookListAction").submit();
+			$("#bookInsertAction").attr("action","/recBookInsert");
+			$("#bookInsertAction").submit();
 		});
 	});
 </script>
@@ -35,34 +39,21 @@
 						<th>출판사</th>
 						<th>저자</th>
 						<th>도서명</th>
-						<th>추천상태</th>
+<%-- 						<th>추천상태</th> --%>
 					</tr>
-					<c:forEach var="ibl" items="${infoBookListWithRecBookCondition}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="ibl" items="${infoBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
 							<td>${ibl.infoBookCode}</td>
 							<td>${ibl.infoBookGenre}</td>
 							<td>${ibl.infoBookInstitute}</td>
 							<td>${ibl.infoBookWriter}</td>
 							<td><a href="/recBookDetailInsert?infoBookCode=${ibl.infoBookCode}&infoJobCode=${infoJob.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ibl.infoBookName}</a></td>
-							<td></td>
-<%-- 						추천상태 추가하기!!!!!!!!!!!!!!!!!!!!!	
-							<c:forEach var="rbl" items="${recBookList}">
-								<c:if test="${recBook.recBookCondition == null}">
-									<td>비적용</td>
-								</c:if>
-								<c:if test="${ibl.infoBookCode == }">
-									<td>${recBook.recBookCondition}</td>
-								</c:if>
-							</c:forEach>
- --%>							
- 
-<%-- 							<c:if test="${ibwrbc.infoBookCode ==  }"></c:if> --%>
-<%-- 							<td>${ibwrbc.recBookCondition}</td> --%>
+<%-- 						<td>${ibl.recBookCondition}</td> --%>
 						</tr>
 					</c:forEach>
 				</table>
 				<div>
-					<form id="bookListAction" action="">
+					<form id="bookInsertAction" action="">
 						<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}">
 						<div>
 							<span>
@@ -122,6 +113,7 @@
 
 						<!-- 홈으로 가기 -->
 						<div>
+							<span><input id="goBack" type="button" value="뒤로가기"/></span>
 							<span><input id="goHome" type="button" value="홈으로 가기"/></span>
 							<span><input id="recBookInsert" type="button" value="등록"/></span>
 						</div>

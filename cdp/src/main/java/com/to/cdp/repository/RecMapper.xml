@@ -81,18 +81,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE info_job_code = #{infoJobCode}
 	</select>
 	
-	<!-- infoBookList + recBookCondition + 검색 -->
-	<select id="infoBookListWithRecBookCondition"
+	<!-- 추천Book 리스트보기 -->
+	<select id="recBookListWithRecBookCondition"
 			parameterType="java.util.Map"
 			resultType="java.util.Map">
 		SELECT                                               
-			info_b.info_book_code infobookCode,               
+			info_b.info_book_code infoBookCode,               
 			info_b.info_book_genre infoBookGenre,             
 			info_b.info_book_institute infoBookInstitute,     
 			info_b.info_book_writer infoBookWriter,           
 			info_b.info_book_name infoBookName,               
 			rec_b.rec_book_code recBookCode,                  
-			rec_b.rec_book_condition recBookCondition         
+			rec_b.rec_book_condition recBookCondition,
+			rec_b.rec_book_reason recBookReason,
+			rec_b.rec_book_content recBookContent,
+			rec_b.rec_book_registerdate recBookRegisterDate
 		FROM info_book info_b, rec_book rec_b                
 		WHERE rec_b.info_job_code = #{infoJob.infoJobCode}                                          
 		AND info_b.info_book_code = rec_b.info_book_code

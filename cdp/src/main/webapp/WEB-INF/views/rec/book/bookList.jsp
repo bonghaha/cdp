@@ -7,7 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#goBack").click(function(){
+			$("#bookListAction").attr("action", "/infoJobDetail");
+			$("#bookListAction").submit();
+		});
+		$("#goHome").click(function(){
+			$("#bookListAction").attr("action", "/home");
+			$("#bookListAction").submit();
+		});
 
+		$("#recBookInsert").click(function(){
+			$("#bookListAction").attr("action","/recBookInsert");
+			$("#bookListAction").submit();
+		});
+	});
+</script>
 </head>
 <body>
 	<t:insertDefinition name="layout">
@@ -23,19 +39,28 @@
 						<th>출판사</th>
 						<th>저자</th>
 						<th>도서명</th>
+						<th>추천상태</th>
+						<th>추천이유</th>
+						<th>추천내용</th>
+						<th>추천등록일</th>
 					</tr>
-					<c:forEach var="rbl" items="${recBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="rbl" items="${recBookListWithRecBookCondition}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
 							<td>${rbl.infoBookCode}</td>
 							<td>${rbl.infoBookGenre}</td>
 							<td>${rbl.infoBookInstitute}</td>
 							<td>${rbl.infoBookWriter}</td>
-							<td><a href="/infoBookDetail?infoBookCode=${rbl.infoBookCode}&searchType=${searchType}&searchWord=${searchWord}">${ib.infoBookName}</a></td>
+							<td><a href="/infoBookDetail?infoBookCode=${rbl.infoBookCode}&searchType=${searchType}&searchWord=${searchWord}">${rbl.infoBookName}</a></td>
+							<td>${rbl.recBookCondition}</td>
+							<td>${rbl.recBookReason}</td>
+							<td>${rbl.recBookContent}</td>
+							<td>${rbl.recBookRegisterDate}</td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div>
 					<form id="bookListAction" action="">
+						<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}">
 						<div>
 							<span>
 								<select name="searchType">
@@ -93,12 +118,9 @@
 						
 						<!-- 홈으로 가기 -->
 						<div>
-							<span>
-								<input id="goHome" type="button" value="홈으로 가기"/>
-							</span>
-							<span>
-								<input id="goInsert" type="button" value="입력"/>
-							</span>
+							<span><input id="goBack" type="button" value="뒤로가기"/></span>
+							<span><input id="goHome" type="button" value="HOME"/></span>
+							<span><input id="goInsert" type="button" value="입력"/></span>
 						</div>
 					</form>
 				</div>
