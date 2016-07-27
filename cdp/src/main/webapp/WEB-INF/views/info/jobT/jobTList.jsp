@@ -63,10 +63,10 @@
 							<span>
 								<select name="searchType">
 									<option value="">::검색조건::</option>
-									<option value="info_jobt_bigname">대상</option>
-									<option value="info_jobt_middlename">지역</option>
-									<option value="info_jobt_smallname">기관명</option>
-									<option value="info_jobt_detailname">과정명</option>
+									<option value="info_jobt_target">대상</option>
+									<option value="info_jobt_location">지역</option>
+									<option value="info_jobt_institute">기관명</option>
+									<option value="info_jobt_course">과정명</option>
 								</select>
 							</span>
 							<span><input type="text" name="searchWord"/></span>

@@ -805,7 +805,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 직업훈련 리스트보기 -->
 	<select id="infoJobTList"
-			parameterType="com.to.cdp.info.model.InfoJobT"
+			parameterType="Map"
 			resultType="com.to.cdp.info.model.InfoJobT">
 		SELECT 
 			info_jobt_code infoJobTCode, 
@@ -841,8 +841,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			parameterType="com.to.cdp.info.model.InfoJobT"
 			resultType="com.to.cdp.info.model.InfoJobT">
 		SELECT 
-			info_jobt_code infoJobTTarget,
-			info_jobt_target infoJobTBigName, 
+			info_jobt_code infoJobTCode,
+			info_jobt_target infoJobTTarget, 
 			info_jobt_location infoJobTLocation, 
 			info_jobt_institute infoJobTInstitute, 
 			info_jobt_course infoJobTCourse, 

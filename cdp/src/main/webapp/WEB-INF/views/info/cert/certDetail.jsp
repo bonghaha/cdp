@@ -34,7 +34,7 @@
 							<td>${infoCert.infoCertCode}</td>
 							<td>${infoCert.infoCertType}</td>
 							<td>${infoCert.infoCertInstitute}</td>
-							<td>${infoCert.infoCertname}</td>
+							<td>${infoCert.infoCertName}</td>
 						</tr>
 					</c:if>
 				</table>

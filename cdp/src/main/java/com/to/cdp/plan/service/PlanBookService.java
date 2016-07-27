@@ -1,6 +1,7 @@
 package com.to.cdp.plan.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class PlanBookService {
 	private PlanBookDao planBookDao;
 	
 	// planBookInsert
-	public int planBookInsert(PlanBook planBook){
-		return planBookDao.planBookInsert(planBook);
+	public int planBookInsert(Map<String, Object> map){
+		return planBookDao.planBookInsert(map);
 	}
 	
 	// planBookUpdate

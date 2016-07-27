@@ -50,7 +50,9 @@ $(document).ready(function(){
 				</table>
 				<div>
 					<form id="jobTDetailAction" action="/infoJobTList">
-					<input id="goJobTList" type="button" value="리스트로 가기"/>
+						<input type="hidden" name="searchType" value="${searchType}"/>
+						<input type="hidden" name="searchWord" value="${searchWord}"/>
+						<input id="goJobTList" type="button" value="리스트로 가기"/>
 					</form>
 				</div>
 			</div>

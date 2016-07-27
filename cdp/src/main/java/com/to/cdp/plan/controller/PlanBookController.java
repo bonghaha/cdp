@@ -1,9 +1,13 @@
 package com.to.cdp.plan.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.to.cdp.plan.model.PlanBook;
 import com.to.cdp.plan.service.PlanBookService;
@@ -15,8 +19,22 @@ public class PlanBookController {
 	
 	// 1. planBookInsert
 	@RequestMapping(value="/planBookInsert", method=RequestMethod.GET)
-	public String planBookInsert(){
-		return "planBookInsert";
+	public String planBookInsert(
+			PlanBook planBook,
+			Map<String, Object> map,
+			@RequestParam(value="recBookCode") List<String> recBookCodeArr){
+		
+		System.out.println("recBookCode사이즈 PlanBookController : " + recBookCodeArr.size());
+		for(String recBookCode : recBookCodeArr){
+			System.out.println("recBookCode PlanBookController planBookInsert : " + recBookCode);
+			//PlanBook dto에 있는 항목들 받아서 planBook(map)에 넣어서 Insert하기
+			//PlanBookCode는 PlanBookService에서 추가
+			planBook.setRecBookCode(recBookCode);
+			
+			planBookService.planBookInsert(map);
+		}
+		
+		return "plan/book/bookInsert";
 	}
 	
 	@RequestMapping(value="/planBookInsert", method=RequestMethod.POST)
