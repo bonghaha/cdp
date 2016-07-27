@@ -400,4 +400,103 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</choose>
 		</if>
 	</select>
+	
+	
+	<!--*****************************************************************
+	***************************RecVolun*******************************
+	***************************************************************** -->
+	
+	<!-- recVolunInsert -->
+	<insert id="recVolunInsert"
+			parameterType="com.to.cdp.rec.model.RecVolun">
+		INSERT INTO rec_volun (
+			rec_volun_code, 
+			info_volun_code, 
+			rec_volun_reason, 
+			rec_volun_content, 
+			rec_volun_condition, 
+			rec_volun_registerdate,
+			info_job_code
+			)
+		VALUES (
+			#{recVolunCode}, 
+			#{infoVolunCode}, 
+			#{recVolunReason}, 
+			#{recVolunContent},
+			#{recVolunCondition}, 
+			now(),
+			#{infoJobCode}
+			)
+	</insert>
+		
+	<!-- recVolunCount  -->
+	<select id="recVolunCount"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM rec_volun
+	</select>
+	
+	<!-- 전체 봉사활동 수 구하기 (조건검색 포함)-->
+	<select id="infoVolunCountAtRec"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_volun
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_volun_continent')">
+						info_volun_continent LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_country')">
+						info_volun_country LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_volun_title')">
+			 			info_volun_title LIKE CONCAT('%', #{searchWord}, '%')
+					</when>	
+					<when test="searchType.equals('info_volun_name')">
+			 			info_volun_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>	
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 추천Volun 리스트보기 -->
+	<select id="recVolunListWithRecVolunCondition"
+			parameterType="java.util.Map"
+			resultType="java.util.Map">
+		SELECT                                               
+			info_v.info_volun_code infoVolunCode,               
+			info_v.info_volun_continent infoVolunContinent,             
+			info_v.info_volun_country infoVolunCountry,                
+			info_v.info_volun_title infoVolunTitle,               
+			info_v.info_volun_name infoVolunName,               
+			rec_v.rec_volun_code recVolunCode,                  
+			rec_v.rec_volun_condition recVolunCondition,
+			rec_v.rec_volun_reason recVolunReason,
+			rec_v.rec_volun_content recVolunContent,
+			rec_v.rec_volun_registerdate recVolunRegisterDate
+		FROM info_volun info_v, rec_volun rec_v                
+		WHERE rec_v.info_job_code = #{infoJob.infoJobCode}                                          
+		AND info_v.info_volun_code = rec_v.info_volun_code
+		<if test="searchWord != null">
+			<choose>
+	 			<when test="searchType.equals('info_volun_continent')">
+					AND info_volun_continent LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
+				<when test="searchType.equals('info_volun_country')">
+					AND info_volun_country LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
+				<when test="searchType.equals('info_volun_title')">
+		 			AND info_volun_title LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
+				<when test="searchType.equals('info_volun_name')">
+					AND info_volun_name LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
 </mapper>
