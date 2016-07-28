@@ -27,7 +27,7 @@
 <body>
 	<t:insertDefinition name="layout">
 		<!-- body -->
-		<t:putAttribute name="body">
+		<t:putAttribute name="footer">
 			<!-- 회원 리스트 -->
 			<div>
 				<table>

@@ -50,6 +50,7 @@ public class InfoBookService {
 	
 	// infoBookPage
 	public int infoBookCountBySearch(Map<String, Object> map) {
+		System.out.println("InfoBookService infoBookCountBySearch ½ÇÇà");
 		return infoBookDao.infoBookCountBySearch(map);
 	}
 

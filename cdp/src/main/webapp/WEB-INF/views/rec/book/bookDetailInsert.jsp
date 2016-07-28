@@ -10,43 +10,43 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#insertCancel").click(function(){
-			$("#contestDetailInsertAction").attr("action","/recContestInsert");
-			$("#contestDetailInsertAction").attr("method","get");
-			$("#contestDetailInsertAction").submit();
+			$("#bookDetailInsertAction").attr("action","/recBookInsert");
+			$("#bookDetailInsertAction").attr("method","get");
+			$("#bookDetailInsertAction").submit();
 		});
 		$("#insertSubmit").click(function(){
-			$("#contestDetailInsertAction").attr("action","/recBookInsert");
-			$("#contestDetailInsertAction").attr("method","post");
-			$("#contestDetailInsertAction").submit();
+			$("#bookDetailInsertAction").attr("action","/recBookInsert");
+			$("#bookDetailInsertAction").attr("method","post");
+			$("#bookDetailInsertAction").submit();
 		});
 		
 	});
 </script>
 </head>
 <body>
-	<form id="contestDetailInsertAction" action="">
+	<form id="bookDetailInsertAction" action="">
 		<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}"/>
-		<input type="hidden" name="infoContestCode" value="${infoContest.infoContestCode}"/>
+		<input type="hidden" name="infoBookCode" value="${infoBook.infoBookCode}"/>
 		
 		<div>
 			<span>추천이유</span>
 		</div>
 		<div>
-			<textarea rows="10" cols="30" name="recContestReason"></textarea>
+			<textarea rows="10" cols="30" name="recBookReason"></textarea>
 		</div>
 		
 		<div>
-			<span>추천내용</span>
+			<span>도서내용</span>
 		</div>
 		<div>
-			<textarea rows="10" cols="30" name="recContestContent"></textarea>
+			<textarea rows="10" cols="30" name="recBookContent"></textarea>
 		</div>
 		
 		<div>
 			<span>추천상태</span>
 		</div>
 		<div>
-			<select name="recContestCondition">
+			<select name="recBookCondition">
 				<option value="">:::추천상태:::</option>
 				<option value="적용">적용</option>
 				<option value="비적용">비적용</option>

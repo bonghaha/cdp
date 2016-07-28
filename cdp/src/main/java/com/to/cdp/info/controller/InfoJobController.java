@@ -1,5 +1,6 @@
 package com.to.cdp.info.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,74 +21,55 @@ public class InfoJobController {
 	@Autowired
 	private InfoJobService infoJobService;
 	
-	// 1. infoJobInsert
-	@RequestMapping(value="/infoJobInsert", method=RequestMethod.GET)
-	public String infoJobInsert(){
-		return "info/job/jobInsert";
-	}
-	
-	@RequestMapping(value="/infoJobInsert", method=RequestMethod.POST)
-	public String infoJobInsert(InfoJob infoJob){
-		infoJobService.infoJobInsert(infoJob);
-		return "redirect:/infoJobList";
-	}
-	
-	// 2. infoJobUpdate
-	@RequestMapping(value="/infoJobUpdate", method=RequestMethod.GET)
-	public String infoJobUpdate(){
-		return "infoJobUpdate";
-	}
-	
-	@RequestMapping(value="/infoJobUpdate", method=RequestMethod.POST)
-	public String infoJobUpdate(InfoJob infoJob){
-		return "infoJobDetail";
-	}
-	
-	// 3. infoJobDelete
-	@RequestMapping(value="/infoJobDelete", method=RequestMethod.GET)
-	public String infoJobDelete(){
-		return "infoJobDelete";
-	}
-	
-	@RequestMapping(value="/infoJobDelete", method=RequestMethod.POST)
-	public String infoJobDelete(InfoJob infoJob){
-		return "redirect:/infoJobList";
-	}
-	
-	// 4. infoJobList
+	// 1. API(infoJob) 받은 거 리스트로 뿌리기
 	@RequestMapping(value="/infoJobList", method=RequestMethod.GET)
 	public String infoJobList(
-			Model model,
-			Map<String,Object> map,
+			Model model, 
+			InfoJob infoJob,
 			PageHelper pageHelper,
 			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
 			@RequestParam(value="linePerPage", defaultValue = "10") int linePerPage,
 			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
-			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
-		map = new HashMap<>();
-		map.put("searchType", searchType);
-		map.put("searchWord", searchWord);
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord) throws Exception{
 		
-		int totalCount = infoJobService.infoJobCountBySearch(map);	// totalCount ���ϱ�
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//������ �����ϱ�
-		System.out.println("pageHelper infoJobController :" + pageHelper);
-		map.put("pageHelper", pageHelper);
+		String xml = infoJobService.restClient(searchWord);
+		System.out.println(xml);
+		ArrayList<HashMap<String, Object>> getInfoJobList = infoJobService.parserJob(searchType, searchWord); // 파싱한 값들(배열) List에 넣기
+		ArrayList<InfoJob> infoJobList = new ArrayList<>(); // infoJobList 객체 생성
+		HashMap<String, Object> mapList = new HashMap<>(); // 임시보관소(map) 객체 생성
 		
-		List<InfoJob> infoJobList = infoJobService.infoJobList(map);
+		System.out.println("getInfoJobList.size() InfoJobController : " + getInfoJobList.size());
+		int totalCount = getInfoJobList.size();	// 파싱한 것들 전체 개수 구하기
+		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	// 페이지 셋팅
+		System.out.println(pageHelper);
+		
+		for(int i=0; i<getInfoJobList.size(); i++){
+			infoJob = new InfoJob();
+			mapList = getInfoJobList.get(i);
+			infoJob.setInfoJobdicSeq((String) mapList.get("infoJobdicSeq"));
+			infoJob.setInfoJob((String) mapList.get("infoJob"));
+			infoJob.setInfoJobCode((String) mapList.get("infoJobCode"));
+			infoJob.setInfoSummary((String) mapList.get("infoSummary"));
+			infoJob.setInfoSimilarJob((String) mapList.get("infoSimilarJob"));
+			infoJob.setInfoEqualemployment((String) mapList.get("infoEqualemployment"));
+			infoJob.setInfoPossibility((String) mapList.get("infoPossibility"));
+			infoJob.setInfoProspect((String) mapList.get("infoProspect"));
+			infoJob.setInfoSalery((String) mapList.get("infoSalery"));
+			infoJob.setInfoJobCtgCode((String) mapList.get("infoJobCtgCode"));
+			infoJob.setInfoAptdTypeCode((String) mapList.get("infoAptdTypeCode"));
+			infoJob.setInfoProfession((String) mapList.get("infoProfession"));
+			infoJobList.add(i, infoJob);
+		}
 		model.addAttribute("infoJobList", infoJobList);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);
 		return "info/job/jobList";
+		
 	}
 	
-	@RequestMapping(value="/infoJobList", method=RequestMethod.POST)
-	public String infoJobList(){
-		return "info/job/jobList";
-	}
-	
-	// 5. infoJobDetail
+	// 2. infoJobDetail
 	@RequestMapping(value="/infoJobDetail", method=RequestMethod.GET)
 	public String infoJobDetail(
 			InfoJob infoJob, 

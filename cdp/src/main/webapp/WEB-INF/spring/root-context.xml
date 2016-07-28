@@ -7,7 +7,7 @@
 	<!--  dataSource -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://bongha825.cafe24.com:3306/bongha825?useUnicode=true&amp;characterEncoding=euckr" />
+        <property name="url" value="jdbc:mysql://bongha825.cafe24.com:3306/bongha825?useUnicode=true&amp;characterEncoding=UTF-8" />
         <property name="username" value="bongha825" />
         <property name="password" value="cdppw01!" />  
     </bean>
@@ -20,7 +20,7 @@
     <!-- mybatis -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:com/to/cdp/repository/CdpMapper.xml" />
+        <property name="mapperLocations" value="classpath:com/to/cdp/repository/*" />
     </bean>
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory" />

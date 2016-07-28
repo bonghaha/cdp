@@ -15,7 +15,7 @@
 			$("#contestDetailInsertAction").submit();
 		});
 		$("#insertSubmit").click(function(){
-			$("#contestDetailInsertAction").attr("action","/recBookInsert");
+			$("#contestDetailInsertAction").attr("action","/recContestInsert");
 			$("#contestDetailInsertAction").attr("method","post");
 			$("#contestDetailInsertAction").submit();
 		});

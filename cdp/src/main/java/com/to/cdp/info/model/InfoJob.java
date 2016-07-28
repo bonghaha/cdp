@@ -1,136 +1,96 @@
 package com.to.cdp.info.model;
 
 public class InfoJob {
-	private String infoJobCode;
-	private String infoJobBigCode;
-	private String infoJobBigName;
-	private String infoJobMiddleCode;
-	private String infoJobMiddleName;
-	private String infoJobSmallCode;
-	private String infoJobSmallName;
-	private String infoJobDetailCode;
-	private String infoJobDetailName;
-	private String infoJobUnitName;
-	private String infoJobDetailInfo;
-	private String infoJobInfo;
-	private String infoJobCondition;
-	private String infoJobApplyYear;
-	private int infoJobChangeCount;
-	private String infoJobRegisterDate;
-	private String infoJobRegisterName;
-	
+	private String infoJobCode;			// 직업코드
+	private String infoJobdicSeq;		// 직업코드ID
+	private String infoJob;				// 직업명
+	private String infoProfession;		// 직업분야
+	private String infoAptdTypeCode;	// 적성유형별코드
+	private String infoJobCtgCode;		// 직업분류코드
+	private String infoSummary;			// 직업설명
+	private String infoSimilarJob;		// 유사직업
+	private String infoEqualemployment;	// 고용평등
+	private String infoPossibility;		// 발전가능성
+	private String infoProspect;		// 전망
+	private String infoSalery;			// 연봉
 	public String getInfoJobCode() {
 		return infoJobCode;
 	}
 	public void setInfoJobCode(String infoJobCode) {
 		this.infoJobCode = infoJobCode;
 	}
-	public String getInfoJobBigCode() {
-		return infoJobBigCode;
+	public String getInfoJobdicSeq() {
+		return infoJobdicSeq;
 	}
-	public void setInfoJobBigCode(String infoJobBigCode) {
-		this.infoJobBigCode = infoJobBigCode;
+	public void setInfoJobdicSeq(String infoJobdicSeq) {
+		this.infoJobdicSeq = infoJobdicSeq;
 	}
-	public String getInfoJobBigName() {
-		return infoJobBigName;
+	public String getInfoJob() {
+		return infoJob;
 	}
-	public void setInfoJobBigName(String infoJobBigName) {
-		this.infoJobBigName = infoJobBigName;
+	public void setInfoJob(String infoJob) {
+		this.infoJob = infoJob;
 	}
-	public String getInfoJobMiddleCode() {
-		return infoJobMiddleCode;
+	public String getInfoProfession() {
+		return infoProfession;
 	}
-	public void setInfoJobMiddleCode(String infoJobMiddleCode) {
-		this.infoJobMiddleCode = infoJobMiddleCode;
+	public void setInfoProfession(String infoProfession) {
+		this.infoProfession = infoProfession;
 	}
-	public String getInfoJobMiddleName() {
-		return infoJobMiddleName;
+	public String getInfoAptdTypeCode() {
+		return infoAptdTypeCode;
 	}
-	public void setInfoJobMiddleName(String infoJobMiddleName) {
-		this.infoJobMiddleName = infoJobMiddleName;
+	public void setInfoAptdTypeCode(String infoAptdTypeCode) {
+		this.infoAptdTypeCode = infoAptdTypeCode;
 	}
-	public String getInfoJobSmallCode() {
-		return infoJobSmallCode;
+	public String getInfoJobCtgCode() {
+		return infoJobCtgCode;
 	}
-	public void setInfoJobSmallCode(String infoJobSmallCode) {
-		this.infoJobSmallCode = infoJobSmallCode;
+	public void setInfoJobCtgCode(String infoJobCtgCode) {
+		this.infoJobCtgCode = infoJobCtgCode;
 	}
-	public String getInfoJobSmallName() {
-		return infoJobSmallName;
+	public String getInfoSummary() {
+		return infoSummary;
 	}
-	public void setInfoJobSmallName(String infoJobSmallName) {
-		this.infoJobSmallName = infoJobSmallName;
+	public void setInfoSummary(String infoSummary) {
+		this.infoSummary = infoSummary;
 	}
-	public String getInfoJobDetailCode() {
-		return infoJobDetailCode;
+	public String getInfoSimilarJob() {
+		return infoSimilarJob;
 	}
-	public void setInfoJobDetailCode(String infoJobDetailCode) {
-		this.infoJobDetailCode = infoJobDetailCode;
+	public void setInfoSimilarJob(String infoSimilarJob) {
+		this.infoSimilarJob = infoSimilarJob;
 	}
-	public String getInfoJobDetailName() {
-		return infoJobDetailName;
+	public String getInfoEqualemployment() {
+		return infoEqualemployment;
 	}
-	public void setInfoJobDetailName(String infoJobDetailName) {
-		this.infoJobDetailName = infoJobDetailName;
+	public void setInfoEqualemployment(String infoEqualemployment) {
+		this.infoEqualemployment = infoEqualemployment;
 	}
-	public String getInfoJobUnitName() {
-		return infoJobUnitName;
+	public String getInfoPossibility() {
+		return infoPossibility;
 	}
-	public void setInfoJobUnitName(String infoJobUnitName) {
-		this.infoJobUnitName = infoJobUnitName;
+	public void setInfoPossibility(String infoPossibility) {
+		this.infoPossibility = infoPossibility;
 	}
-	public String getInfoJobDetailInfo() {
-		return infoJobDetailInfo;
+	public String getInfoProspect() {
+		return infoProspect;
 	}
-	public void setInfoJobDetailInfo(String infoJobDetailInfo) {
-		this.infoJobDetailInfo = infoJobDetailInfo;
+	public void setInfoProspect(String infoProspect) {
+		this.infoProspect = infoProspect;
 	}
-	public String getInfoJobInfo() {
-		return infoJobInfo;
+	public String getInfoSalery() {
+		return infoSalery;
 	}
-	public void setInfoJobInfo(String infoJobInfo) {
-		this.infoJobInfo = infoJobInfo;
+	public void setInfoSalery(String infoSalery) {
+		this.infoSalery = infoSalery;
 	}
-	public String getInfoJobCondition() {
-		return infoJobCondition;
-	}
-	public void setInfoJobCondition(String infoJobCondition) {
-		this.infoJobCondition = infoJobCondition;
-	}
-	public String getInfoJobApplyYear() {
-		return infoJobApplyYear;
-	}
-	public void setInfoJobApplyYear(String infoJobApplyYear) {
-		this.infoJobApplyYear = infoJobApplyYear;
-	}
-	public int getInfoJobChangeCount() {
-		return infoJobChangeCount;
-	}
-	public void setInfoJobChangeCount(int infoJobChangeCount) {
-		this.infoJobChangeCount = infoJobChangeCount;
-	}
-	public String getInfoJobRegisterDate() {
-		return infoJobRegisterDate;
-	}
-	public void setInfoJobRegisterDate(String infoJobRegisterDate) {
-		this.infoJobRegisterDate = infoJobRegisterDate;
-	}
-	public String getInfoJobRegisterName() {
-		return infoJobRegisterName;
-	}
-	public void setInfoJobRegisterName(String infoJobRegisterName) {
-		this.infoJobRegisterName = infoJobRegisterName;
-	}
-	
 	@Override
 	public String toString() {
-		return "InfoJob [infoJobCode=" + infoJobCode + ", infoJobBigCode=" + infoJobBigCode + ", infoJobBigName="
-				+ infoJobBigName + ", infoJobMiddleCode=" + infoJobMiddleCode + ", infoJobMiddleName="
-				+ infoJobMiddleName + ", infoJobSmallCode=" + infoJobSmallCode + ", infoJobSmallName="
-				+ infoJobSmallName + ", infoJobDetailCode=" + infoJobDetailCode + ", infoJobDetailName="
-				+ infoJobDetailName + ", infoJobUnitName=" + infoJobUnitName + ", infoJobDetailInfo="
-				+ infoJobDetailInfo + ", infoJobInfo=" + infoJobInfo + ", infoJobCondition=" + infoJobCondition
-				+ ", infoJobApplyYear=" + infoJobApplyYear + ", infoJobChangeCount=" + infoJobChangeCount
-				+ ", infoJobRegisterDate=" + infoJobRegisterDate + ", infoJobRegisterName=" + infoJobRegisterName + "]";
+		return "InfoJob [infoJobCode=" + infoJobCode + ", infoJobdicSeq=" + infoJobdicSeq + ", infoJob=" + infoJob
+				+ ", infoProfession=" + infoProfession + ", infoAptdTypeCode=" + infoAptdTypeCode + ", infoJobCtgCode="
+				+ infoJobCtgCode + ", infoSummary=" + infoSummary + ", infoSimilarJob=" + infoSimilarJob
+				+ ", infoEqualemployment=" + infoEqualemployment + ", infoPossibility=" + infoPossibility
+				+ ", infoProspect=" + infoProspect + ", infoSalery=" + infoSalery + "]";
 	}
 }

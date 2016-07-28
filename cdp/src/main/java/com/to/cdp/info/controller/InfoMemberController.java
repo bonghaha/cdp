@@ -76,12 +76,13 @@ public class InfoMemberController {
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
 
-		int totalCount = infoMemberService.infoMemberCountBySearch(map);	// totalCount ±¸ÇÏ±â
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//ÆäÀÌÁö ¼ÂÆÃÇÏ±â
+		int totalCount = infoMemberService.infoMemberCountBySearch(map);	// totalCount ï¿½ï¿½ï¿½Ï±ï¿½
+		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		System.out.println("pageHelper InfoMemberController : " + pageHelper);
 		map.put("pageHelper", pageHelper);
 		
 		List<InfoMember> infoMemberList = infoMemberService.infoMemberList(map);
+		System.out.println("infoMemberList InfoMemberController : " + infoMemberList);
 		model.addAttribute("infoMemberList", infoMemberList);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);

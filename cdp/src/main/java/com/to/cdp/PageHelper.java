@@ -41,12 +41,12 @@ public class PageHelper{
 	    }else{
 	    	this.clickPage = clickPage;
 	    }
-	    if(clickPage>blockSize || lastPage<blockSize){
+//	    if(clickPage>blockSize || lastPage<blockSize){
+    	if(lastPage<blockSize || eachFirstPage+blockSize-1>lastPage){
 	    	this.eachLastPage = lastPage;
 	    }else{
 	    	this.eachLastPage = eachFirstPage + blockSize-1;
 	    }
-	    
 	    this.nextBlock = currentBlockNo + 1;
 	    this.preBlock = currentBlockNo -1;
 	}

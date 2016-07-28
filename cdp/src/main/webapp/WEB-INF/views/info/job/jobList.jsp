@@ -1,20 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#goHome").click(function(){
 			$("#jobListAction").attr("action", "/home");
-			$("#jobListAction").submit();
-		});
-		$("#goInsert").click(function(){
-			$("#jobListAction").attr("action", "/infoJobInsert");
 			$("#jobListAction").submit();
 		});
 		$("#jobSearch").click(function(){
@@ -33,40 +29,34 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- Á÷¾÷ ¸®½ºÆ® -->
+			<!-- ì§ì—… ë¦¬ìŠ¤íŠ¸ -->
 			<div>
 				<table>
 					<tr>
-						<th>Á÷¾÷ºĞ·ù¹øÈ£</th>
-						<th>´ëºĞ·ù¸í</th>
-						<th>ÁßºĞ·ù¸í</th>
-						<th>¼ÒºĞ·ù¸í</th>
-						<th>¼¼ºĞ·ù¸í</th>
-						<th>´É·Â´ÜÀ§¸í</th>
-						<th>ºĞ·ùÁ¤º¸</th>
-						<th>Á÷¾÷Á¤º¸</th>
-						<th>±¸ºĞ</th>
-						<th>Àû¿ë³âµµ</th>
-						<th>º¯°æÈ½Â÷</th>
-						<th>µî·ÏÀÏ</th>
-						<th>µî·ÏÀÚ</th>
+						<th>ì§ì—…ì½”ë“œ</th>
+						<th>ì§ì—…ì½”ë“œID</th>
+						<th>ì§ì—…ëª…</th>
+						<th>ì§ì—…ë¶„ì•¼</th>
+						<th>ì ì„±ìœ í˜•ë³„ì½”ë“œ</th>
+						<th>ì§ì—…ë¶„ë¥˜ì½”ë“œ</th>
+						<th>ê³ ìš©í‰ë“±</th>
+						<th>ë°œì „ê°€ëŠ¥ì„±</th>
+						<th>ì „ë§</th>
+						<th>ì—°ë´‰</th>
 					</tr>
 					<c:forEach var="ijl" items="${infoJobList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
-						<tr>
-							<td>${ijl.infoJobCode}</td>
-							<td>${ijl.infoJobBigName}</td>
-							<td>${ijl.infoJobMiddleName}</td>
-							<td>${ijl.infoJobSmallName}</td>
-							<td>${ijl.infoJobDetailName}</td>
-							<td><a href="/infoJobDetail?infoJobCode=${ijl.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ijl.infoJobUnitName}</a></td>
-							<td>${ijl.infoJobDetailInfo}</td>
-							<td>${ijl.infoJobInfo}</td>
-							<td>${ijl.infoJobCondition}</td>
-							<td>${ijl.infoJobApplyYear}</td>
-							<td>${ijl.infoJobChangeCount}</td>
-							<td>${ijl.infoJobRegisterDate}</td>
-							<td>${ijl.infoJobRegisterName}</td>
-						</tr>
+							<tr>
+								<td>${ijl.infoJobCode}</td>
+								<td>${ijl.infoJobdicSeq}</td>
+								<td><a href="/infoJobDetail?infoJobCode=${ijl.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ijl.infoJob}</a></td>
+								<td>${ijl.infoProfession}</td>
+								<td>${ijl.infoAptdTypeCode}</td>
+								<td>${ijl.infoJobCtgCode}</td>
+								<td>${ijl.infoEqualemployment}</td>
+								<td>${ijl.infoPossibility}</td>
+								<td>${ijl.infoProspect}</td>
+								<td>${ijl.infoSalery}</td>
+							</tr>
 					</c:forEach>
 				</table>
 				<div>
@@ -74,33 +64,34 @@
 						<div>
 							<span>
 								<select name="searchType">
-									<option value="">°Ë»ö</option>
-									<option value="info_job_bigname">´ëºĞ·ù¸í</option>
-									<option value="info_job_middlename">ÁßºĞ·ù¸í</option>
-									<option value="info_job_smallname">¼ÒºĞ·ù¸í</option>
-									<option value="info_job_detailname">¼¼ºĞ·ù¸í</option>
-									<option value="info_job_unitname">´É·Â´ÜÀ§¸í</option>
+									<option value="">ê²€ìƒ‰</option>
+									<option value="job">ì§ì—…ëª…</option>
+									<option value="infoProfession">ì§ì—…ë¶„ì•¼</option>
+									<option value="infoEqualemployment">ê³ ìš©í‰ë“±</option>
+									<option value="infoPossibility">ë°œì „ê°€ëŠ¥ì„±</option>
+									<option value="infoProspect">ì „ë§</option>
+									<option value="infoSalery">ì—°ë´‰</option>
 								</select>
 							</span>
 							<span><input type="text" name="searchWord"/></span>
-							<span><input id="jobSearch" type="button" value="°Ë»ö"/></span>
+							<span><input id="jobSearch" type="button" value="ê²€ìƒ‰"/></span>
 						</div>
 						
-						<!-- ÆäÀÌÂ¡ -->
+						<!-- í˜ì´ì§• -->
 						<div>
-							<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 							<span>
-								<a href="/infoJobList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+								<a href="/infoJobList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 							</span>
 							
-							<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage>1}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 								</span>
 							</c:if>
 							
-							<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+							<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 							<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 								<c:choose>
 									<c:when test="${pageNo eq pageHelper.clickPage}">
@@ -112,28 +103,25 @@
 								</c:choose>
 							</c:forEach>
 							
-							<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+							<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 								</span>
 							</c:if>
 							
-							<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+							<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 								</span>
 							</c:if>
 						</div>
 
-						<!-- È¨À¸·Î °¡±â -->
+						<!-- í™ˆìœ¼ë¡œ ê°€ê¸° -->
 						<div>
 							<span>
-								<input id="goHome" type="button" value="È¨À¸·Î °¡±â"/>
-							</span>
-							<span>
-								<input id="goInsert" type="button" value="ÀÔ·Â"/>
+								<input id="goHome" type="button" value="í™ˆìœ¼ë¡œ ê°€ê¸°"/>
 							</span>
 						</div>
 					</form>

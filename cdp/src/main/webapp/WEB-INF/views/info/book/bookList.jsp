@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>bookList</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
@@ -28,16 +28,16 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- µµ¼­ ¸®½ºÆ® -->
-			<h1>µµ¼­ ¸®½ºÆ®</h1>
+			<!-- ë„ì„œ ë¦¬ìŠ¤íŠ¸ -->
+			<h1>ë„ì„œ ë¦¬ìŠ¤íŠ¸</h1>
 			<div>
 				<table>
 					<tr>
-						<th>¹øÈ£</th>
-						<th>Àå¸£</th>
-						<th>ÃâÆÇ»ç</th>
-						<th>ÀúÀÚ</th>
-						<th>µµ¼­¸í</th>
+						<th>ë²ˆí˜¸</th>
+						<th>ìž¥ë¥´</th>
+						<th>ì¶œíŒì‚¬</th>
+						<th>ì €ìž</th>
+						<th>ë„ì„œëª…</th>
 					</tr>
 					<c:forEach var="ib" items="${infoBookList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
@@ -54,32 +54,32 @@
 						<div>
 							<span>
 								<select name="searchType">
-									<option value="">::°Ë»öÁ¶°Ç::</option>
-									<option value="info_book_name">µµ¼­¸í</option>
-									<option value="info_book_genre">Àå¸£</option>
-									<option value="info_book_institute">ÃâÆÇ»ç</option>
-									<option value="info_book_writer">ÀúÀÚ</option>
+									<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+									<option value="info_book_name">ë„ì„œëª…</option>
+									<option value="info_book_genre">ìž¥ë¥´</option>
+									<option value="info_book_institute">ì¶œíŒì‚¬</option>
+									<option value="info_book_writer">ì €ìž</option>
 								</select>
 							</span>
 							<span><input type="text" name="searchWord"/></span>
-							<span><input id="bookSearch" type="button" value="°Ë»ö"/></span>
+							<span><input id="bookSearch" type="button" value="ê²€ìƒ‰"/></span>
 						</div>
 						
-						<!-- ÆäÀÌÂ¡ -->
+						<!-- íŽ˜ì´ì§• -->
 						<div>
-							<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì²«íŽ˜ì´ì§€ë¡œ ì´ë™ -->
 							<span>
-								<a href="/infoBookList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+								<a href="/infoBookList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 							</span>
 							
-							<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì´ì „íŽ˜ì´ì§€ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage>1}">
 								<span>
-									<a href="/infoBookList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+									<a href="/infoBookList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 								</span>
 							</c:if>
 							
-							<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+							<!-- íŽ˜ì´ì§•ìž‘ì—…(1,2,3, ... , 9, 10 -->
 							<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 								<c:choose>
 									<c:when test="${pageNo eq pageHelper.clickPage}">
@@ -91,28 +91,28 @@
 								</c:choose>
 							</c:forEach>
 							
-							<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+							<!-- ë‹¤ìŒíŽ˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 								<span>
-									<a href="/infoBookList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+									<a href="/infoBookList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 								</span>
 							</c:if>
 							
-							<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+							<!-- 10íŽ˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 								<span>
-									<a href="/infoBookList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+									<a href="/infoBookList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10íŽ˜ì´ì§€ ë’¤ë¡œ</a>
 								</span>
 							</c:if>
 						</div>
 						
-						<!-- È¨À¸·Î °¡±â -->
+						<!-- í™ˆìœ¼ë¡œ ê°€ê¸° -->
 						<div>
 							<span>
-								<input id="goHome" type="button" value="È¨À¸·Î °¡±â"/>
+								<input id="goHome" type="button" value="í™ˆìœ¼ë¡œ ê°€ê¸°"/>
 							</span>
 							<span>
-								<input id="goInsert" type="button" value="ÀÔ·Â"/>
+								<input id="goInsert" type="button" value="ìž…ë ¥"/>
 							</span>
 						</div>
 					</form>
