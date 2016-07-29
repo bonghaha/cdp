@@ -13,10 +13,6 @@
 			$("#memberListAction").attr("action", "/home");
 			$("#memberListAction").submit();
 		});
-		$("#goInsert").click(function(){
-			$("#memberListAction").attr("action", "/infoMemberInsert");
-			$("#memberListAction").submit();
-		});
 		$("#memberSearch").click(function(){
 			$("#memberListAction").attr("action", "/infoMemberList");
 			$("#memberListAction").submit();
@@ -113,9 +109,6 @@
 						<div>
 							<span>
 								<input id="goHome" type="button" value="홈으로 가기"/>
-							</span>
-							<span>
-								<input id="goInsert" type="button" value="입력"/>
 							</span>
 						</div>
 					</form>

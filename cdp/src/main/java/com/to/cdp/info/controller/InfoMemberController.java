@@ -35,7 +35,7 @@ public class InfoMemberController {
 	@RequestMapping(value="/infoMemberInsert", method=RequestMethod.POST)
 	public String infoMemberInsert(InfoMember infoMember){
 		infoMemberService.infoMemberInsert(infoMember);
-		return "redirect:/infoMemberList";
+		return "redirect:/home";
 	}
 	
 	// 2. infoMemberUpdate

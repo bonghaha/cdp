@@ -6,6 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#login").click(function(){
+		$("#loginAction").attr("action", "/loginProcess");
+		$("#loginAction").attr("method", "post");
+		$("#loginAction").submit();
+	});
+	$("#goInfoMemberInsert").click(function(){
+		$("#loginAction").attr("action", "/infoMemberInsert");
+		$("#loginAction").attr("method", "get");
+		$("#loginAction").submit();
+	});
+});
+</script>
 </head>
 <body>
 	<!-- 로그인 화면 -->
@@ -26,7 +41,7 @@
 	    
 	    <c:otherwise>
 	        <h2>로그인</h2>
-	        <form action="/loginProcess" method="post">
+	        <form id="loginAction" action="">
 		        <table>
 		            <tr>
 		                <td>ID</td>
@@ -36,11 +51,12 @@
 		                <td>PW</td>
 		                <td><input type="password" name="infoMemberPw"></td>
 		            </tr>
-		            <tr>
-		                <td align="center"><input type="submit" value="로그인"></td>
-		                <td align="center"><input type="reset" value="리셋"></td>
-		            </tr>
 		        </table>
+		        <div>
+					<span><input id="login" type="button" value="로그인"></span>
+					<span><input id="reset" type="reset" value="리셋"></span>
+					<span><input id="goInfoMemberInsert" type="button" value="회원가입"></span>
+				</div>
 	        </form>
 	    </c:otherwise>
 	</c:choose>

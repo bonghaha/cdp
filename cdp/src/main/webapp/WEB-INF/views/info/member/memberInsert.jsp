@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#insertCancle").click(function(){
-			$("#insertAction").attr("action", "/infoMemberList");
+			$("#insertAction").attr("action", "/login");
 			$("#insertAction").attr("method", "get");
 			$("#insertAction").submit();
 		});
