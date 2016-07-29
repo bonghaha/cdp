@@ -7,6 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--*****************************************************************
 	***************************InfoMember****************************
 	***************************************************************** -->
+	<!-- findByUserIdAndPassword -->
+	<select id="findByUserIdAndPassword"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_id infoMemberId,
+		 	info_member_pw infoMemberPw,
+		 	info_member_name infoMemberName,
+		 	info_member_phone infoMemberPhone,
+		 	info_member_email infoMemberEmail,
+		 	info_member_birth infoMemberBirth,
+		 	info_member_level infoMemberLevel,
+		 	info_member_joindate infoMemberJoinDate
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId} AND info_member_pw = #{infoMemberPw}
+	</select>
 	
 	<!-- 회원가입 -->
 	<insert id="infoMemberInsert"

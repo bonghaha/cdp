@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 	<title>CDP</title>
@@ -10,8 +11,39 @@
 		<!-- body -->
 		<t:putAttribute name="body">
 			<h1>CDP</h1>
+			<c:choose>
+				<c:when test="${not empty sessionScope.memberLoginInfo}">
+				<h2>로그인 성공</h2>
+				<div>
+					<span>이름 : ${sessionScope.memberLoginInfo.infoMemberName}</span>
+					<span>권한 : <c:out value="${sessionScope.memberLoginInfo.infoMemberLevel}"/></span> 
+					<span><a href="/logout">로그아웃</a></span>
+				</div>
+				</c:when>
+			
+				<c:otherwise>
+					<h2>로그인</h2>
+					<form action="/loginProcess" method="post">
+						<table>
+							<tr>
+								<td>ID</td>
+								<td><input type="text" name="infoMemberId"></td>
+							</tr>
+							<tr>
+								<td>PW</td>
+								<td><input type="password" name="infoMemberPw"></td>
+							</tr>
+							<tr>
+								<td><input type="submit" value="로그인"></td>
+								<td><input type="reset" value="리셋"></td>
+								<td><a href="/infoMemberInsert">회원가입</a></td>
+							</tr>
+						</table>
+					</form>
+				</c:otherwise>
+			</c:choose>
+			
 			<div>
-				<span><a href="/infoMemberInsert">회원가입</a></span>
 				<span><a href="/infoMemberList">회원 리스트</a></span>
 			</div>
 			<div>

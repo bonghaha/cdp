@@ -76,8 +76,8 @@ public class InfoMemberController {
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
 
-		int totalCount = infoMemberService.infoMemberCountBySearch(map);	// totalCount ���ϱ�
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//������ �����ϱ�
+		int totalCount = infoMemberService.infoMemberCountBySearch(map);	// totalCount 
+		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	// 페이지셋팅
 		System.out.println("pageHelper InfoMemberController : " + pageHelper);
 		map.put("pageHelper", pageHelper);
 		

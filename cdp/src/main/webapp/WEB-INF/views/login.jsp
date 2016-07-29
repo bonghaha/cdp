@@ -8,36 +8,39 @@
 <title>login</title>
 </head>
 <body>
+	<!-- 로그인 화면 -->
 	<c:choose>
-		<!-- 로그인 성공시 화면 -->
 	    <c:when test="${not empty sessionScope.memberLoginInfo}">
 	        <h2>로그인 성공</h2>
-			        이름 : ${sessionScope.memberLoginInfo.infoMemberName}
-			 
-			        권한 : <c:out value="${sessionScope.memberLoginInfo.infoMemberLevel}"/> 
-	        <a href="/logout">로그아웃</a>
-	        <a href="page1">페이지1</a>  <a href="page2">페이지2</a>
+	        <div>
+				<span>이름 : ${sessionScope.memberLoginInfo.infoMemberName}</span>
+				<span>권한 : <c:out value="${sessionScope.memberLoginInfo.infoMemberLevel}"/></span> 
+				<span><a href="/logout">로그아웃</a></span>
+	        </div>
+	        <div>
+				<c:if test="${sessionScope.memberLoginInfo.infoMemberLevel == 1}">
+				<span><a href="/home">관리자페이지로 가기</a></span>
+				</c:if>
+	        </div>
 	    </c:when>
 	    
 	    <c:otherwise>
 	        <h2>로그인</h2>
-	        <form name="form1" method="post" action="/loginProcess">
-	        <table>
-	            <tr>
-	                <td>ID</td>
-	                <td><input type="text" name="userId"></td>
-	            </tr>
-	            <tr>
-	                <td>PW</td>
-	                <td><input type="password" name="password"></td>
-	            </tr>
-	        </table>
-	        <table>
-	            <tr>
-	                <td align="center"><input type="submit" value="로그인"></td>
-	                <td align="center"><input type="reset" value="리셋"></td>
-	            </tr>
-	        </table>
+	        <form action="/loginProcess" method="post">
+		        <table>
+		            <tr>
+		                <td>ID</td>
+		                <td><input type="text" name="infoMemberId"></td>
+		            </tr>
+		            <tr>
+		                <td>PW</td>
+		                <td><input type="password" name="infoMemberPw"></td>
+		            </tr>
+		            <tr>
+		                <td align="center"><input type="submit" value="로그인"></td>
+		                <td align="center"><input type="reset" value="리셋"></td>
+		            </tr>
+		        </table>
 	        </form>
 	    </c:otherwise>
 	</c:choose>

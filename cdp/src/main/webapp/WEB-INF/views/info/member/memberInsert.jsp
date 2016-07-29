@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿ø°¡ÀÔ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>íšŒì›ê°€ìž…</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -26,40 +26,40 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-		<!-- È¸¿ø°¡ÀÔ Æû -->
+		<!-- íšŒì›ê°€ìž… í¼ -->
 		<div>
 			<form id="insertAction" action="">
 				<div>
-					<span>¾ÆÀÌµð : </span>
+					<span>ì•„ì´ë”” : </span>
 					<span><input type="text" name="infoMemberId"/></span>
 				</div>
 				<div>
-					<span>ºñ¹Ð¹øÈ£ : </span>
+					<span>ë¹„ë°€ë²ˆí˜¸ : </span>
 					<span><input type="password" name="infoMemberPw"/></span>
 				</div>
 				<div>
-					<span>ÀÌ¸§ : </span>
+					<span>ì´ë¦„ : </span>
 					<span><input type="text" name="infoMemberName"/></span>
 				</div>
 				<div>
-					<span>ÀüÈ­¹øÈ£ : </span>
-					<span><input type="text" name="infoMemberPhone"/> ' - Á¦¿ÜÇÑ ¹øÈ£¸¸ ÀÔ·ÂÇÏ¼¼¿ä '</span>
+					<span>ì „í™”ë²ˆí˜¸ : </span>
+					<span><input type="text" name="infoMemberPhone"/> ' - ì œì™¸í•œ ë²ˆí˜¸ë§Œ ìž…ë ¥í•˜ì„¸ìš” '</span>
 				</div>
 				<div>
-					<span>ÀÌ¸ÞÀÏ : </span>
+					<span>ì´ë©”ì¼ : </span>
 					<span><input type="text" name="infoMemberEmail"/></span>
 				</div>
 				<div>
-					<span>»ý³â¿ùÀÏ : </span>
+					<span>ìƒë…„ì›”ì¼ : </span>
 					<span><input type="text" name="infoMemberBirth"/> 'ex) 890825'</span>
 				</div>
 				<div>
-					<span>±ÇÇÑ : </span>
+					<span>ê¶Œí•œ : </span>
 					<span><input type="text" name="infoMemberLevel"/></span>
 				</div>
 				<div>
-					<span><input id="insertCancle" type="button" value="Ãë¼Ò"/></span>
-					<span><input id="insertSubmit" type="button" value="È®ÀÎ"/></span>
+					<span><input id="insertCancle" type="button" value="ì·¨ì†Œ"/></span>
+					<span><input id="insertSubmit" type="button" value="í™•ì¸"/></span>
 				</div>
 			</form>
 		</div>
