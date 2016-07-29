@@ -1,6 +1,7 @@
 package com.to.cdp.plan.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import com.to.cdp.plan.model.PlanUnite;
 
 @Repository
 public class PlanUniteDao {
-	private final String NS="com.to.cdp.repository.CdpMapper";
+	private final String NS="com.to.cdp.repository.PlanMapper";
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -30,12 +31,17 @@ public class PlanUniteDao {
 	}
 	
 	// planUniteList
-	public List<PlanUnite> planUniteList(PlanUnite planUnite){
-		return sqlSession.selectList(NS + ".planUniteList", planUnite);
+	public List<PlanUnite> planUniteList(Map<Object, String> map){
+		return sqlSession.selectList(NS + ".planUniteList", map);
 	}
 	
 	// planUniteDetail
 	public PlanUnite planUniteDetail(PlanUnite planUnite){
 		return sqlSession.selectOne(NS + ".planUniteDetail", planUnite);
+	}
+
+	// planUniteCount
+	public int planUniteCount() {
+		return sqlSession.selectOne(NS + ".planUniteCount");
 	}
 }

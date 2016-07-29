@@ -5,9 +5,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.to.cdp.repository.PlanMapper">
 	
 <!--*****************************************************************
-	***************************PlanBook******************************
+	***************************PlanUnite******************************
 	***************************************************************** -->
 	
 	
+	<!-- planUniteInsert -->
+	<insert id="planUniteInsert"
+			parameterType="com.to.cdp.plan.model.PlanUnite">
+		INSERT INTO plan_unite (
+			plan_unite_code, 
+			plan_unite_title, 
+			plan_unite_content, 
+			plan_unite_registerdate, 
+			plan_mento_id,
+			info_job_code,
+			info_member_id 
+			)
+		VALUES (
+			#{planUniteCode}, 
+			#{planUniteTitle}, 
+			#{planUniteContent}, 
+			now(),
+			#{planMentoid},
+			#{infoJobCode},
+			#{infoMemberId} 
+			)
+	</insert>
 	
+	<!-- Plan Unite 리스트보기 -->
+	<select id="planUniteList"
+			parameterType="java.util.Map"
+			resultType="java.util.Map">
+		SELECT                                               
+			plan_unite_code planUniteCode,
+			plan_unite_title planUniteTitle
+		FROM plan_unite
+		WHERE plan_unite.info_job_code = #{planUnite.infoJobCode}
+		AND plan_unite.info_member_id = #{planUnite.infoMemberId}
+			
+			
+<!-- 			
+			info_b.info_book_code infoBookCode,               
+			info_b.info_book_genre infoBookGenre,             
+			info_b.info_book_institute infoBookInstitute,     
+			info_b.info_book_writer infoBookWriter,           
+			info_b.info_book_name infoBookName,               
+			rec_b.rec_book_code recBookCode,                  
+			rec_b.rec_book_condition recBookCondition,
+			rec_b.rec_book_reason recBookReason,
+			rec_b.rec_book_content recBookContent,
+			rec_b.rec_book_registerdate recBookRegisterDate
+		FROM info_book info_b, rec_book rec_b                
+		WHERE rec_b.info_job_code = #{infoJob.infoJobCode}                                          
+		AND info_b.info_book_code = rec_b.info_book_code -->
+	</select>
+	
+	<!-- PlanUniteCount -->
+	<select id="planUniteCount"
+			resultType="integer">
+		SELECT
+			count(*)
+		FROM plan_unite
+	</select>
 </mapper>

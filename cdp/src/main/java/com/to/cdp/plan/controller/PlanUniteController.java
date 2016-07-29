@@ -1,10 +1,19 @@
 package com.to.cdp.plan.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.to.cdp.info.model.InfoJob;
+import com.to.cdp.info.model.InfoMember;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.plan.service.PlanUniteService;
 
@@ -15,13 +24,24 @@ public class PlanUniteController {
 	
 	// 1. planUniteInsert
 	@RequestMapping(value="/planUniteInsert", method=RequestMethod.GET)
-	public String planUniteInsert(){
-		return "planUniteInsert";
+	public String planUniteInsert(InfoJob infoJob,InfoMember infoMember, Model model){
+		model.addAttribute("infoJob", infoJob);
+		model.addAttribute("infoMember", infoMember);
+		
+		return "plan/unite/uniteInsert";
 	}
 	
 	@RequestMapping(value="/planUniteInsert", method=RequestMethod.POST)
-	public String planUniteInsert(PlanUnite planUnite){
-		return "planUniteDetail";
+	public String planUniteInsert(
+			PlanUnite planUnite, 
+			Model model,
+			InfoJob infoJob, 
+			HttpSession session){
+		planUnite.setInfoJobCode(infoJob.getInfoJobCode());
+		planUnite.setInfoMemberId(session.getId());
+		planUniteService.planUniteInsert(planUnite); 
+		
+		return "redirect:/planUniteList";
 	}
 	
 	// 2. planUniteUpdate
@@ -48,8 +68,13 @@ public class PlanUniteController {
 	
 	// 4. planUniteList
 	@RequestMapping(value="/planUniteList", method=RequestMethod.GET)
-	public String planUniteList(){
-		return "planUniteList";
+	public String planUniteList(Model model,PlanUnite planUnite,Map<Object,String> map){
+		/*model.addAttribute("infoJob", infoJob);
+		model.addAttribute("infoMember", infoMember);*/
+		map = new HashMap<>();
+		List<PlanUnite> planUniteList=planUniteService.planUniteList(map);
+		model.addAttribute("planUniteList",planUniteList);
+		return "plan/unite/uniteList";
 	}
 	
 	@RequestMapping(value="/planUniteList", method=RequestMethod.POST)

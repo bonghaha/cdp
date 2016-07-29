@@ -1,6 +1,7 @@
 package com.to.cdp.plan.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,14 @@ public class PlanUniteService {
 	
 	// planUniteInsert
 	public int planUniteInsert(PlanUnite planUnite){
+		String planUniteCode =null;
+		int planUniteCount = 0;
+		
+		planUniteCount = planUniteDao.planUniteCount()+1;
+		planUniteCode = "plan_unite_" + planUniteCount;
+		
+		planUnite.setPlanUniteCode(planUniteCode);
+		
 		return planUniteDao.planUniteInsert(planUnite);
 	}
 	
@@ -31,13 +40,20 @@ public class PlanUniteService {
 		return planUniteDao.planUniteDelete(planUnite);
 	}
 	
-	// planUniteList
+	/*// planUniteList
 	public List<PlanUnite> planUniteList(PlanUnite planUnite){
 		return planUniteDao.planUniteList(planUnite);
-	}
+	}*/
 	
 	// planUniteDetail
 	public PlanUnite planUniteDetail(PlanUnite planUnite){
 		return planUniteDao.planUniteDetail(planUnite);
 	}
+	
+	//planUniteList
+	public List<PlanUnite> planUniteList(Map<Object, String> map) {
+		return planUniteDao.planUniteList(map);
+	}
+	
+	
 }
