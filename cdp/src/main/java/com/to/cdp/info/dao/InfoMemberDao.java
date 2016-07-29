@@ -30,7 +30,7 @@ public class InfoMemberDao {
 		return sqlSession.delete(NS + ".infoMemberDelete", infoMember);
 	}
 	
-	// infoMemberCount(È¸¿øµî·Ï¿ë)
+	// infoMemberCount(È¸ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½)
 	public int infoMemberCount(){
 		return sqlSession.selectOne(NS + ".infoMemberCount");
 	}
@@ -48,5 +48,9 @@ public class InfoMemberDao {
 	// InfoMemberDetail
 	public InfoMember infoMemberDetail(InfoMember infoMember){
 		return sqlSession.selectOne(NS + ".infoMemberDetail", infoMember);
+	}
+
+	public InfoMember findByUserIdAndPassword(InfoMember infoMember) {
+		return sqlSession.selectOne(NS + ".findByUserIdAndPassword", infoMember);
 	}
 }

@@ -35,7 +35,7 @@ public class InfoJobService {
 	private InfoJobDao infoJobDao;
 	
 	// apiInfoJobList
-	public ArrayList<HashMap<String, Object>> parserJob(String searchType, String searchWord) throws ParserConfigurationException, UnsupportedEncodingException{
+	public ArrayList<HashMap<String, Object>> infoJobList(String searchType, String searchWord) throws ParserConfigurationException, UnsupportedEncodingException{
 		ArrayList<HashMap<String, Object>> infoJobList = new ArrayList<HashMap<String, Object>>();
 		
 		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
@@ -117,46 +117,47 @@ public class InfoJobService {
 		}
 		return infoJobList;
 	}
-	
-	public String restClient(String searchWord) throws Exception{
-		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
-		String servicekey = "e910704456fd613f346b478c1f558c9b&svcType=api&svcCode=JOB&contentType=xml&gubun=job_dic_list&perPage=1000";
-		String parameter = "";
-		//String perPage = "";
-		System.out.println("searchWord InfoJobService : " + searchWord);
-		if(searchWord != ""){
-			parameter = parameter + "&" + "searchJobNm=" + searchWord;
-		}
-		//parameter setting
-		//parameter = parameter + "&" + "numOfRows=50";
-		//parameter = parameter + "&" + "pageNo-1";
-		
-		addr = addr + servicekey + parameter;
-		
-		//String parameter = "";
-		
-		// 키 값 encoding
-//		servicekey = URLEncoder.encode(servicekey,"UTF-8");
-		
-		//parameter setting
-		//parameter = parameter + "&" + "numOfRows=50";
-		//parameter = parameter + "&" + "pageNo-1";
-		
-//		addr = addr + servicekey/* + parameter*/;
-		
-		URL url = new URL(addr);
-		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-		String inLine;
-		String xml="";
-		while((inLine = in.readLine()) != null) xml=inLine;
-		in.close();
-		
-		return xml;
-	}
-	
+//	
+//	public String restClient(String searchWord) throws Exception{
+//		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
+//		String servicekey = "e910704456fd613f346b478c1f558c9b&svcType=api&svcCode=JOB&contentType=xml&gubun=job_dic_list&perPage=1000";
+//		String parameter = "";
+//		//String perPage = "";
+//		System.out.println("searchWord InfoJobService : " + searchWord);
+//		
+//		if(searchWord != ""){
+//			parameter = parameter + "&" + "searchJobNm=" + searchWord;
+//		}
+//		//parameter setting
+//		//parameter = parameter + "&" + "numOfRows=50";
+//		//parameter = parameter + "&" + "pageNo-1";
+//		
+//		addr = addr + servicekey + parameter;
+//		
+//		//String parameter = "";
+//		
+//		// 키 값 encoding
+////		servicekey = URLEncoder.encode(servicekey,"UTF-8");
+//		
+//		//parameter setting
+//		//parameter = parameter + "&" + "numOfRows=50";
+//		//parameter = parameter + "&" + "pageNo-1";
+//		
+////		addr = addr + servicekey/* + parameter*/;
+//		
+//		URL url = new URL(addr);
+//		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+//		String inLine;
+//		String xml="";
+//		while((inLine = in.readLine()) != null) xml=inLine;
+//		in.close();
+//		return xml;
+//	}
+//	
 	// infoJobDetail
 	public InfoJob infoJobDetail(InfoJob infoJob){
 		System.out.println("infoJob InfoJobService : " + infoJob);
+		
 		
 		return infoJob;
 	}

@@ -48,7 +48,7 @@
 							<tr>
 								<td>${ijl.infoJobCode}</td>
 								<td>${ijl.infoJobdicSeq}</td>
-								<td><a href="/infoJobDetail?infoJobCode=${ijl.infoJobCode}&searchType=${searchType}&searchWord=${searchWord}">${ijl.infoJob}</a></td>
+								<td><a href="/infoJobDetail?infoJobdicSeq=${ijl.infoJobdicSeq}&infoSummary=${ijl.infoSummary}&searchType=${searchType}&searchWord=${searchWord}">${ijl.infoJob}</a></td>
 								<td>${ijl.infoProfession}</td>
 								<td>${ijl.infoAptdTypeCode}</td>
 								<td>${ijl.infoJobCtgCode}</td>

@@ -2,8 +2,6 @@ package com.to.cdp.info.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +31,9 @@ public class InfoJobController {
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord) throws Exception{
 		
-		String xml = infoJobService.restClient(searchWord);
-		System.out.println(xml);
-		ArrayList<HashMap<String, Object>> getInfoJobList = infoJobService.parserJob(searchType, searchWord); // 파싱한 값들(배열) List에 넣기
+//		String xml = infoJobService.restClient(searchWord);
+//		System.out.println(xml);
+		ArrayList<HashMap<String, Object>> getInfoJobList = infoJobService.infoJobList(searchType, searchWord); // 파싱한 값들(배열) List에 넣기
 		ArrayList<InfoJob> infoJobList = new ArrayList<>(); // infoJobList 객체 생성
 		HashMap<String, Object> mapList = new HashMap<>(); // 임시보관소(map) 객체 생성
 		
@@ -75,11 +73,15 @@ public class InfoJobController {
 			InfoJob infoJob, 
 			Model model,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
-			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
-	infoJob = infoJobService.infoJobDetail(infoJob);
-	model.addAttribute("infoJob", infoJob);
-	model.addAttribute("searchType", searchType);
-	model.addAttribute("searchWord", searchWord);
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord) throws Exception{
+		
+//		String xml = infoJobService.restClient(searchWord);
+//		System.out.println(xml);
+		
+		infoJob = infoJobService.infoJobDetail(infoJob);
+		model.addAttribute("infoJob", infoJob);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
 		return "info/job/jobDetail";
 	}
 	

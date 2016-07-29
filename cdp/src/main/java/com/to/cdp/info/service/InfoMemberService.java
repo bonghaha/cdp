@@ -51,4 +51,8 @@ public class InfoMemberService {
 		return infoMemberDao.infoMemberCountBySearch(map);
 	}
 
+	public InfoMember findByUserIdAndPassword(InfoMember infoMember) {
+		return infoMemberDao.findByUserIdAndPassword(infoMember);
+	}
+
 }

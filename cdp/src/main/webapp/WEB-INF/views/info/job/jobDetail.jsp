@@ -125,18 +125,17 @@ $(document).ready(function(){
 					<c:if test="${infoJob != null}">
 						<tr>
 							<td>${infoJob.infoJobCode}</td>
-							<td>${infoJob.infoJobBigName}</td>
-							<td>${infoJob.infoJobMiddleName}</td>
-							<td>${infoJob.infoJobSmallName}</td>
-							<td>${infoJob.infoJobDetailName}</td>
-							<td>${infoJob.infoJobUnitName}</td>
-							<td>${infoJob.infoJobDetailInfo}</td>
-							<td>${infoJob.infoJobInfo}</td>
-							<td>${infoJob.infoJobCondition}</td>
-							<td>${infoJob.infoJobApplyYear}</td>
-							<td>${infoJob.infoJobChangeCount}</td>
-							<td>${infoJob.infoJobRegisterDate}</td>
-							<td>${infoJob.infoJobRegisterName}</td>
+							<td>${infoJob.infoJobdicSeq}</td>
+							<td>${infoJob.infoJob}</td>
+							<td>${infoJob.infoProfession}</td>
+							<td>${infoJob.infoAptdTypeCode}</td>
+							<td>${infoJob.infoJobCtgCode}</td>
+							<td>${infoJob.infoSummary}</td>
+							<td>${infoJob.infoSimilarJob}</td>
+							<td>${infoJob.infoEqualemployment}</td>
+							<td>${infoJob.infoPossibility}</td>
+							<td>${infoJob.infoProspect}</td>
+							<td>${infoJob.infoSalery}</td>
 						</tr>
 					</c:if>
 				</table>
