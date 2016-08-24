@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>certList</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -19,31 +20,32 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- ÀÚ°İÁõ ¼¼ºÎÁ¤º¸ -->
-			<h1>ÀÚ°İÁõ ¼¼ºÎÁ¤º¸</h1>
-			<div>
-				<table>
-					<tr>
-						<th>¹øÈ£</th>
-						<th>ÀÚ°İÅ¸ÀÔ</th>
-						<th>½ÃÇàÃ³</th>
-						<th>ÀÚ°İÁõ¸í</th>
+			<!-- ìê²©ì¦ ì„¸ë¶€ì •ë³´ -->
+			<div id="infoCertDetail" align="center">
+				<h1>ìê²©ì¦ ìƒì„¸ë³´ê¸°</h1><br/>
+				<table class="w3-table w3-striped w3-border ">
+					<tr class="w3-dark-grey">
+						<th>ì¢…ëª©ëª…</th>
+						<th>ì¤‘ì§ë¬´ë¶„ì•¼ëª…</th>
+						<th>ëŒ€ì§ë¬´ë¶„ì•¼ëª…</th>
+						<th>ìê²©êµ¬ë¶„ëª…</th>
+						<th>ê³„ì—´ëª…</th>
 					</tr>
-					<c:if test="${infoCert != null}">
 						<tr>
-							<td>${infoCert.infoCertCode}</td>
-							<td>${infoCert.infoCertType}</td>
-							<td>${infoCert.infoCertInstitute}</td>
-							<td>${infoCert.infoCertName}</td>
+							<td>${infoCert.jmFldNm}</td>
+							<td>${infoCert.mdobligFldNm}</td>
+							<td>${infoCert.obligFldNm}</td>
+							<td>${infoCert.qualgbNm}</td>
+							<td>${infoCert.seriesNm}</td>
 						</tr>
-					</c:if>
 				</table>
 			</div>
-			<div>
+			<br/>
+			<div align="center">
 				<form id="certDetailAction" action="/infoCertList">
 					<input type="hidden" name="searchType" value="${searchType}"/>
 					<input type="hidden" name="searchWord" value="${searchWord}"/>
-					<input id="goCertList" type="button" value="¸®½ºÆ®·Î °¡±â"/>
+					<input id="goCertList" class="w3-btn w3-dark-grey" type="button" value="ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ê¸°"/>
 				</form>
 			</div>
 		</t:putAttribute>

@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿ø»ó¼¼º¸±â</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>í•™êµìƒì„¸ë³´ê¸°</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -19,29 +20,29 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-		<div>
-			<table>
-				<tr>
-					<th>ÇĞ±³ÄÚµå</th>
-					<th>Áö¿ª</th>
-					<th>ÇĞ±³À¯Çü</th>
-					<th>ÇĞ±³¸í</th>
+		<div id="infoSchoolDetail" align="center">
+			<h1>í•™êµ ìƒì„¸ë³´ê¸°</h1><br/>
+			<table class="w3-table w3-striped w3-border ">
+				<tr class="w3-dark-grey">
+					<th>ì§€ì—­</th>
+					<th>í•™êµìœ í˜•</th>
+					<th>í•™êµëª…</th>
 				</tr>
 				<c:if test="${infoSchool != null}">
 					<tr>
-						<td>${infoSchool.infoSchoolCode}</td>
-						<td>${infoSchool.infoSchoolBigName}</td>
-						<td>${infoSchool.infoSchoolMiddleName}</td>
-						<td>${infoSchool.infoSchoolName}</td>
+						<td>${infoSchool.region}</td>
+						<td>${infoSchool.schoolType}</td>
+						<td>${infoSchool.schoolName}</td>
 					</tr>
 				</c:if>
 			</table>
 		</div>
-		<div>
+		<br/>
+		<div align="center">
 			<form id="schoolDetailAction" action="/infoSchoolList">
 				<input type="hidden" name="searchType" value="${searchType}"/>
 				<input type="hidden" name="searchWord" value="${searchWord}"/>
-				<input id="goSchoolList" type="button" value="¸®½ºÆ®·Î °¡±â"/>
+				<input id="goSchoolList" class="w3-btn w3-dark-grey" type="button" value="ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ê¸°"/>
 			</form>
 		</div>
 		</t:putAttribute>

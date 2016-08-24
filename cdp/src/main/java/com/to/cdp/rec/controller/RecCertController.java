@@ -1,22 +1,28 @@
 package com.to.cdp.rec.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.to.cdp.PageHelper;
 import com.to.cdp.info.model.InfoCert;
 import com.to.cdp.info.model.InfoJob;
 import com.to.cdp.info.service.InfoCertService;
 import com.to.cdp.info.service.InfoJobService;
+import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.rec.model.RecCert;
+import com.to.cdp.rec.model.RecSchool;
+import com.to.cdp.rec.model.RecWithInfoCert;
 import com.to.cdp.rec.service.RecCertService;
 
 @Controller
@@ -30,6 +36,39 @@ public class RecCertController {
 	@Autowired
 	private InfoJobService infoJobService;
 	
+	// Ï∂îÏ≤úÏûêÍ≤©Ï¶ùÏù¥Ïú† Î≥¥Ïó¨Ï£ºÍ∏∞
+	@RequestMapping(value="/recCertReason")
+	public String recCertReason(
+			RecCert recCert,
+			Model model){
+		
+		System.out.println("recCert /recCertReason : " + recCert);	// recCertCode ÌôïÏù∏
+		
+		// job,jmFldNm,recCertReason,recCertContent ÏÖÄÎ†âÌä∏
+		recCert = recCertService.recCertReason(recCert);	
+		
+		model.addAttribute("recCert", recCert);	
+		return "rec/cert/certReason";
+	}
+	
+	//Ï∂îÏ≤úÏûêÍ≤©Ï¶ùÎ¶¨Ïä§Ìä∏Î≥¥Ïó¨Ï£ºÍ∏∞
+	@RequestMapping(value="/recCertListByAjax", method=RequestMethod.POST)
+	@ResponseBody
+	public List<RecWithInfoCert> recCertListByAjax(
+			PlanUnite planUnite,
+			Model model){
+		System.out.println("planUnite RecCertController : " + planUnite);
+		List<RecWithInfoCert> recWithInfoCertList = new ArrayList<RecWithInfoCert>();
+		recWithInfoCertList = recCertService.recCertListByAjax(planUnite);
+		System.out.println("recWithInfoCertList RecCertController : recWithInfoCert : " + recWithInfoCertList);
+		
+		recWithInfoCertList = recCertService.infoCertListAtPlanUniteByAjax(recWithInfoCertList);
+		System.out.println("recWithInfoCertList(Info) RecCertController : " + recWithInfoCertList);
+		
+		return recWithInfoCertList;
+	}
+	
+	
 	// 1. recCertInsert
 	@RequestMapping(value="/recCertInsert", method=RequestMethod.GET)
 	public String recCertInsert(
@@ -39,24 +78,20 @@ public class RecCertController {
 			Map<String, Object> map,
 			PageHelper pageHelper,
 			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
-			@RequestParam(value="linePerPage", defaultValue = "30")  int linePerPage,
+			@RequestParam(value="linePerPage", defaultValue = "10")  int linePerPage,
 			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
-			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord,
-			@RequestParam(value="infoJobUnitName", required = false, defaultValue = "") String infoJobUnitName){
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
 	
-		//infoCertList º¬∆√(+∆‰¿Ã¬°)
+		//infoCertList 
 		map = new HashMap<>();
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
-		System.out.println("RecCertController recCertInsert Ω««‡");
-		int totalCount = recCertService.infoCertCountAtRec(map);	// totalCount ±∏«œ±‚
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//∆‰¿Ã¡ˆ º¬∆√«œ±‚
-		System.out.println("pageHelper InfoCertController :" + pageHelper);
-		map.put("pageHelper", pageHelper);
-		map.put("infoJob", infoJob);
-		
+		System.out.println("RecCertController recCertInsert ÔøΩÔøΩÔøΩÔøΩ");
 		List<InfoCert> infoCertList = infoCertService.infoCertList(map);
+		
+		pageHelper.pageSet(infoCertList.size(), linePerPage, clickPage, blockSize);	//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩœ±ÔøΩ
+		System.out.println("pageHelper InfoCertController :" + pageHelper);
 		model.addAttribute("infoCertList", infoCertList);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("pageHelper", pageHelper);
@@ -65,13 +100,15 @@ public class RecCertController {
 		return "rec/cert/certInsert";
 	}
 	
-	//¿⁄∞›¡ı √ﬂ√µ¿Ã¿ØøÕ √ﬂ√µ≥ªøÎ µÓ∑œ
+	//
 	@RequestMapping(value="/recCertDetailInsert", method=RequestMethod.GET)
 	public String recCertDetailInsert(
 			InfoJob infoJob,
 			InfoCert infoCert,
-			Model model){
+			Model model,
+			RecCert recCert){
 		
+		model.addAttribute("recCert", recCert);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("infoCert", infoCert);
 		return "rec/cert/certDetailInsert";
@@ -88,8 +125,8 @@ public class RecCertController {
 		System.out.println("RecCertController recCertInsert infoJob : " + infoJob);
 		System.out.println("RecCertController recCertInsert recCert : " + recCert);
 		
-		recCert.setInfoCertCode(infoCert.getInfoCertCode());
-		recCert.setInfoJobCode(infoJob.getInfoJobCode());
+		recCert.setJmCd(infoCert.getJmCd());
+		recCert.setJobdicSeq(infoJob.getJobdicSeq());
 		recCertService.recCertInsert(recCert);
 		infoJob = infoJobService.infoJobDetail(infoJob);
 		model.addAttribute("infoJob", infoJob);
@@ -123,30 +160,44 @@ public class RecCertController {
 	@RequestMapping(value="/recCertList", method=RequestMethod.GET)
 	public String recCertList(
 			InfoJob infoJob,
+			RecCert recCert,
 			Map<String, Object> map,
 			Model model,
 			PageHelper pageHelper,
 			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
-			@RequestParam(value="linePerPage", defaultValue = "30")  int linePerPage,
+			@RequestParam(value="linePerPage", defaultValue = "10")  int linePerPage,
 			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
-			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord,
-			@RequestParam(value="infoJobUnitName", required = false, defaultValue = "") String infoJobUnitName){
+			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
 		
-		// infoCertList º¬∆√(+∆‰¿Ã¬°)
+		recCert.setJobdicSeq(infoJob.getJobdicSeq());
+		System.out.println("recCert recCertController recCertList : " + recCert);
+		
 		map = new HashMap<>();
+		map.put("recCert", recCert);
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
-		System.out.println("RecCertController recCertInsert Ω««‡");
-		int totalCount = recCertService.infoCertCountAtRec(map);	// totalCount ±∏«œ±‚
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//∆‰¿Ã¡ˆ º¬∆√«œ±‚
-		System.out.println("pageHelper InfoCertController :" + pageHelper);
 		map.put("pageHelper", pageHelper);
-		map.put("infoJob", infoJob);
+		System.out.println("RecCertFromMap RecCertController : " + map.get("recCert"));
+		System.out.println("pageHelper InfoCertController :" + pageHelper);
 		
-		// √ﬂ√µ¿⁄∞›¡ı∏ÆΩ∫∆Æ select
-		List<Map<String, Object>> recCertListWithRecCertCondition = recCertService.recCertListWithRecCertCondition(map);
-		model.addAttribute("recCertListWithRecCertCondition", recCertListWithRecCertCondition);
+		// 
+		List<RecCert> recCertListWithRecCertCondition = recCertService.recCertListWithRecCertCondition(map);
+		pageHelper.pageSet(recCertListWithRecCertCondition.size(), linePerPage, clickPage, blockSize);	//
+		map.put("recCertListWithRecCertCondition", recCertListWithRecCertCondition);
+		
+		System.out.println("recCertListWithRecCertCondition RecCertController :" + recCertListWithRecCertCondition);
+		System.out.println("recCertListWithRecCertCondition.size() RecCertController :" + recCertListWithRecCertCondition.size());
+		
+		List<InfoCert> infoCertListForRec = recCertService.recCertList(map);
+		System.out.println("infoCertListForRec RecCertController : " + infoCertListForRec);
+		System.out.println("infoCertListForRec.size() RecCertController : " + infoCertListForRec.size());
+		
+		List<RecWithInfoCert> recWithInfoCertList = new ArrayList<RecWithInfoCert>();
+		recWithInfoCertList = recCertService.recWithInfoCertList(recCertListWithRecCertCondition, infoCertListForRec);
+		System.out.println("recWithInfoCertList RecCertController : " + recWithInfoCertList);
+		
+		model.addAttribute("recWithInfoCertList", recWithInfoCertList);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);

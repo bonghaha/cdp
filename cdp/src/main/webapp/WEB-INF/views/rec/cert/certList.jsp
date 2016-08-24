@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
@@ -27,12 +27,12 @@
 			$("#certListAction").submit();
 		});
 		
-		/* ¼±ÅÃÇÑ ÃßÃµµé °èÈ¹À¸·Î º¸³»±â */
+		/* ì„ íƒí•œ ì¶”ì²œë“¤ ê³„íšìœ¼ë¡œ ë³´ë‚´ê¸° */
 		$("#goPlanCertInsert").click(function(){
-			var recCertCode = [];	//¹è¿­ ÃÊ±âÈ­
+			var recCertCode = [];	//ë°°ì—´ ì´ˆê¸°í™”
 			$("#certListAction").attr("action","/planCertInsert");
 			$("#recCertCheck:checked").each(function(){
-				recCertCode.push($(this).val());	//¹è¿­¿¡ Ã¼Å©µÈ°Íµé °¢°¢ÀÇ value °ª Çª½¬Çª½¬
+				recCertCode.push($(this).val());	//ë°°ì—´ì— ì²´í¬ëœê²ƒë“¤ ê°ê°ì˜ value ê°’ í‘¸ì‰¬í‘¸ì‰¬
 			});
 			$("#certListAction").submit();
 		});
@@ -43,94 +43,98 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- ÀÚ°İÁõ ¸®½ºÆ® -->
-			<h1>ÃßÃµ ÀÚ°İÁõ ¸®½ºÆ®</h1>
+			<!-- ìê²©ì¦ ë¦¬ìŠ¤íŠ¸ -->
+			<h1>ì¶”ì²œ ìê²©ì¦ ë¦¬ìŠ¤íŠ¸</h1>
 			<div>
 				<form id="certListAction" action="">
-					<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}">
+					<input type="hidden" name="jobdicSeq" value="${infoJob.jobdicSeq}">
+					<input type="hidden" name="recCertCode" value="${recCert.recCertCode}">
+					<input type="hidden" name="jmCd" value="${recCert.jmCd}">
 					<table>
 						<tr>
-							<th>¹øÈ£</th>
-							<th>ÀÚ°İÅ¸ÀÔ</th>
-							<th>½ÃÇàÃ³</th>
-							<th>ÀÚ°İÁõ¸í</th>
-							<th>ÃßÃµ»óÅÂ</th>
-							<th>ÃßÃµÀÌÀ¯</th>
-							<th>ÃßÃµ³»¿ë</th>
-							<th>ÃßÃµµî·ÏÀÏ</th>
+							<th>ì„ íƒ</th>
+							<th>ìê²©ì¦ì½”ë“œ</th>
+							<th>ìê²©ì¦ëª…</th>
+							<th>ëŒ€ì§ë¬´ë¶„ì•¼ëª…</th>
+							<th>ì¤‘ì§ë¬´ë¶„ì•¼ëª…</th>
+							<th>ì¶”ì²œìƒíƒœ</th>
+							<th>ì¶”ì²œì´ìœ </th>
+							<th>ì¶”ì²œë‚´ìš©</th>
+							<th>ì¶”ì²œë“±ë¡ì¼</th>
 						</tr>
-						<c:forEach var="rcl" items="${recCertListWithRecCertCondition}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+						<c:forEach var="rwicl" items="${recWithInfoCertList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 							<tr>
-								<td>${rcl.infoCertCode}</td>
-								<td>${rcl.infoCertType}</td>
-								<td>${rcl.infoCertInstitute}</td>
-								<td><a href="/infoCertDetail?infoCertCode=${rcl.infoCertCode}&searchType=${searchType}&searchWord=${searchWord}">${rcl.infoCertName}</a></td>
-								<td>${rcl.recCertCondition}</td>
-								<td>${rcl.recCertReason}</td>
-								<td>${rcl.recCertContent}</td>
-								<td>${rcl.recCertRegisterDate}</td>
+								<td><input id="recCertCheck" type="checkbox" name="recCertCode" value="${rwicl.recCertCode}"></td>
+								<td>${rwicl.jmCd}</td>
+								<td><a href="/infoCertDetail?jmCd=${rwicl.jmCd}&jobdicSeq=${rwicl.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${rwicl.jmFldNm}</a></td>
+								<td>${rwicl.obligFldNm}</td>
+								<td>${rwicl.mdobligFldNm}</td>
+								<td>${rwicl.recCertCondition}</td>
+								<td>${rwicl.recCertReason}</td>
+								<td>${rwicl.recCertContent}</td>
+								<td>${rwicl.recCertRegisterDate}</td>
 							</tr>
 						</c:forEach>
 					</table>
 					<div>
 						<span>
 							<select name="searchType">
-								<option value="">::°Ë»öÁ¶°Ç::</option>
-								<option value="info_cert_name">ÀÚ°İÁõ¸í</option>
-								<option value="info_cert_type">ÀÚ°İÅ¸ÀÔ</option>
-								<option value="info_cert_institute">½ÃÇàÃ³</option>
+								<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+								<option value="jmFldNm">ìê²©ì¦ëª…</option>
+								<option value="obligFldNm">ëŒ€ì§ë¬´ë¶„ì•¼ëª…</option>
+								<option value="mdobligFldNm">ì¤‘ì§ë¬´ë¶„ì•¼ëª…</option>
 							</select>
 						</span>
 						<span><input type="text" name="searchWord"/></span>
-						<span><input id="certSearch" type="button" value="°Ë»ö"/></span>
+						<span><input id="certSearch" type="button" value="ê²€ìƒ‰"/></span>
 					</div>
 					
-					<!-- ÆäÀÌÂ¡ -->
+					<!-- í˜ì´ì§• -->
 					<div>
-						<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 						<span>
-							<a href="/infoCertList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+							<a href="/recCertList?clickPage=1&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 						</span>
 						
-						<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage>1}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+								<a href="/recCertList?clickPage=${pageHelper.clickPage-1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 							</span>
 						</c:if>
 						
-						<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+						<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 						<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 							<c:choose>
 								<c:when test="${pageNo eq pageHelper.clickPage}">
-									<span><a href="/infoCertList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/recCertList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
 								</c:when>
 								<c:otherwise>
-									<span><a href="/infoCertList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/recCertList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						
-						<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+						<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+								<a href="/recCertList?clickPage=${pageHelper.clickPage+1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 							</span>
 						</c:if>
 						
-						<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+						<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+								<a href="/recCertList?clickPage=${pageHelper.clickPage+10}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 							</span>
 						</c:if>
 					</div>
 					
-					<!-- È¨À¸·Î °¡±â -->
+					<!-- í™ˆìœ¼ë¡œ ê°€ê¸° -->
 					<div>
-						<span><input id="goBack" type="button" value="µÚ·Î°¡±â"/></span>
+						<span><input id="goBack" type="button" value="ë’¤ë¡œê°€ê¸°"/></span>
 						<span><input id="goHome" type="button" value="HOME"/></span>
-						<span><input id="goRecCertInsert" type="button" value="ÀÚ°İÁõ¸®½ºÆ®º¸±â"/></span>
+						<span><input id="goRecCertInsert" type="button" value="ìê²©ì¦ë¦¬ìŠ¤íŠ¸ë³´ê¸°"/></span>
 					</div>
 				</form>
 			</div>

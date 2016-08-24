@@ -1,99 +1,118 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-	<title>CDP</title>
+<title>CDP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+	 #inlineBlock {
+	 	  border:1px solid #F6F6F6;
+		  width:400px; height:620px;  text-align:center;
+		  float:left;
+		  margin : 5px;
+		  margin-left : 25px;
+		  display:inline-block;
+		  
+	}
+	#inlineBlock1 {
+		  border:1px solid #F6F6F6;
+		  width:300px; height:410px;  text-align:center;
+		  float:left;
+		  margin : 5px;
+		  display:inline-block; 
+		  vertical-align:middle;
+	} 
+	 
+	#inlineBlock2 {
+		  border:1px solid #F6F6F6;
+		  width:300px; height:200px;  text-align:center;
+		  float:left;
+		  margin : 5px;
+		  display: inline-block;
+	} 
+
+	.a{
+    	display:table;
+    	margin-bottom: 9%;
+    	vertical-align: middle;
+    	margin-left: 9%;
+	}
+	
+	.fontMain{
+		font-weight: bold;
+		font-size: 40px;
+		color: white;
+	}
+	.fontSub{
+		
+		font-size: 20px;
+		color: white;
+	}
+	.fontMain1{
+		font-weight: bold;
+		font-size: 30px;
+		color: white;
+	}
+	.fontSub1{
+		font-size: 15px;
+		color: white;
+		
+		
+	}
+	.material-icons{vertical-align:-14%}
+</style>
 </head>
 <body>
 	<t:insertDefinition name="layout">
 	
 		<!-- body -->
 		<t:putAttribute name="body">
-			<h1>CDP</h1>
-			<c:choose>
-				<c:when test="${not empty sessionScope.memberLoginInfo}">
-					<h2>·Î±×ÀÎ ¼º°ø</h2>
-					<div>
-						<span>ÀÌ¸§ : ${sessionScope.memberLoginInfo.infoMemberName}</span>
-						<span>±ÇÇÑ : <c:out value="${sessionScope.memberLoginInfo.infoMemberLevel}"/></span> 
-						<span><a href="/logout">·Î±×¾Æ¿ô</a></span>
-					</div>
-					
-					<div>
-						<span><a href="/infoMemberList">È¸¿ø ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoVolunInsert">ºÀ»çÈ°µ¿ µî·Ï</a></span>
-						<span><a href="/infoVolunList">ºÀ»çÈ°µ¿ ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoBookInsert">µµ¼­ µî·Ï</a></span>
-						<span><a href="/infoBookList">µµ¼­ ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoCertInsert">ÀÚ°İÁõ µî·Ï</a></span>
-						<span><a href="/infoCertList">ÀÚ°İÁõ ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoContestInsert">°ø¸ğÀü µî·Ï</a></span>
-						<span><a href="/infoContestList">°ø¸ğÀü ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoDeptInsert">ÇĞ°ú µî·Ï</a></span>
-						<span><a href="/infoDeptList">ÇĞ°ú ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoJobInsert">Á÷¾÷ µî·Ï</a></span>
-						<span><a href="/infoJobList">Á÷¾÷¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoJobTInsert">Á÷¾÷ÈÆ·Ã µî·Ï</a></span>
-						<span><a href="/infoJobTList">Á÷¾÷ÈÆ·Ã ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoLangInsert">¾ğ¾î µî·Ï</a></span>
-						<span><a href="/infoLangList">¾ğ¾î ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoStudyAbInsert">¾îÇĞ¿¬¼ö µî·Ï</a></span>
-						<span><a href="/infoStudyAbList">¾îÇĞ¿¬¼ö ¸®½ºÆ®</a></span>
-					</div>
-					<div>
-						<span><a href="/infoSchoolInsert">ÇĞ±³ µî·Ï</a></span>
-						<span><a href="/infoSchoolList">ÇĞ±³ ¸®½ºÆ®</a></span>
-					</div>
-					<form action="/recBookList">
-						<div>
-							<span><input type="text" name="infoJobUnitName"></span>
-							<span><input type="submit" value="Á÷¾÷ÀÔ·Â"/></span>
-						</div>
-					</form>
-				</c:when>
-			
-				<c:otherwise>
-					<h2>·Î±×ÀÎ</h2>
-					<form action="/loginProcess" method="post">
-						<table>
-							<tr>
-								<td>ID</td>
-								<td><input type="text" name="infoMemberId"></td>
-							</tr>
-							<tr>
-								<td>PW</td>
-								<td><input type="password" name="infoMemberPw"></td>
-							</tr>
-							<tr>
-								<td><input type="submit" value="·Î±×ÀÎ"></td>
-								<td><input type="reset" value="¸®¼Â"></td>
-								<td><a href="/infoMemberInsert">È¸¿ø°¡ÀÔ</a></td>
-							</tr>
-						</table>
-					</form>
-				</c:otherwise>
-			</c:choose>
-			
-			
+		    <div class="a">
+		    	<div>
+		    		<!-- ê²½ë¡œ ë„£ì–´ì•¼ í•¨  -->
+		    		<a href="/" class="w3-btn w3-pink" id="inlineBlock">
+			    		<span>
+			    			<br/><br/><br/><br/><br/>
+			    			<font class="fontMain">í”„ë¡œì íŠ¸ ì†Œê°œ</font><br/><br/>
+			    			<font class="fontSub">í”„ë¡œì íŠ¸ì— ëŒ€í•œ ì†Œê°œì…ë‹ˆë‹¤.<br/>
+			    			(....ê°œë°œí™˜ê²½ ë“±)</font><br/><br/><br/><br/>
+			    			<img alt="" src="/resources/image/image.PNG" width="150" height="150">
+		    			</span>
+		    		</a>	
+		    	</div>
+	    		<div class="inlineBlockDiv">
+			    	<a href="/infoJobList" class="w3-btn w3-indigo " id="inlineBlock1"><br/>
+			    		<font class="fontMain1">ì»¤ë¦¬ì–´ í”Œë˜ë„ˆ</font><br/><br/>
+			    		<font class="fontSub1">ì›í•˜ëŠ” ì§ì—…ì— ëŒ€í•œ ë‚´ ê³„íšì„ ì§œ ë´…ì‹œë‹¤.</font><br/><br/><br/><br/>
+			    		<img alt="" src="/resources/image/image_plane.PNG" width="100" height="100">
+			    	</a>
+			    	<a href="/infoSchoolList" class="w3-btn w3-teal" id="inlineBlock2"><br/>
+			    		<font class="fontMain1">í•™êµ</font><br/><br/>
+			    		<font class="fontSub1">í•™êµì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ì…ë‹ˆë‹¤.</font><br/>
+			    		<img alt="" src="/resources/image/image_clock.PNG" width="100" height="80">
+			    	</a> 
+			    	<a href="/infoDeptList" class="w3-btn w3-deep-orange " id="inlineBlock2"><br/>
+			    		<font class="fontMain1">í•™ê³¼</font><br/><br/>
+			    		<font class="fontSub1">í•™ê³¼ì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ì…ë‹ˆë‹¤.</font><br/>
+			    		<img alt="" src="/resources/image/image_bar.PNG" width="100" height="80">
+			    	</a>
+			    	<a href="/infoJobListSub" class="w3-btn w3-blue" id="inlineBlock2"><br/>
+			    		<font class="fontMain1">ì§ì—…</font><br/><br/>
+			    		<font class="fontSub1">ì§ì—…ì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ì…ë‹ˆë‹¤.</font><br/>
+			    		<img alt="" src="/resources/image/image_person.png" width="100" height="80">
+			    	</a>
+			    	<a href="/infoCertList" class="w3-btn w3-amber" id="inlineBlock2"><br/>
+			    		<font class="fontMain1">ìê²©ì¦</font><br/><br/>
+			    		<font class="fontSub1">ìê²©ì¦ì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ì…ë‹ˆë‹¤.</font><br/>
+			    		<img alt="" src="/resources/image/image_briefcase.PNG" width="100" height="80">
+			    	</a>
+		    	</div>
+			</div>
 		</t:putAttribute>
 	</t:insertDefinition>
 </body>

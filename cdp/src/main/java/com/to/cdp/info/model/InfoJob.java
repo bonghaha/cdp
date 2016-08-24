@@ -1,96 +1,102 @@
 package com.to.cdp.info.model;
 
 public class InfoJob {
-	private String infoJobCode;			// 직업코드
-	private String infoJobdicSeq;		// 직업코드ID
-	private String infoJob;				// 직업명
-	private String infoProfession;		// 직업분야
-	private String infoAptdTypeCode;	// 적성유형별코드
-	private String infoJobCtgCode;		// 직업분류코드
-	private String infoSummary;			// 직업설명
-	private String infoSimilarJob;		// 유사직업
-	private String infoEqualemployment;	// 고용평등
-	private String infoPossibility;		// 발전가능성
-	private String infoProspect;		// 전망
-	private String infoSalery;			// 연봉
-	public String getInfoJobCode() {
-		return infoJobCode;
+	private String totalCount;			// 전체 검색 결과수
+	private String jobCode;				// 직업코드
+	private String jobdicSeq;			// 직업코드ID
+	private String job;					// 직업명
+	private String profession;			// 직업분야
+	private String aptdTypeCode;		// 적성유형별코드
+	private String jobCtgCode;			// 직업분류코드
+	private String summary;				// 직업설명
+	private String similarJob;			// 유사직업
+	private String equalemployment;		// 고용평등
+	private String possibility;			// 발전가능성
+	private String prospect;			// 전망
+	private String salery;				// 연봉
+	public String getTotalCount() {
+		return totalCount;
 	}
-	public void setInfoJobCode(String infoJobCode) {
-		this.infoJobCode = infoJobCode;
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
 	}
-	public String getInfoJobdicSeq() {
-		return infoJobdicSeq;
+	public String getJobCode() {
+		return jobCode;
 	}
-	public void setInfoJobdicSeq(String infoJobdicSeq) {
-		this.infoJobdicSeq = infoJobdicSeq;
+	public void setJobCode(String jobCode) {
+		this.jobCode = jobCode;
 	}
-	public String getInfoJob() {
-		return infoJob;
+	public String getJobdicSeq() {
+		return jobdicSeq;
 	}
-	public void setInfoJob(String infoJob) {
-		this.infoJob = infoJob;
+	public void setJobdicSeq(String jobdicSeq) {
+		this.jobdicSeq = jobdicSeq;
 	}
-	public String getInfoProfession() {
-		return infoProfession;
+	public String getJob() {
+		return job;
 	}
-	public void setInfoProfession(String infoProfession) {
-		this.infoProfession = infoProfession;
+	public void setJob(String job) {
+		this.job = job;
 	}
-	public String getInfoAptdTypeCode() {
-		return infoAptdTypeCode;
+	public String getProfession() {
+		return profession;
 	}
-	public void setInfoAptdTypeCode(String infoAptdTypeCode) {
-		this.infoAptdTypeCode = infoAptdTypeCode;
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
-	public String getInfoJobCtgCode() {
-		return infoJobCtgCode;
+	public String getAptdTypeCode() {
+		return aptdTypeCode;
 	}
-	public void setInfoJobCtgCode(String infoJobCtgCode) {
-		this.infoJobCtgCode = infoJobCtgCode;
+	public void setAptdTypeCode(String aptdTypeCode) {
+		this.aptdTypeCode = aptdTypeCode;
 	}
-	public String getInfoSummary() {
-		return infoSummary;
+	public String getJobCtgCode() {
+		return jobCtgCode;
 	}
-	public void setInfoSummary(String infoSummary) {
-		this.infoSummary = infoSummary;
+	public void setJobCtgCode(String jobCtgCode) {
+		this.jobCtgCode = jobCtgCode;
 	}
-	public String getInfoSimilarJob() {
-		return infoSimilarJob;
+	public String getSummary() {
+		return summary;
 	}
-	public void setInfoSimilarJob(String infoSimilarJob) {
-		this.infoSimilarJob = infoSimilarJob;
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
-	public String getInfoEqualemployment() {
-		return infoEqualemployment;
+	public String getSimilarJob() {
+		return similarJob;
 	}
-	public void setInfoEqualemployment(String infoEqualemployment) {
-		this.infoEqualemployment = infoEqualemployment;
+	public void setSimilarJob(String similarJob) {
+		this.similarJob = similarJob;
 	}
-	public String getInfoPossibility() {
-		return infoPossibility;
+	public String getEqualemployment() {
+		return equalemployment;
 	}
-	public void setInfoPossibility(String infoPossibility) {
-		this.infoPossibility = infoPossibility;
+	public void setEqualemployment(String equalemployment) {
+		this.equalemployment = equalemployment;
 	}
-	public String getInfoProspect() {
-		return infoProspect;
+	public String getPossibility() {
+		return possibility;
 	}
-	public void setInfoProspect(String infoProspect) {
-		this.infoProspect = infoProspect;
+	public void setPossibility(String possibility) {
+		this.possibility = possibility;
 	}
-	public String getInfoSalery() {
-		return infoSalery;
+	public String getProspect() {
+		return prospect;
 	}
-	public void setInfoSalery(String infoSalery) {
-		this.infoSalery = infoSalery;
+	public void setProspect(String prospect) {
+		this.prospect = prospect;
+	}
+	public String getSalery() {
+		return salery;
+	}
+	public void setSalery(String salery) {
+		this.salery = salery;
 	}
 	@Override
 	public String toString() {
-		return "InfoJob [infoJobCode=" + infoJobCode + ", infoJobdicSeq=" + infoJobdicSeq + ", infoJob=" + infoJob
-				+ ", infoProfession=" + infoProfession + ", infoAptdTypeCode=" + infoAptdTypeCode + ", infoJobCtgCode="
-				+ infoJobCtgCode + ", infoSummary=" + infoSummary + ", infoSimilarJob=" + infoSimilarJob
-				+ ", infoEqualemployment=" + infoEqualemployment + ", infoPossibility=" + infoPossibility
-				+ ", infoProspect=" + infoProspect + ", infoSalery=" + infoSalery + "]";
+		return "InfoJob [totalCount=" + totalCount + ", jobCode=" + jobCode + ", jobdicSeq=" + jobdicSeq + ", job="
+				+ job + ", profession=" + profession + ", aptdTypeCode=" + aptdTypeCode + ", jobCtgCode=" + jobCtgCode
+				+ ", summary=" + summary + ", similarJob=" + similarJob + ", equalemployment=" + equalemployment
+				+ ", possibility=" + possibility + ", prospect=" + prospect + ", salery=" + salery + "]";
 	}
 }

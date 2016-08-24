@@ -17,7 +17,24 @@ public class PlanUniteService {
 	private PlanUniteDao planUniteDao;
 	
 	// planUniteInsert
-	public int planUniteInsert(PlanUnite planUnite){
+	public int planUniteInsert(PlanUnite planUnite) {
+		String planUniteLastKey = "";
+		String planUniteCode = "";
+		String planUnitePre = "plan_unite_";
+		// 마지막으로 생성된 resume_unite_code 번호 select
+		planUniteLastKey = planUniteDao.planUniteLastKey();
+		
+		int lastKeyNum = 0;
+		if(planUniteLastKey == null){
+			lastKeyNum = lastKeyNum+1;
+		}else{
+			// resume_unite_을 제외한 번호만 뽑아내서 +1 시킴
+			lastKeyNum = Integer.parseInt(planUniteLastKey.substring(planUnitePre.length()))+1;
+		}
+		
+		// resume_unite_번호 셋팅
+		planUniteCode = planUnitePre + lastKeyNum;
+		planUnite.setPlanUniteCode(planUniteCode);
 		return planUniteDao.planUniteInsert(planUnite);
 	}
 	
@@ -31,12 +48,12 @@ public class PlanUniteService {
 		return planUniteDao.planUniteDelete(planUnite);
 	}
 	
-	// planUniteList
+	//planUniteList
 	public List<PlanUnite> planUniteList(PlanUnite planUnite){
 		return planUniteDao.planUniteList(planUnite);
 	}
 	
-	// planUniteDetail
+	//planUniteDetail
 	public PlanUnite planUniteDetail(PlanUnite planUnite){
 		return planUniteDao.planUniteDetail(planUnite);
 	}

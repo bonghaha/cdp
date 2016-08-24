@@ -1,26 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>certList</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#goHome").click(function(){
-			$("#certListAction").attr("action", "/home");
-			$("#certListAction").submit();
-		});
-		$("#goInsert").click(function(){
-			$("#certListAction").attr("action", "/infoCertInsert");
-			$("#certListAction").submit();
-		});
 		$("#certSearch").click(function(){
 			$("#certListAction").attr("action", "/infoCertList");
 			$("#certListAction").submit();
 		});
+		
+		// ìˆ˜ì •
+	    $('#btn_modify').on('click',function(){
+	        var id = $('#id').val();
+	        var pw = $('#pw').val();
+	        var name = $('#name').val();
+	        var age = $('#age').val();
+	        var gender = $('#gender').val();
+	 
+	        $.ajax({
+	            url:'/modifyById',
+	            type:'POST',
+	            data:{id:id,pw:pw,name:name,age:age,gender:gender},
+	            success:function(data){
+	                alert(data+'ë‹˜ ìˆ˜ì •');
+	                $('#btn_list').trigger('click');
+	            }
+	        });
+	    });
+		
+	    // ëª©ë¡
+	    $('#btn_list').on('click',function(){
+	        $.ajax({
+	            url:'/infoCertListJson',
+	            type:'post',
+// 	            dataType: "json",
+// 	            contentType: "application/json",
+	            success:function(data){
+	                $('#infoCertList').empty();
+	                $(data).each(function(index,item){
+	                    $('#infoCertList').append('<tr>');
+	                    $('#infoCertList').append('<td><input type="checkbox" class="ck" value="'+item.jmCd+'"></td>');
+	                    $('#infoCertList').append('<td>'+item.jmCd+'</td>');
+	                    $('#infoCertList').append('<td>'+item.jmFldNm+'</td>');
+	                    $('#infoCertList').append('<td>'+item.mdobligFldCd+'</td>');
+	                    $('#infoCertList').append('<td>'+item.mdobligFldNm+'</td>');
+	                    $('#infoCertList').append('<td>'+item.obligFldCd+'</td>');
+	                    $('#infoCertList').append('<td>'+item.obligFldNm+'</td>');
+	                    $('#infoCertList').append('<td>'+item.qualgbCd+'</td>');
+	                    $('#infoCertList').append('<td>'+item.qualgbNm+'</td>');
+	                    $('#infoCertList').append('<td>'+item.seriesCd+'</td>');
+	                    $('#infoCertList').append('<td>'+item.seriesNm+'</td>');
+	                    $('#infoCertList').append('</tr>');
+	                });
+	            },
+	        	error:function(data){
+	        		alert("ajaxì‹¤í–‰ ì•ˆë¨");
+	        	}
+	        });
+	    });
+		
+// 		$('#btn_list').trigger('click');	//ë¡œë”©ì´ ë˜ê³  ê°•ì œë¡œ í´ë¦­ì„ ì‹œí‚¤ê²Œ í•¨
 	});
 </script>
 </head>
@@ -28,60 +73,61 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">	
-			<!-- ÀÚ°İÁõ ¸®½ºÆ® -->
-			<h1>ÀÚ°İÁõ ¸®½ºÆ®</h1>
-			<div>
-				<table>
-					<tr>
-						<th>¹øÈ£</th>
-						<th>ÀÚ°İÅ¸ÀÔ</th>
-						<th>½ÃÇàÃ³</th>
-						<th>ÀÚ°İÁõ¸í</th>
+			<!-- ìê²©ì¦ ë¦¬ìŠ¤íŠ¸ -->
+			<div id="infoCert" align="center">
+			<h1>ìê²©ì¦ ë¦¬ìŠ¤íŠ¸</h1><br/>
+				<table class="w3-table w3-striped w3-border ">
+					<tr class="w3-dark-grey">
+						<th>ì¢…ëª©ëª…</th>
+						<th>ì¤‘ì§ë¬´ë¶„ì•¼ëª…</th>
+						<th>ëŒ€ì§ë¬´ë¶„ì•¼ëª…</th>
+						<th>ìê²©êµ¬ë¶„ëª…</th>
+						<th>ê³„ì—´ëª…</th>
 					</tr>
-					<c:forEach var="ic" items="${infoCertList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="icl" items="${infoCertList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
-							<td>${ic.infoCertCode}</td>
-							<td>${ic.infoCertType}</td>
-							<td>${ic.infoCertInstitute}</td>
-							<td><a href="/infoCertDetail?infoCertCode=${ic.infoCertCode}&searchType=${searchType}&searchWord=${searchWord}">${ic.infoCertName}</a></td>
-							
+							<td><a href="/infoCertDetail?jmCd=${icl.jmCd}&searchType=${searchType}&searchWord=${searchWord}" style="font-weight: bold;">${icl.jmFldNm}</a></td>
+							<td>${icl.mdobligFldNm}</td>
+							<td>${icl.obligFldNm}</td>
+							<td>${icl.qualgbNm}</td>
+							<td>${icl.seriesNm}</td>
 						</tr>
 					</c:forEach>
 				</table>
-				
+				<br/>
 				<form id="certListAction" action="">
 					<div>
 						<span>
 							<select name="searchType">
-								<option value="">::°Ë»öÁ¶°Ç::</option>
-								<option value="info_cert_name">ÀÚ°İÁõ¸í</option>
-								<option value="info_cert_type">ÀÚ°İÅ¸ÀÔ</option>
-								<option value="info_cert_institute">½ÃÇàÃ³</option>
+								<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+								<option value="jmFldNm">ìê²©ì¦ëª…</option>
+								<option value="obligFldNm">ëŒ€ì§ë¬´ë¶„ì•¼ëª…</option>
+								<option value="mdobligFldNm">ì¤‘ì§ë¬´ë¶„ì•¼ëª…</option>
 							</select>
 						</span>
 						<span><input type="text" name="searchWord"/></span>
-						<span><input id="certSearch" type="button" value="°Ë»ö"/></span>
+						<span><input id="certSearch" class="w3-btn w3-dark-grey" type="button" value="ê²€ìƒ‰"/></span>
 					</div>
 					
-					<!-- ÆäÀÌÂ¡ -->
+					<!-- í˜ì´ì§• -->
 					<div>
-						<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 						<span>
-							<a href="/infoCertList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+							<a href="/infoCertList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 						</span>
 						
-						<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage>1}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+								<a href="/infoCertList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 							</span>
 						</c:if>
 						
-						<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+						<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 						<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 							<c:choose>
 								<c:when test="${pageNo eq pageHelper.clickPage}">
-									<span><a href="/infoCertList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/infoCertList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page" style="font-weight: bold;">${pageNo}</font></a></span>
 								</c:when>
 								<c:otherwise>
 									<span><a href="/infoCertList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -89,30 +135,21 @@
 							</c:choose>
 						</c:forEach>
 						
-						<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+						<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+								<a href="/infoCertList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 							</span>
 						</c:if>
 						
-						<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+						<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 							<span>
-								<a href="/infoCertList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+								<a href="/infoCertList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 							</span>
 						</c:if>
 					</div>
-					
-					<!-- È¨À¸·Î °¡±â -->
-					<div>
-						<span>
-							<input id="goHome" type="button" value="È¨À¸·Î °¡±â"/>
-						</span>
-						<span>
-							<input id="goInsert" type="button" value="ÀÔ·Â"/>
-						</span>
-					</div>
+					<br/>
 				</form>
 			</div>
 		</t:putAttribute>

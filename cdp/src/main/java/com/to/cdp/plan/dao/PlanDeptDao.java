@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.plan.model.PlanDept;
+import com.to.cdp.plan.model.PlanUnite;
+import com.to.cdp.rec.model.RecDept;
 
 @Repository
 public class PlanDeptDao {
-	private final String NS="com.to.cdp.repository.CdpMapper";
+	private final String NS="com.to.cdp.repository.PlanMapper";
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -37,5 +39,18 @@ public class PlanDeptDao {
 	// planDeptDetail
 	public PlanDept planDeptDetail(PlanDept planDept){
 		return sqlSession.selectOne(NS + ".planDeptDetail", planDept);
+	}
+
+	public List<PlanDept> planDeptList(PlanUnite planUnite) {
+		return sqlSession.selectList(NS + ".planDeptList", planUnite);
+	}
+
+	// 마지막 코드번호 출력
+	public String planDeptLastKey() {
+		return sqlSession.selectOne(NS + ".planDeptLastKey");
+	}
+
+	public RecDept selectDeptMClass(RecDept recDept) {
+		return sqlSession.selectOne(NS + ".selectDeptMClass", recDept);
 	}
 }

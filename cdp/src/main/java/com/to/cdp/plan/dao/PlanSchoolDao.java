@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.plan.model.PlanSchool;
+import com.to.cdp.plan.model.PlanSchoolDetail;
+import com.to.cdp.plan.model.PlanUnite;
+import com.to.cdp.rec.model.RecSchool;
 
 @Repository
 public class PlanSchoolDao {
-	private final String NS="com.to.cdp.repository.CdpMapper";
+	private final String NS="com.to.cdp.repository.PlanMapper";
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -37,5 +40,30 @@ public class PlanSchoolDao {
 	// planSchoolDetail
 	public PlanSchool planSchoolDetail(PlanSchool planSchool){
 		return sqlSession.selectOne(NS + ".planSchoolDetail", planSchool);
+	}
+
+	public List<PlanSchool> planSchoolList(PlanUnite planUnite) {
+		return sqlSession.selectList(NS + ".planSchoolList", planUnite);
+	}
+
+	// 마지막 코드번호 구하기
+	public String planSchoolLastKey() {
+		return sqlSession.selectOne(NS + ".planSchoolLastKey");
+	}
+
+	public RecSchool selectSchoolName(RecSchool recSchool) {
+		return sqlSession.selectOne(NS + ".selectSchoolName", recSchool);
+	}
+
+	public int planSchoolDetailInsert(PlanSchoolDetail planSchoolDetail) {
+		return sqlSession.insert(NS + ".planSchoolDetailInsert", planSchoolDetail);
+	}
+
+	public String planSchoolDetailLastKey() {
+		return sqlSession.selectOne(NS + ".planSchoolDetailLastKey");
+	}
+
+	public List<PlanSchoolDetail> planSchoolDetailList(PlanSchoolDetail planSchoolDetail) {
+		return sqlSession.selectList(NS + ".planSchoolDetailList", planSchoolDetail);
 	}
 }

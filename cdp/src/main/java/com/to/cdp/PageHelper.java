@@ -1,19 +1,19 @@
 package com.to.cdp;
 
 public class PageHelper{
-	private final int FIRSTPAGE = 1;	// Ã¹ÆäÀÌÁö
-	private int lastPage;				// ¸¶Áö¸·ÆäÀÌÁö
-	private int blockSize;				// ºí¶ô»çÀÌÁî
-	private int eachFirstPage;			// °¢ ºí¶ô Ã¹¹øÂ° ÆäÀÌÁö
-	private int eachLastPage;			// °¢ ºí¶ô ¸¶Áö¸· ÆäÀÌÁö
-	private int preBlock;				// ÀÌÀüºí¶ô¹øÈ£
-	private int currentBlockNo;			// ÇöÀçºí¶ô¹øÈ£
-	private int nextBlock;				// ´ÙÀ½ºí¶ô¹øÈ£
-	private int linePerPage;			// ÆäÀÌÁö´ç±Û¼ö
-	private int startRow;				// ½ÃÀÛ±Û¹øÈ£
-	private int lastRow;				// ¸¶Áö¸·±Û¹øÈ£
-    private int clickPage;				// Å¬¸¯ÇÑ ÆäÀÌÁö¹øÈ£
-    private int totalCount;				// ÃÑ ÄÚµå ¼ö
+	private final int FIRSTPAGE = 1;	// ì²« í˜ì´ì§€
+	private int lastPage;				// ë§ˆì§€ë§‰ í˜ì´ì§€
+	private int blockSize;				// ë¸”ë½ ì‚¬ì´ì¦ˆ
+	private int eachFirstPage;			// ê° ë¸”ë½ ì²« í˜ì´ì§€
+	private int eachLastPage;			// ê° ë¸”ë½ ë§ˆì§€ë§‰ í˜ì´ì§€
+	private int preBlock;				// ì´ì „ë¸”ë½ë²ˆí˜¸
+	private int currentBlockNo;			// í˜„ì¬ë¸”ë½ë²ˆí˜¸
+	private int nextBlock;				// ë‹¤ìŒë¸”ë½ë²ˆí˜¸
+	private int linePerPage;			// ê° í˜ì´ì§€ë‹¹ row(ê¸€) ìˆ˜
+	private int startRow;				// ê° í˜ì´ì§€ ì²«ë²ˆì§¸ ê¸€ ë²ˆí˜¸
+	private int lastRow;				// ê° í˜ì´ì§€ ë§ˆì§€ë§‰ ê¸€ ë²ˆí˜¸
+    private int clickPage;				// í´ë¦­ í˜ì´ì§€
+    private int totalCount;				// ì „ì²´ ê¸€ ìˆ˜
     
 	public PageHelper(){
     	super();

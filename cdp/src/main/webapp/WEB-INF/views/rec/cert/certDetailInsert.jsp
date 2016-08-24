@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
@@ -25,37 +25,38 @@
 </head>
 <body>
 	<form id="certDetailInsertAction" action="">
-		<input type="hidden" name="infoJobCode" value="${infoJob.infoJobCode}"/>
-		<input type="hidden" name="infoCertCode" value="${infoCert.infoCertCode}"/>
+		<input type="hidden" name="jobdicSeq" value="${infoJob.jobdicSeq}"/>
+		<input type="hidden" name="jmCd" value="${infoCert.jmCd}"/>
+		<input type="hidden" name="jmFldNm" value="${recCert.jmFldNm}"/>
 		
 		<div>
-			<span>ÃßÃµÀÌÀ¯</span>
+			<span>ì¶”ì²œì´ìœ </span>
 		</div>
 		<div>
 			<textarea rows="10" cols="30" name="recCertReason"></textarea>
 		</div>
 		
 		<div>
-			<span>ÀÚ°ÝÁõ³»¿ë</span>
+			<span>ìžê²©ì¦ë‚´ìš©</span>
 		</div>
 		<div>
 			<textarea rows="10" cols="30" name="recCertContent"></textarea>
 		</div>
 		
 		<div>
-			<span>ÃßÃµ»óÅÂ</span>
+			<span>ì¶”ì²œìƒíƒœ</span>
 		</div>
 		<div>
 			<select name="recCertCondition">
-				<option value="">:::ÃßÃµ»óÅÂ:::</option>
-				<option value="Àû¿ë">Àû¿ë</option>
-				<option value="ºñÀû¿ë">ºñÀû¿ë</option>
+				<option value="">:::ì¶”ì²œìƒíƒœ:::</option>
+				<option value="ì ìš©">ì ìš©</option>
+				<option value="ë¹„ì ìš©">ë¹„ì ìš©</option>
 			</select>
 		</div>
 		
 		<div>		
-			<input type="button" id="insertCancel" value="Ãë¼Ò"/>
-			<input type="button" id="insertSubmit" value="µî·ÏÇÏ±â"/>
+			<input type="button" id="insertCancel" value="ì·¨ì†Œ"/>
+			<input type="button" id="insertSubmit" value="ë“±ë¡í•˜ê¸°"/>
 		</div>
 	</form>
 </body>

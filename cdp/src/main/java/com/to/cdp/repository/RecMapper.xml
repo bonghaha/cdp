@@ -5,130 +5,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.to.cdp.repository.RecMapper">
 
 <!--*****************************************************************
-	***************************RecBook*******************************
-	***************************************************************** -->
-	
-	<!-- recBookInsert -->
-	<insert id="recBookInsert"
-			parameterType="com.to.cdp.rec.model.RecBook">
-		INSERT INTO rec_book (
-			rec_book_code, 
-			info_book_code, 
-			rec_book_reason, 
-			rec_book_content, 
-			rec_book_condition, 
-			rec_book_registerdate,
-			info_job_code
-			)
-		VALUES (
-			#{recBookCode}, 
-			#{infoBookCode}, 
-			#{recBookReason}, 
-			#{recBookContent},
-			#{recBookCondition}, 
-			now(),
-			#{infoJobCode}
-			)
-	</insert>
-		
-	<!-- recBookCount  -->
-	<select id="recBookCount"
-			resultType="integer">
-		SELECT 
-			count(*) 
-		FROM rec_book
-	</select>
-	
-	<!-- 전체 도서 수 구하기 (조건검색 포함)-->
-	<select id="infoBookCountAtRec"
-			parameterType="java.util.Map"
-			resultType="integer">
-		SELECT 
-			count(*) 
-		FROM info_book
-		<where>
-			<if test="searchWord != null">
-				<choose>
-		 			<when test="searchType.equals('info_book_name')">
-						info_book_name LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_genre')">
-						info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_institute')">
-			 			info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_book_writer')">
-			 			info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					
-				</choose>
-			</if>
-		</where>
-	</select>
-	
-	<!-- 추천Book 리스트보기 -->
-	<select id="recBookListWithRecBookCondition"
-			parameterType="java.util.Map"
-			resultType="java.util.Map">
-		SELECT                                               
-			info_b.info_book_code infoBookCode,               
-			info_b.info_book_genre infoBookGenre,             
-			info_b.info_book_institute infoBookInstitute,     
-			info_b.info_book_writer infoBookWriter,           
-			info_b.info_book_name infoBookName,               
-			rec_b.rec_book_code recBookCode,                  
-			rec_b.rec_book_condition recBookCondition,
-			rec_b.rec_book_reason recBookReason,
-			rec_b.rec_book_content recBookContent,
-			rec_b.rec_book_registerdate recBookRegisterDate
-		FROM info_book info_b, rec_book rec_b                
-		WHERE rec_b.info_job_code = #{infoJob.infoJobCode}                                          
-		AND info_b.info_book_code = rec_b.info_book_code
-		<if test="searchWord != null">
-			<choose>
-	 			<when test="searchType.equals('info_book_name')">
-					AND info_b.info_book_name LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('info_book_genre')">
-					AND info_b.info_book_genre LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('info_book_institute')">
-		 			AND info_b.info_book_institute LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('info_book_writer')">
-		 			AND info_b.info_book_writer LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('rec_book_condition')">
-					AND rec_b.rec_book_condition LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-			</choose>
-		</if>
-	</select>
-<!--*****************************************************************
 	***************************RecCert*******************************
 	***************************************************************** -->
-	
+
+	<!-- recCertReason,content 가져오기 -->
+	<select id="recCertReason"
+			parameterType="com.to.cdp.rec.model.RecCert"
+			resultType="com.to.cdp.rec.model.RecCert">
+		SELECT
+			job,
+			jm_fld_nm jmFldNm,
+			rec_cert_reason recCertReason,
+			rec_cert_content recCertContent
+		FROM rec_cert
+		WHERE rec_cert_code = #{recCertCode}
+	</select>
+
 	<!-- recCertInsert -->
 	<insert id="recCertInsert"
 			parameterType="com.to.cdp.rec.model.RecCert">
 		INSERT INTO rec_cert (
 			rec_cert_code, 
-			info_cert_code, 
+			jobdic_seq,
+			jm_cd,
+			jm_fld_nm,
 			rec_cert_reason, 
 			rec_cert_content, 
 			rec_cert_condition, 
-			rec_cert_registerdate,
-			info_job_code
+			rec_cert_registerdate
 			)
 		VALUES (
 			#{recCertCode}, 
-			#{infoCertCode}, 
-			#{recCertReason}, 
+			#{jobdicSeq}, 
+			#{jmCd}, 
+			#{jmFldNm},
+			#{recCertReason},
 			#{recCertContent},
 			#{recCertCondition}, 
-			now(),
-			#{infoJobCode}
+			now()
 			)
 	</insert>
 		
@@ -150,15 +64,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<where>
 			<if test="searchWord != null">
 				<choose>
-		 			<when test="searchType.equals('info_cert_name')">
-						info_cert_name LIKE CONCAT('%', #{searchWord}, '%')
+		 			<when test="searchType.equals('jmFldNm')">
+						jmFldNm LIKE CONCAT('%', #{searchWord}, '%')
 					</when>
-					<when test="searchType.equals('info_cert_type')">
-						info_cert_type LIKE CONCAT('%', #{searchWord}, '%')
+					<when test="searchType.equals('obligFldNm')">
+						obligFldNm LIKE CONCAT('%', #{searchWord}, '%')
 					</when>
-					<when test="searchType.equals('info_cert_institute')">
-			 			info_cert_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>	
+					<when test="searchType.equals('mdobligFldNm')">
+			 			mdobligFldNm LIKE CONCAT('%', #{searchWord}, '%')
+					</when>		
 				</choose>
 			</if>
 		</where>
@@ -167,237 +81,290 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 추천Cert 리스트보기 -->
 	<select id="recCertListWithRecCertCondition"
 			parameterType="java.util.Map"
-			resultType="java.util.Map">
+			resultType="com.to.cdp.rec.model.RecCert">
 		SELECT                                               
-			info_c.info_cert_code infoCertCode,               
-			info_c.info_cert_type infoCertType,             
-			info_c.info_cert_institute infoCertInstitute,                
-			info_c.info_cert_name infoCertName,               
-			rec_c.rec_cert_code recCertCode,                  
-			rec_c.rec_cert_condition recCertCondition,
-			rec_c.rec_cert_reason recCertReason,
-			rec_c.rec_cert_content recCertContent,
-			rec_c.rec_cert_registerdate recCertRegisterDate
-		FROM info_cert info_c, rec_cert rec_c                
-		WHERE rec_c.info_job_code = #{infoJob.infoJobCode}                                          
-		AND info_c.info_cert_code = rec_c.info_cert_code
+			rec_cert_code recCertCode,               
+			jobdic_seq jobdicSeq,             
+			jm_cd jmCd,                
+			rec_cert_reason recCertReason,               
+			rec_cert_content recCertContent,                  
+			rec_cert_condition recCertCondition,
+			rec_cert_registerdate recCertRegisterDate
+		FROM rec_cert                
+		WHERE jobdic_seq = #{recCert.jobdicSeq}
 		<if test="searchWord != null">
 			<choose>
-	 			<when test="searchType.equals('info_cert_name')">
-					AND info_cert_name LIKE CONCAT('%', #{searchWord}, '%')
+	 			<when test="searchType.equals('jmFldNm')">
+					jmFldNm LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_cert_type')">
-					AND info_cert_type LIKE CONCAT('%', #{searchWord}, '%')
+				<when test="searchType.equals('obligFldNm')">
+					obligFldNm LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_cert_institute')">
-		 			AND info_cert_institute LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('rec_cert_condition')">
-					AND rec_cert_condition LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
+				<when test="searchType.equals('mdobligFldNm')">
+		 			mdobligFldNm LIKE CONCAT('%', #{searchWord}, '%')
+				</when>		
 			</choose>
 		</if>
 	</select>
 	
+	<!-- 계획디테일에서 ajax이용해서 recCertList 보여주기 -->
+	<select id="recCertListByAjax"
+			parameterType="com.to.cdp.plan.model.PlanUnite"
+			resultType="com.to.cdp.rec.model.RecWithInfoCert">
+		SELECT
+			rec_cert_code recCertCode,
+			jm_cd jmCd,
+			rec_cert_condition recCertCondition,
+			rec_cert_reason recCertReason,
+			rec_cert_content recCertContent,
+			jobdic_seq jobdicSeq
+		FROM rec_cert
+		WHERE jobdic_seq = #{jobdicSeq}
+	</select>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="recCertLastKey"
+			resultType="String">
+		SELECT 
+			rec_cert_code
+		FROM 
+			rec_cert
+		ORDER BY LENGTH(rec_cert_code) DESC, rec_cert_code DESC 
+		LIMIT 1;
+	</select>
+	
 	
 <!--*****************************************************************
-	***************************RecJobT*******************************
+	***************************RecDept*******************************
 	***************************************************************** -->
+
+	<!-- recDeptReason,content 가져오기 -->
+	<select id="recDeptReason"
+			parameterType="com.to.cdp.rec.model.RecDept"
+			resultType="com.to.cdp.rec.model.RecDept">
+		SELECT
+			job,
+			m_class mClass,
+			rec_dept_reason recDeptReason,
+			rec_dept_content recDeptContent
+		FROM rec_dept
+		WHERE rec_dept_code = #{recDeptCode}
+	</select>
 	
-	<!-- recJobTInsert -->
-	<insert id="recJobTInsert"
-			parameterType="com.to.cdp.rec.model.RecJobT">
-		INSERT INTO rec_jobt (
-			rec_jobt_code, 
-			info_jobt_code, 
-			rec_jobt_reason, 
-			rec_jobt_content, 
-			rec_jobt_condition, 
-			rec_jobt_registerdate,
-			info_job_code
+	<!-- recDeptInsert -->
+	<insert id="recDeptInsert"
+			parameterType="com.to.cdp.rec.model.RecDept">
+		INSERT INTO rec_dept (
+			rec_dept_code, 
+			major_seq,
+			m_class,
+			rec_dept_reason, 
+			rec_dept_content, 
+			rec_dept_condition, 
+			rec_dept_registerdate,
+			jobdic_seq
 			)
 		VALUES (
-			#{recJobTCode}, 
-			#{infoJobTCode}, 
-			#{recJobTReason}, 
-			#{recJobTContent},
-			#{recJobTCondition}, 
+			#{recDeptCode}, 
+			#{majorSeq},
+			#{mClass},
+			#{recDeptReason}, 
+			#{recDeptContent},
+			#{recDeptCondition}, 
 			now(),
-			#{infoJobCode}
+			#{jobdicSeq}
 			)
 	</insert>
 		
-	<!-- recJobTCount  -->
-	<select id="recJobTCount"
-			resultType="integer">
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="recDeptLastKey"
+			resultType="String">
 		SELECT 
-			count(*) 
-		FROM rec_jobt
+			rec_dept_code
+		FROM 
+			rec_dept
+		ORDER BY LENGTH(rec_dept_code) DESC, rec_dept_code DESC 
+		LIMIT 1;
 	</select>
 	
-	<!-- 전체 직업훈련 수 구하기 (조건검색 포함)-->
-	<select id="infoJobTCountAtRec"
+	<!-- 전체 학과 수 구하기 (조건검색 포함)-->
+	<select id="infoDeptCountAtRec"
 			parameterType="java.util.Map"
 			resultType="integer">
 		SELECT 
 			count(*) 
-		FROM info_jobt
+		FROM info_dept
 		<where>
 			<if test="searchWord != null">
 				<choose>
-		 			<when test="searchType.equals('info_jobt_target')">
-						info_jobt_target LIKE CONCAT('%', #{searchWord}, '%')
+		 			<when test="searchType.equals('lClass')">
+						lClass LIKE CONCAT('%', #{searchWord}, '%')
 					</when>
-					<when test="searchType.equals('info_jobt_location')">
-						info_jobt_location LIKE CONCAT('%', #{searchWord}, '%')
+					<when test="searchType.equals('mClass')">
+						mClass LIKE CONCAT('%', #{searchWord}, '%')
 					</when>
-					<when test="searchType.equals('info_jobt_institute')">
-			 			info_jobt_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>	
-					<when test="searchType.equals('info_jobt_course')">
-			 			info_jobt_course LIKE CONCAT('%', #{searchWord}, '%')
+					<when test="searchType.equals('facilName')">
+			 			facilName LIKE CONCAT('%', #{searchWord}, '%')
 					</when>	
 				</choose>
 			</if>
 		</where>
 	</select>
 	
-	<!-- 추천JobT 리스트보기 -->
-	<select id="recJobTListWithRecJobTCondition"
+	<!-- 추천Dept 리스트보기 -->
+	<select id="recDeptListWithRecDeptCondition"
 			parameterType="java.util.Map"
-			resultType="java.util.Map">
-		SELECT                                               
-			info_j.info_jobt_code infoJobTCode,               
-			info_j.info_jobt_target infoJobTTarget,             
-			info_j.info_jobt_location infoJobTLocation,                
-			info_j.info_jobt_institute infoJobTInstitute,               
-			info_j.info_jobt_course infoJobTCourse,               
-			info_j.info_jobt_startdate infoJobTStarDate,               
-			info_j.info_jobt_enddate infoJobTEndDate,               
-			rec_j.rec_jobt_code recJobTCode,                  
-			rec_j.rec_jobt_condition recJobTCondition,
-			rec_j.rec_jobt_reason recJobTReason,
-			rec_j.rec_jobt_content recJobTContent,
-			rec_j.rec_jobt_registerdate recJobTRegisterDate
-		FROM info_jobt info_j, rec_jobt rec_j                
-		WHERE rec_j.info_job_code = #{infoJob.infoJobCode}                                          
-		AND info_j.info_jobt_code = rec_j.info_jobt_code
+			resultType="com.to.cdp.rec.model.RecDept">
+		SELECT                                                             
+			rec_dept_code recDeptCode,    
+			major_seq majorSeq,              
+			rec_dept_condition recDeptCondition,
+			rec_dept_reason recDeptReason,
+			rec_dept_content recDeptContent,
+			rec_dept_registerdate recDeptRegisterDate,
+			jobdic_seq jobdicSeq
+		FROM rec_dept              
+		WHERE jobdic_seq = #{recDept.jobdicSeq}
 		<if test="searchWord != null">
 			<choose>
-	 			<when test="searchType.equals('info_jobt_target')">
-					AND info_jobt_target LIKE CONCAT('%', #{searchWord}, '%')
+	 			<when test="searchType.equals('info_dept_name')">
+					AND info_dept_name LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_jobt_location')">
-					AND info_jobt_location LIKE CONCAT('%', #{searchWord}, '%')
+				<when test="searchType.equals('info_dept_type')">
+					AND info_dept_type LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_jobt_institute')">
-		 			AND info_jobt_institute LIKE CONCAT('%', #{searchWord}, '%')
-				</when>	
-				<when test="searchType.equals('info_jobt_course')">
-		 			AND info_jobt_course LIKE CONCAT('%', #{searchWord}, '%')
-				</when>	
+				<when test="searchType.equals('info_dept_college')">
+		 			AND info_dept_college LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
+				<when test="searchType.equals('rec_dept_condition')">
+					AND rec_dept_condition LIKE CONCAT('%', #{searchWord}, '%')
+				</when>
 			</choose>
 		</if>
 	</select>
 	
-<!--*****************************************************************
-	***************************RecContest****************************
-	***************************************************************** -->
+	<!-- 계획디테일에서 ajax이용해서 recDeptList 보여주기 -->
+	<select id="recDeptListByAjax"
+			parameterType="com.to.cdp.plan.model.PlanUnite"
+			resultType="com.to.cdp.rec.model.RecWithInfoDept">
+		SELECT
+			rec_dept_code recDeptCode,
+			major_seq majorSeq,
+			rec_dept_condition recDeptCondition,
+			rec_dept_reason recDeptReason,
+			rec_dept_content recDeptContent,
+			jobdic_seq jobdicSeq
+		FROM rec_dept
+		WHERE jobdic_seq = #{jobdicSeq}
+	</select>
 	
-	<!-- recContestInsert -->
-	<insert id="recContestInsert"
-			parameterType="com.to.cdp.rec.model.RecContest">
-		INSERT INTO rec_contest (
-			rec_contest_code, 
-			info_contest_code, 
-			rec_contest_reason, 
-			rec_contest_content, 
-			rec_contest_condition, 
-			rec_contest_registerdate,
-			info_job_code
+		
+<!--*****************************************************************
+	***************************RecSchool*****************************
+	***************************************************************** -->
+
+	<!-- recSchoolReason,content 가져오기 -->
+	<select id="recSchoolReason"
+			parameterType="com.to.cdp.rec.model.RecSchool"
+			resultType="com.to.cdp.rec.model.RecSchool">
+		SELECT
+			job,
+			school_name schoolName,
+			rec_school_reason recSchoolReason,
+			rec_school_content recSchoolContent
+		FROM rec_school
+		WHERE rec_school_code = #{recSchoolCode}
+	</select>
+
+	<!-- recSchoolInsert -->
+	<insert id="recSchoolInsert"
+			parameterType="com.to.cdp.rec.model.RecSchool">
+		INSERT INTO rec_school (
+			rec_school_code, 
+			jobdic_seq,
+			job,
+			seq,
+			school_name,
+			rec_school_reason, 
+			rec_school_content, 
+			rec_school_condition, 
+			rec_school_registerdate
 			)
 		VALUES (
-			#{recContestCode}, 
-			#{infoContestCode}, 
-			#{recContestReason}, 
-			#{recContestContent},
-			#{recContestCondition}, 
-			now(),
-			#{infoJobCode}
+			#{recSchoolCode}, 
+			#{jobdicSeq},
+			#{job},
+			#{seq},
+			#{schoolName},
+			#{recSchoolReason}, 
+			#{recSchoolContent},
+			#{recSchoolCondition}, 
+			now()
 			)
 	</insert>
 		
-	<!-- recContestCount  -->
-	<select id="recContestCount"
-			resultType="integer">
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="recSchoolLastKey"
+			resultType="String">
+<!-- 		SELECT 
+			rec_school_code 
+		FROM 
+			rec_school
+		ORDER BY 
+			rec_school_registerdate
+		DESC
+		LIMIT 1;
+ -->
 		SELECT 
-			count(*) 
-		FROM rec_contest
+			rec_school_code
+		FROM 
+			rec_school
+		ORDER BY LENGTH(rec_school_code) DESC, rec_school_code DESC 
+		LIMIT 1;
 	</select>
 	
-	<!-- 전체 공모전 수 구하기 (조건검색 포함)-->
-	<select id="infoContestCountAtRec"
+	<!-- 추천School 리스트보기 -->
+	<select id="recSchoolListWithRecSchoolCondition"
 			parameterType="java.util.Map"
-			resultType="integer">
-		SELECT 
-			count(*) 
-		FROM info_contest
-		<where>
-			<if test="searchWord != null">
-				<choose>
-		 			<when test="searchType.equals('info_contest_name')">
-						info_contest_name LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_contest_prize')">
-						info_contest_prize LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_contest_institute')">
-			 			info_contest_institute LIKE CONCAT('%', #{searchWord}, '%')
-					</when>
-					<when test="searchType.equals('info_contest_content')">
-			 			info_contest_content LIKE CONCAT('%', #{searchWord}, '%')
-					</when>	
-				</choose>
-			</if>
-		</where>
-	</select>
-	
-	<!-- 추천Contest 리스트보기 -->
-	<select id="recContestListWithRecContestCondition"
-			parameterType="java.util.Map"
-			resultType="java.util.Map">
-		SELECT                                               
-			info_c.info_contest_code infoContestCode,               
-			info_c.info_contest_prize infoContestPrize,             
-			info_c.info_contest_institute infoContestInstitute,     
-			info_c.info_contest_content infoContestContent,           
-			info_c.info_contest_name infoContestName,               
-			rec_c.rec_contest_code recContestCode,                  
-			rec_c.rec_contest_condition recContestCondition,
-			rec_c.rec_contest_reason recContestReason,
-			rec_c.rec_contest_content recContestContent,
-			rec_c.rec_contest_registerdate recContestRegisterDate
-		FROM info_contest info_c, rec_contest rec_c                
-		WHERE rec_c.info_job_code = #{infoJob.infoJobCode}                                          
-		AND info_c.info_contest_code = rec_c.info_contest_code
+			resultType="com.to.cdp.rec.model.RecSchool">
+		SELECT              
+			rec_school_code recSchoolCode,
+			seq,
+			rec_school_condition recSchoolCondition,
+			rec_school_reason recSchoolReason,
+			rec_school_content recSchoolContent,
+			rec_school_registerdate recSchoolRegisterDate,
+			jobdic_seq jobdicSeq
+		FROM rec_school                
+		WHERE jobdic_seq = #{recSchool.jobdicSeq}                                          
 		<if test="searchWord != null">
 			<choose>
-	 			<when test="searchType.equals('info_contest_name')">
-					AND info_contest_name LIKE CONCAT('%', #{searchWord}, '%')
+	 			<when test="searchType.equals('region')">
+					AND region LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_contest_prize')">
-					AND info_contest_prize LIKE CONCAT('%', #{searchWord}, '%')
+				<when test="searchType.equals('schoolGubun')">
+					AND schoolGubun LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
-				<when test="searchType.equals('info_contest_institute')">
-		 			AND info_contest_institute LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('info_contest_content')">
-		 			AND info_contest_content LIKE CONCAT('%', #{searchWord}, '%')
-				</when>
-				<when test="searchType.equals('rec_contest_condition')">
-					AND rec_contest_condition LIKE CONCAT('%', #{searchWord}, '%')
+				<when test="searchType.equals('schoolName')">
+		 			AND schoolName LIKE CONCAT('%', #{searchWord}, '%')
 				</when>
 			</choose>
 		</if>
 	</select>
+	
+	<!-- 계획디테일에서 ajax이용해서 recSchoolList 보여주기 -->
+	<select id="recSchoolListByAjax"
+			parameterType="com.to.cdp.plan.model.PlanUnite"
+			resultType="com.to.cdp.rec.model.RecWithInfoSchool">
+		SELECT
+			rec_school_code recSchoolCode,
+			seq,
+			rec_school_condition recSchoolCondition,
+			rec_school_reason recSchoolReason,
+			rec_school_content recSchoolContent,
+			jobdic_seq jobdicSeq
+		FROM rec_school
+		WHERE jobdic_seq = #{jobdicSeq}
+	</select>
+	
 </mapper>

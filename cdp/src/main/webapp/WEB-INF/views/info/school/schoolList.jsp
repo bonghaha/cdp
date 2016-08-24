@@ -1,22 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>SchoolList</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#goHome").click(function(){
-			$("#schoolListAction").attr("action", "/home");
-			$("#schoolListAction").submit();
-		});
-		$("#goInsert").click(function(){
-			$("#schoolListAction").attr("action", "/infoSchoolInsert");
-			$("#schoolListAction").submit();
-		});
 		$("#schoolSearch").click(function(){
 			$("#schoolListAction").attr("action", "/infoSchoolList");
 			$("#schoolListAction").submit();
@@ -28,59 +21,68 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-		<!-- ÇĞ±³ ¸®½ºÆ® -->
-		<h1>ÇĞ±³ ¸®½ºÆ®</h1>
-		<div>
-			<table>
-				<tr>
-					<th>ÇĞ±³ÄÚµå</th>
-					<th>Áö¿ª</th>
-					<th>ÇĞ±³À¯Çü</th>
-					<th>ÇĞ±³¸í</th>
+		<!-- í•™êµ ë¦¬ìŠ¤íŠ¸ -->
+		<div id="infoSchool" align="center">
+			<h1>í•™êµ ë¦¬ìŠ¤íŠ¸</h1><br/>
+			<table class="w3-table w3-striped w3-border ">
+				<tr class="w3-dark-grey">
+					<%-- <th>í•™êµì½”ë“œ</th> --%>
+					<th>ì§€ì—­</th>
+					<th>ì„¤ë¦½ìœ í˜•</th>
+					<th>í•™êµìœ í˜•</th>
+					<th>í•™êµì¢…ë¥˜</th>
+					<th>í•™êµëª…</th>
+					<th>ì£¼ì†Œ</th>
+					<th>ë§í¬</th>
 				</tr>
-				<c:forEach var="is" items="${infoSchoolList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+				<c:forEach var="isl" items="${infoSchoolList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 					<tr>
-						<td>${is.infoSchoolCode}</td>
-						<td>${is.infoSchoolBigName}</td>
-						<td>${is.infoSchoolMiddleName}</td>
-						<td><a href="/infoSchoolDetail?infoSchoolCode=${is.infoSchoolCode}&searchType=${searchType}&searchWord=${searchWord}">${is.infoSchoolName}</a></td>
+						<%-- <td>${isl.seq}</td> --%>
+						<td>${isl.region}</td>
+						<td>${isl.estType}</td>
+						<td>${isl.schoolType}</td>
+						<td>${isl.schoolGubun}</td>
+						<td><a href="/infoSchoolDetail?seq=${isl.seq}&searchType=${searchType}&searchWord=${searchWord}" style="font-weight: bold;">${isl.schoolName}</a></td>
+						<td>${isl.adres}</td>
+						<td>${isl.link}</td>
 					</tr>
 				</c:forEach>
 			</table>
+			<br/>
 				<div>
 					<form id="schoolListAction" action="">
 						<div>
 							<span>
 								<select name="searchType">
-									<option value="">::°Ë»öÁ¶°Ç::</option>
-									<option value="info_school_bigname">Áö¿ª</option>
-									<option value="info_school_middlename">ÇĞ±³À¯Çü</option>
-									<option value="info_school_name">ÇĞ±³¸í</option>
+									<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+									<option value="region">ì§€ì—­</option>
+									<option value="schoolGubun">í•™êµì¢…ë¥˜</option>
+									<option value="schoolName">í•™êµëª…</option>
 								</select>
 							</span>
 							<span><input type="text" name="searchWord"/></span>
-							<span><input id="schoolSearch" type="button" value="°Ë»ö"/></span>
+							<span><input id="schoolSearch" class="w3-btn w3-dark-grey" type="button" value="ê²€ìƒ‰"/></span>
 						</div>
 						
-					<!-- ÆäÀÌÂ¡ -->
+					<!-- í˜ì´ì§• -->
 						<div>
-							<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 							<span>
-								<a href="/infoSchoolList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+								<a href="/infoSchoolList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 							</span>
 							
-							<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+							<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage>1}">
 								<span>
-									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 								</span>
 							</c:if>
 							
-							<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+							<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 							<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 								<c:choose>
 									<c:when test="${pageNo eq pageHelper.clickPage}">
-										<span><a href="/infoSchoolList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+										<span><a href="/infoSchoolList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page" style="font-weight: bold;">${pageNo}</font></a></span>
 									</c:when>
 									<c:otherwise>
 										<span><a href="/infoSchoolList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -88,30 +90,21 @@
 								</c:choose>
 							</c:forEach>
 							
-							<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+							<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 								<span>
-									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 								</span>
 							</c:if>
 							
-							<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+							<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 							<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 								<span>
-									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+									<a href="/infoSchoolList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 								</span>
 							</c:if>
 						</div>
-						
-						<!-- È¨À¸·Î °¡±â -->
-						<div>
-							<span>
-								<input id="goHome" type="button" value="È¨À¸·Î °¡±â"/>
-							</span>
-							<span>
-								<input id="goInsert" type="button" value="ÀÔ·Â"/>
-							</span>
-						</div>
+						<br/>
 					</form>
 				</div>
 			</div>

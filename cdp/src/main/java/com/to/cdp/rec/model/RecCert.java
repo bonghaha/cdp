@@ -3,25 +3,26 @@ package com.to.cdp.rec.model;
 public class RecCert {
 
 	
-	private String recCertCode; 		//ÃßÃµÀÚ°İÁõÄÚµå
-	//private String recUniteCode;		//ÃßÃµÅëÇÕÄÚµå
-	private String infoCertCode;		//ÀÚ°İÁõºĞ·ù¹øÈ£
-	private String recCertReason;		//ÃßÃµÀÌÀ¯
-	private String recCertContent;		//³»¿ë ¹× ÀıÀÚ
-	private String recCertCondition;	//±¸ºĞ(»óÅÂ)
-	private String recCertRegisterDate;	//Àû¿ë³âµµ
-	private String infoJobCode;
+	private String recCertCode; 		//
+	private String jmCd;				// ìê²©ì¦ ë¶„ë¥˜ì½”ë“œ
+	private String jmFldNm;				// ìê²©ì¦ëª…
+	private String recCertReason;		//
+	private String recCertContent;		//
+	private String recCertCondition;	//
+	private String recCertRegisterDate;	//
+	private String jobdicSeq;
+	private String job;
 	public String getRecCertCode() {
 		return recCertCode;
 	}
 	public void setRecCertCode(String recCertCode) {
 		this.recCertCode = recCertCode;
 	}
-	public String getInfoCertCode() {
-		return infoCertCode;
+	public String getJmCd() {
+		return jmCd;
 	}
-	public void setInfoCertCode(String infoCertCode) {
-		this.infoCertCode = infoCertCode;
+	public void setJmCd(String jmCd) {
+		this.jmCd = jmCd;
 	}
 	public String getRecCertReason() {
 		return recCertReason;
@@ -47,16 +48,28 @@ public class RecCert {
 	public void setRecCertRegisterDate(String recCertRegisterDate) {
 		this.recCertRegisterDate = recCertRegisterDate;
 	}
-	public String getInfoJobCode() {
-		return infoJobCode;
+	public String getJobdicSeq() {
+		return jobdicSeq;
 	}
-	public void setInfoJobCode(String infoJobCode) {
-		this.infoJobCode = infoJobCode;
+	public void setJobdicSeq(String jobdicSeq) {
+		this.jobdicSeq = jobdicSeq;
+	}
+	public String getJmFldNm() {
+		return jmFldNm;
+	}
+	public void setJmFldNm(String jmFldNm) {
+		this.jmFldNm = jmFldNm;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
 	}
 	@Override
 	public String toString() {
-		return "RecCert [recCertCode=" + recCertCode + ", infoCertCode=" + infoCertCode + ", recCertReason="
+		return "RecCert [recCertCode=" + recCertCode + ", jmCd=" + jmCd + ", jmFldNm=" + jmFldNm + ", recCertReason="
 				+ recCertReason + ", recCertContent=" + recCertContent + ", recCertCondition=" + recCertCondition
-				+ ", recCertRegisterDate=" + recCertRegisterDate + ", infoJobCode=" + infoJobCode + "]";
+				+ ", recCertRegisterDate=" + recCertRegisterDate + ", jobdicSeq=" + jobdicSeq + ", job=" + job + "]";
 	}
 }

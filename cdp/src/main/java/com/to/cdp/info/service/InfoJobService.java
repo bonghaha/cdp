@@ -1,34 +1,220 @@
 package com.to.cdp.info.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.BufferedInputStream;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
-import com.to.cdp.info.dao.InfoJobDao;
 import com.to.cdp.info.model.InfoJob;
+import com.to.cdp.info.model.InfoMember;
 
 @Service
 @Transactional
 public class InfoJobService {
 	
-	@Autowired
-	private InfoJobDao infoJobDao;
+	// apiInfoDeptList(대학교)
+	public ArrayList<InfoJob> infoJobList(String searchType, String searchWord) {
+		ArrayList<InfoJob> infoJobList = new ArrayList<InfoJob>();
+		
+		try {
+			// JSONParser 객체 생성
+			JSONParser jsonParser = new JSONParser();
+			//JSON데이터를 넣어 JSON Object 로 만들어 준다.
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(readUrl());
+			
+			JSONObject json =  (JSONObject) jsonObject.get("dataSearch");
+			//books의 배열을 추출
+			JSONArray jobInfoArray = (JSONArray) json.get("content");
+			System.out.println("searchType infoJobList() : " + searchType);
+			System.out.println("searchWord infoJobList() : " + searchWord);
+			
+			for(int i=0; i<jobInfoArray.size(); i++){
+				InfoJob infoJob = null;
+				//배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+				JSONObject jobObject = (JSONObject) jobInfoArray.get(i);
+				
+				
+				//조건검색 어케 줄여야 하지..???
+				if(searchType.equals("job")){
+					if(((String) jobObject.get("job")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else if(searchType.equals("profession")){
+					if(((String) jobObject.get("profession")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else if(searchType.equals("equalemployment")){
+					if(((String) jobObject.get("equalemployment")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else if(searchType.equals("possibility")){
+					if(((String) jobObject.get("possibility")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else if(searchType.equals("prospect")){
+					if(((String) jobObject.get("prospect")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else if(searchType.equals("salery")){
+					if(((String) jobObject.get("salery")).contains(searchWord)){
+						infoJob = new InfoJob();
+						infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+						infoJob.setJobCode((String) jobObject.get("job_code"));
+						infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+						infoJob.setJob((String) jobObject.get("job"));
+						infoJob.setProfession((String) jobObject.get("profession"));
+						infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+						infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+						infoJob.setSummary((String) jobObject.get("summary"));
+						infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+						infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+						infoJob.setPossibility((String) jobObject.get("possibility"));
+						infoJob.setProspect((String) jobObject.get("prospect"));
+						infoJob.setSalery((String) jobObject.get("salery"));
+						infoJobList.add(infoJob);
+					}
+				}else{
+					infoJob = new InfoJob();
+					//JSON name으로 추출
+					infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+					infoJob.setJobCode((String) jobObject.get("job_code"));
+					infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+					infoJob.setJob((String) jobObject.get("job"));
+					infoJob.setProfession((String) jobObject.get("profession"));
+					infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+					infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+					infoJob.setSummary((String) jobObject.get("summary"));
+					infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+					infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+					infoJob.setPossibility((String) jobObject.get("possibility"));
+					infoJob.setProspect((String) jobObject.get("prospect"));
+					infoJob.setSalery((String) jobObject.get("salery"));
+					infoJobList.add(infoJob);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("infoJobList.size() infoJobList() : " + infoJobList.size());
+		return infoJobList;
+	}
 	
+
+	// url읽기
+	public String readUrl() throws Exception{
+		BufferedInputStream reader = null;
+		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
+		String servicekey = "e910704456fd613f346b478c1f558c9b";
+		String parameter = "";
+		parameter = parameter + "&svcType=" + "api";
+		parameter = parameter + "&svcCode=" + "JOB";
+		parameter = parameter + "&contentType=" + "json";
+		parameter = parameter + "&gubun=" + "job_dic_list";
+		parameter = parameter + "&perPage=" + "1000";
+		
+//			System.out.println("searchWord InfoJobService : " + searchWord);
+		/*if(searchWord != ""){
+			parameter = parameter + "&" + "searchJobNm=" + searchWord;
+		}*/
+		
+		addr = addr + servicekey + parameter;
+		System.out.println(addr);
+		
+		try{
+			URL url = new URL(addr);
+			reader = new BufferedInputStream(url.openStream());
+			StringBuffer buffer = new StringBuffer();
+			int i;
+			byte[] b = new byte[4096];
+			while( (i = reader.read(b)) != -1 ){
+			buffer.append(new String(b, 0, i));
+			}
+			return buffer.toString();
+		}finally{
+            if(reader != null){
+            	reader.close();
+            }
+        }
+	}
+		
+/*	
 	// apiInfoJobList
-	public ArrayList<HashMap<String, Object>> infoJobList(String searchType, String searchWord) throws ParserConfigurationException, UnsupportedEncodingException{
+	public ArrayList<HashMap<String, Object>> infoJobList1(String searchType, String searchWord) throws ParserConfigurationException, UnsupportedEncodingException{
 		ArrayList<HashMap<String, Object>> infoJobList = new ArrayList<HashMap<String, Object>>();
 		
 		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
@@ -110,6 +296,8 @@ public class InfoJobService {
 		}
 		return infoJobList;
 	}
+*/	
+	
 //	
 //	public String restClient(String searchWord) throws Exception{
 //		String addr = "http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=";
@@ -149,10 +337,47 @@ public class InfoJobService {
 //	
 	// infoJobDetail
 	public InfoJob infoJobDetail(InfoJob infoJob){
-		System.out.println("infoJob InfoJobService : " + infoJob);
 		
-		
+		try {
+			// JSONParser 객체 생성
+			JSONParser jsonParser = new JSONParser();
+			//JSON데이터를 넣어 JSON Object 로 만들어 준다.
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(readUrl());
+			
+			JSONObject json =  (JSONObject) jsonObject.get("dataSearch");
+			//books의 배열을 추출
+			JSONArray jobInfoArray = (JSONArray) json.get("content");
+			String jobdicSeqForDetail = infoJob.getJobdicSeq();
+//			System.out.println("jobdicSeqForDetail InfoJobService : " + jobdicSeqForDetail);
+			
+			for(int i=0; i<jobInfoArray.size(); i++){
+				//배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+				JSONObject jobObject = (JSONObject) jobInfoArray.get(i);
+				String jobDicSeq = (String) jobObject.get("jobdicSeq");
+				
+				if(jobDicSeq.equals(jobdicSeqForDetail)){
+//					System.out.println("jobCode InfoJobService : " + jobDicSeq);
+					infoJob = new InfoJob();
+					//JSON name으로 추출
+					infoJob.setTotalCount((String) jobObject.get("totalCount")); 
+					infoJob.setJobCode((String) jobObject.get("job_code"));
+					infoJob.setJobdicSeq((String) jobObject.get("jobdicSeq"));
+					infoJob.setJob((String) jobObject.get("job"));
+					infoJob.setProfession((String) jobObject.get("profession"));
+					infoJob.setAptdTypeCode((String) jobObject.get("aptd_type_code"));
+					infoJob.setJobCtgCode((String) jobObject.get("job_ctg_code"));
+					infoJob.setSummary((String) jobObject.get("summary"));
+					infoJob.setSimilarJob((String) jobObject.get("similarJob"));
+					infoJob.setEqualemployment((String) jobObject.get("equalemployment"));
+					infoJob.setPossibility((String) jobObject.get("possibility"));
+					infoJob.setProspect((String) jobObject.get("prospect"));
+					infoJob.setSalery((String) jobObject.get("salery"));
+//					System.out.println("infoJob InfoJobService : " + infoJob);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return infoJob;
 	}
-
 }

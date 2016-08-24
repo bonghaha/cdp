@@ -1,69 +1,45 @@
 package com.to.cdp.info.model;
 
 public class InfoDept {
-	private String infoDeptCode;
-	private String infoDeptBigCode;
-	private String infoDeptBigName;
-	private String infoDeptMiddleCode;
-	private String infoDeptMiddleName;
-	private String infoDeptSmallCode;
-	private String infoDeptSmallName;
-	private String infoSchoolCode;
-	public String getInfoDeptCode() {
-		return infoDeptCode;
+	private String totalCount;	// 전체 검색 결과수
+	private String majorSeq;	// 학과코드
+	private String lClass;		// 계열
+	private String mClass;		// 학과명
+	private String facilName;	// 세부학과명
+	
+	public String getTotalCount() {
+		return totalCount;
 	}
-	public void setInfoDeptCode(String infoDeptCode) {
-		this.infoDeptCode = infoDeptCode;
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
 	}
-	public String getInfoDeptBigCode() {
-		return infoDeptBigCode;
+	public String getMajorSeq() {
+		return majorSeq;
 	}
-	public void setInfoDeptBigCode(String infoDeptBigCode) {
-		this.infoDeptBigCode = infoDeptBigCode;
+	public void setMajorSeq(String majorSeq) {
+		this.majorSeq = majorSeq;
 	}
-	public String getInfoDeptBigName() {
-		return infoDeptBigName;
+	public String getlClass() {
+		return lClass;
 	}
-	public void setInfoDeptBigName(String infoDeptBigName) {
-		this.infoDeptBigName = infoDeptBigName;
+	public void setlClass(String lClass) {
+		this.lClass = lClass;
 	}
-	public String getInfoDeptMiddleCode() {
-		return infoDeptMiddleCode;
+	public String getmClass() {
+		return mClass;
 	}
-	public void setInfoDeptMiddleCode(String infoDeptMiddleCode) {
-		this.infoDeptMiddleCode = infoDeptMiddleCode;
+	public void setmClass(String mClass) {
+		this.mClass = mClass;
 	}
-	public String getInfoDeptMiddleName() {
-		return infoDeptMiddleName;
+	public String getFacilName() {
+		return facilName;
 	}
-	public void setInfoDeptMiddleName(String infoDeptMiddleName) {
-		this.infoDeptMiddleName = infoDeptMiddleName;
-	}
-	public String getInfoDeptSmallCode() {
-		return infoDeptSmallCode;
-	}
-	public void setInfoDeptSmallCode(String infoDeptSmallCode) {
-		this.infoDeptSmallCode = infoDeptSmallCode;
-	}
-	public String getInfoDeptSmallName() {
-		return infoDeptSmallName;
-	}
-	public void setInfoDeptSmallName(String infoDeptSmallName) {
-		this.infoDeptSmallName = infoDeptSmallName;
-	}
-	public String getInfoSchoolCode() {
-		return infoSchoolCode;
-	}
-	public void setInfoSchoolCode(String infoSchoolCode) {
-		this.infoSchoolCode = infoSchoolCode;
+	public void setFacilName(String facilName) {
+		this.facilName = facilName;
 	}
 	@Override
 	public String toString() {
-		return "InfoDept [infoDeptCode=" + infoDeptCode + ", infoDeptBigCode=" + infoDeptBigCode + ", infoDeptBigName="
-				+ infoDeptBigName + ", infoDeptMiddleCode=" + infoDeptMiddleCode + ", infoDeptMiddleName="
-				+ infoDeptMiddleName + ", infoDeptSmallCode=" + infoDeptSmallCode + ", infoDeptSmallName="
-				+ infoDeptSmallName + ", infoSchoolCode=" + infoSchoolCode + "]";
+		return "InfoDept [totalCount=" + totalCount + ", majorSeq=" + majorSeq + ", lClass=" + lClass + ", mClass="
+				+ mClass + ", facilName=" + facilName + "]";
 	}
-	
-	
 }

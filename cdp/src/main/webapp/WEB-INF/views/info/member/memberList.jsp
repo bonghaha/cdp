@@ -9,10 +9,6 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#goHome").click(function(){
-			$("#memberListAction").attr("action", "/home");
-			$("#memberListAction").submit();
-		});
 		$("#memberSearch").click(function(){
 			$("#memberListAction").attr("action", "/infoMemberList");
 			$("#memberListAction").submit();
@@ -38,7 +34,7 @@
 					</tr>
 					<c:forEach var="iml" items="${infoMemberList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
-							<td><a href="/infoMemberDetail?infoMemberCode=${iml.infoMemberCode}&searchType=${searchType}&searchWord=${searchWord}">${iml.infoMemberId}</a></td>
+							<td><a href="/infoMemberDetail?infoMemberCode=${iml.infoMemberCode}&searchType=${searchType}&searchWord=${searchWord}" style="font-weight: bold;">${iml.infoMemberId}</a></td>
 							<td>${iml.infoMemberName}</td>
 							<td>${iml.infoMemberPhone}</td>
 							<td>${iml.infoMemberEmail}</td>
@@ -82,7 +78,7 @@
 							<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 								<c:choose>
 									<c:when test="${pageNo eq pageHelper.clickPage}">
-										<span><a href="/infoMemberList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+										<span><a href="/infoMemberList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page" style="font-weight: bold;">${pageNo}</font></a></span>
 									</c:when>
 									<c:otherwise>
 										<span><a href="/infoMemberList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -103,13 +99,6 @@
 									<a href="/infoMemberList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10페이지 뒤로</a>
 								</span>
 							</c:if>
-						</div>
-						
-						<!-- 홈으로 가기 -->
-						<div>
-							<span>
-								<input id="goHome" type="button" value="홈으로 가기"/>
-							</span>
 						</div>
 					</form>
 				</div>

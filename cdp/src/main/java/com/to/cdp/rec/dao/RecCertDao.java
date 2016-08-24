@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.info.model.InfoJob;
+import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.rec.model.RecCert;
+import com.to.cdp.rec.model.RecWithInfoCert;
 
 
 
@@ -44,19 +46,31 @@ public class RecCertDao {
 		return sqlSession.selectOne(NS + ".recCertDetail", recCert);
 	}
 	
-	// ÃßÃµÀÚ°İÁõ ÃÑ °³¼ö
+	// ï¿½ï¿½Ãµï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int infoCertCountAtRec(Map<String, Object> map) {
 		return sqlSession.selectOne(NS + ".infoCertCountAtRec", map);
 	}
 
-	// ÃßÃµÀÚ°İÁõÄÚµå¹øÈ£ Áõ°¡ À§ÇÑ count
+	// ï¿½ï¿½Ãµï¿½Ú°ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ count
 	public int recCertCount() {
 		return sqlSession.selectOne(NS + ".recCertCount");
 	}
 	
-	// ÃßÃµÀÚ°İÁõ¸®½ºÆ®
-	public List<Map<String, Object>> recCertListWithRecCertCondition(Map<String, Object> map) {
+	// ï¿½ï¿½Ãµï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	public List<RecCert> recCertListWithRecCertCondition(Map<String, Object> map) {
 		return sqlSession.selectList(NS + ".recCertListWithRecCertCondition", map);
+	}
+
+	public List<RecWithInfoCert> recCertListByAjax(PlanUnite planUnite) {
+		return sqlSession.selectList(NS + ".recCertListByAjax", planUnite);
+	}
+	// ì¶”ì²œìê²©ì¦ ë§ˆì§€ë§‰ì½”ë“œê°’ ê°€ì ¸ì˜¤ê¸°
+	public String recCertLastKey() {
+		return sqlSession.selectOne(NS + ".recCertLastKey");
+	}
+
+	public RecCert recCertReason(RecCert recCert) {
+		return sqlSession.selectOne(NS + ".recCertReason", recCert);
 	}
 
 }

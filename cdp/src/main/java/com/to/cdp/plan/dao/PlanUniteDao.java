@@ -10,7 +10,7 @@ import com.to.cdp.plan.model.PlanUnite;
 
 @Repository
 public class PlanUniteDao {
-	private final String NS="com.to.cdp.repository.CdpMapper";
+	private final String NS="com.to.cdp.repository.PlanMapper";
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -37,5 +37,15 @@ public class PlanUniteDao {
 	// planUniteDetail
 	public PlanUnite planUniteDetail(PlanUnite planUnite){
 		return sqlSession.selectOne(NS + ".planUniteDetail", planUnite);
+	}
+
+	// planUniteCount
+	public int planUniteCount() {
+		return sqlSession.selectOne(NS + ".planUniteCount");
+	}
+
+	// 마지막 코드값 가져오기
+	public String planUniteLastKey() {
+		return sqlSession.selectOne(NS + ".planUniteLastKey");
 	}
 }

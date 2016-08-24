@@ -1,6 +1,5 @@
 package com.to.cdp.info.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,40 +19,6 @@ public class InfoSchoolController {
 	@Autowired
 	private InfoSchoolService infoSchoolService;
 	
-	// 1. infoSchoolInsert
-	@RequestMapping(value="/infoSchoolInsert", method=RequestMethod.GET)
-	public String infoSchoolInsert(){
-		return "info/school/schoolInsert";
-	}
-	
-	@RequestMapping(value="/infoSchoolInsert", method=RequestMethod.POST)
-	public String infoSchoolInsert(InfoSchool infoSchool){
-		infoSchoolService.infoSchoolInsert(infoSchool);
-		return "redirect:/infoSchoolList";
-	}
-	
-	// 2. infoSchoolUpdate
-	@RequestMapping(value="/infoSchoolUpdate", method=RequestMethod.GET)
-	public String infoSchoolUpdate(){
-		return "infoSchoolUpdate";
-	}
-	
-	@RequestMapping(value="/infoSchoolUpdate", method=RequestMethod.POST)
-	public String infoSchoolUpdate(InfoSchool infoSchool){
-		return "infoSchoolDetail";
-	}
-	
-	// 3. infoSchoolDelete
-	@RequestMapping(value="/infoSchoolDelete", method=RequestMethod.GET)
-	public String infoSchoolDelete(){
-		return "infoSchoolDelete";
-	}
-	
-	@RequestMapping(value="/infoSchoolDelete", method=RequestMethod.POST)
-	public String infoSchoolDelete(InfoSchool infoSchool){
-		return "redirect:/infoSchoolList";
-	}
-	
 	// 4. infoSchoolList
 	@RequestMapping(value="/infoSchoolList", method=RequestMethod.GET)
 	public String infoSchoolList(
@@ -66,16 +31,13 @@ public class InfoSchoolController {
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
 		
-		map = new HashMap<>();
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
+		List<InfoSchool> infoSchoolList = infoSchoolService.infoSchoolList(map);	// ÌååÏã±Ìïú Í∞íÎì§(list) ListÏóê ÎÑ£Í∏∞
 		
-		int totalCount = infoSchoolService.infoSchoolCountBySearch(map);	// totalCount ±∏«œ±‚
-		pageHelper.pageSet(totalCount, linePerPage, clickPage, blockSize);	//∆‰¿Ã¡ˆ º¬∆√«œ±‚
+		pageHelper.pageSet(infoSchoolList.size(), linePerPage, clickPage, blockSize);	// ÌéòÏù¥ÏßÄ ÏÖãÌåÖ
 		System.out.println("pageHelper InfoSchoolController :" + pageHelper);
-		map.put("pageHelper", pageHelper);
 		
-		List<InfoSchool> infoSchoolList = infoSchoolService.infoSchoolList(map);
 		model.addAttribute("infoSchoolList", infoSchoolList);
 		model.addAttribute("pageHelper", pageHelper);
 		model.addAttribute("searchType", searchType);
@@ -93,10 +55,12 @@ public class InfoSchoolController {
 	public String infoSchoolDetail(
 			InfoSchool infoSchool, 
 			Model model,
+			@RequestParam(value="seq") String seq,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
 		
-		infoSchool = infoSchoolService.infoSchoolDetail(infoSchool);
+		System.out.println("seq InfoSchoolController : " + seq);
+		infoSchool = infoSchoolService.infoSchoolDetail(seq);
 		model.addAttribute("infoSchool", infoSchool);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);

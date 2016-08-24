@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.ResumeMapper">
+
+<!--*****************************************************************
+	***********************ResumeMemberInfo**************************
+	***************************************************************** -->
+
+	<!-- 이력서 보여줄 개인정보 select -->
+	<select id="resumeMemberDetail"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT
+			info_member_name infoMemberName,
+			info_member_birth infoMemberBirth,
+			info_member_phone infoMemberPhone,
+			info_member_email infoMemberEmail
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+
+
+<!--*****************************************************************
+	***************************ResumeSchool**************************
+	***************************************************************** -->
+
+	<!-- 학교리스트(초,중,고,대) select는 일단 보류 -->
+	
+	<!-- 이력서 최종학력디테일 select -->
+	<select id="resumeSchoolDetail"
+			parameterType="com.to.cdp.resume.model.ResumeSchool"
+			resultType="com.to.cdp.resume.model.ResumeSchool">
+		SELECT
+			resume_school_code resumeSchoolCode,
+			info_member_id infoMemberId,
+			gubun,
+			seq,
+			school_name schoolName,
+			resume_school_condition resumeSchoolCondition,
+			start_date startDate,
+			end_date endDate,
+			svc_code svcCode,
+			resume_school_registerdate resumeSchoolRegisterDate
+		FROM resume_school
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="resumeSchoolLastKey"
+			resultType="String">
+		SELECT 
+			resume_school_code 
+		FROM 
+			resume_school
+		ORDER BY 
+			resume_school_registerdate 
+		DESC
+		LIMIT 1;
+	</select>
+
+	<!-- 이력서 학교정보 저장 -->
+	<insert id="resumeSchoolInsert"
+			parameterType="com.to.cdp.resume.model.ResumeSchool">
+		INSERT INTO resume_school (
+			resume_school_code,
+			info_member_id, 
+			gubun,
+			seq,
+			school_name, 
+			resume_school_condition, 
+			start_date, 
+			end_date, 
+			svc_code, 
+			resume_school_registerdate
+		)
+		VALUES (
+			#{resumeSchoolCode}, 
+			#{infoMemberId}, 
+			#{gubun},
+			#{seq},
+			#{schoolName}, 
+			#{resumeSchoolCondition}, 
+			#{startDate}, 
+			#{endDate}, 
+			#{svcCode}, 
+			NOW()
+		)
+	</insert>
+	
+	<!-- 이력서 학교정보 수정 -->
+	<update id="resumeSchoolUpdate"
+			parameterType="com.to.cdp.resume.model.ResumeSchool">
+		UPDATE resume_school
+		SET
+			gubun = #{gubun},
+			seq = #{seq},
+			school_name = #{schoolName},
+			resume_school_condition = #{resumeSchoolCondition},
+			start_date = #{startDate},
+			end_date = #{endDate}
+		WHERE
+		info_member_id = #{infoMemberId}
+	</update>
+	
+
+<!--*****************************************************************
+	***************************ResumeDept****************************
+	***************************************************************** -->
+
+	<!-- 학과리스트 select는 일단 보류 -->
+
+	<!-- 이력서 최종학력의 학과 select -->
+	<select id="resumeDeptDetail"
+			parameterType="com.to.cdp.resume.model.ResumeDept"
+			resultType="com.to.cdp.resume.model.ResumeDept">
+		SELECT
+			resume_dept_code resumeDeptCode,
+			info_member_id infoMemberId,
+			major_seq majorSeq,
+			m_class mClass,
+			svc_code svcCode,
+			resume_dept_registerdate resumeDeptRegisterDate
+		FROM resume_dept
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="selectDeptLastKey"
+			resultType="String">
+		SELECT 
+			resume_dept_code 
+		FROM 
+			resume_dept
+		ORDER BY 
+			resume_dept_registerdate 
+		DESC
+		LIMIT 1;
+	</select>
+
+	<!-- 이력서 학교정보 저장 -->
+	<insert id="resumeDeptInsert"
+			parameterType="com.to.cdp.resume.model.ResumeDept">
+		INSERT INTO resume_dept (
+			resume_dept_code,
+			info_member_id, 
+			major_seq,
+			m_class,
+			svc_code, 
+			resume_dept_registerdate
+		)
+		VALUES (
+			#{resumeDeptCode}, 
+			#{infoMemberId}, 
+			#{majorSeq}, 
+			#{mClass}, 
+			#{svcCode}, 
+			NOW()
+		)
+	</insert>
+	
+	<!-- 이력서 학교정보 수정 -->
+	<update id="resumeDeptUpdate"
+			parameterType="com.to.cdp.resume.model.ResumeDept">
+		UPDATE resume_dept
+		SET
+			major_seq = #{majorSeq},
+			m_class = #{mClass}
+		WHERE
+		info_member_id = #{infoMemberId}
+	</update>
+
+
+<!--*****************************************************************
+	***************************ResumeCert****************************
+	***************************************************************** -->
+
+	<!-- 자격증리스트 select는 일단 보류 -->
+
+	<!-- 자격증 1개 select ===>>> 복수개 등록 가능하면 list로(복수개 출력) 바꾸기-->
+	<select id="resumeCertDetail"
+			parameterType="com.to.cdp.resume.model.ResumeCert"
+			resultType="com.to.cdp.resume.model.ResumeCert">
+		SELECT
+			resume_cert_code resumeCertCode,
+			info_member_id infoMemberId,
+			jm_cd jmCd,
+			jm_fld_nm jmFldNm,
+			acquire_date acquireDate,
+			resume_cert_registerdate resumeCertRegisterDate
+		FROM resume_cert
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="selectCertLastKey"
+			resultType="String">
+		SELECT 
+			resume_cert_code 
+		FROM 
+			resume_cert
+		ORDER BY 
+			resume_cert_registerdate 
+		DESC
+		LIMIT 1;
+	</select>
+
+	<!-- 이력서 자격증정보 저장 -->
+	<insert id="resumeCertInsert"
+			parameterType="com.to.cdp.resume.model.ResumeCert">
+		INSERT INTO resume_cert (
+			resume_cert_code,
+			info_member_id, 
+			jm_cd,
+			jm_fld_nm,
+			acquire_date, 
+			resume_cert_registerdate
+		)
+		VALUES (
+			#{resumeCertCode}, 
+			#{infoMemberId}, 
+			#{jmCd}, 
+			#{jmFldNm}, 
+			#{acquireDate}, 
+			NOW()
+		)
+	</insert>
+	
+	<!-- 이력서 자격증정보 수정 -->
+	<update id="resumeCertUpdate"
+			parameterType="com.to.cdp.resume.model.ResumeCert">
+		UPDATE resume_cert
+		SET
+			jm_cd = #{jmCd},
+			jm_fld_nm = #{jmFldNm},
+			acquire_date = #{acquireDate}
+		WHERE
+		info_member_id = #{infoMemberId}
+	</update>
+
+</mapper>

@@ -1,10 +1,10 @@
 package com.to.cdp;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,9 +37,9 @@ public class LoginController {
 	// 로그아웃
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.setAttribute("memberLoginInfo", null);
+		session.setAttribute("memberLoginId", null);
 		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/home";
 	}
 	
 	// 로그인 처리
@@ -47,14 +47,24 @@ public class LoginController {
 	public String loginProcess(
 			InfoMember infoMember, 
 			HttpSession session, 
-			HttpServletRequest request) {
-		infoMember.setInfoMemberId(infoMember.getInfoMemberId());
-		infoMember.setInfoMemberPw(infoMember.getInfoMemberPw());
-		InfoMember loginMember = infoMemberService.findByUserIdAndPassword(infoMember);
-		
-		if (loginMember != null) {
-			session.setAttribute("memberLoginInfo", loginMember);
+			Model model) {
+		String loginId = infoMember.getInfoMemberId();
+		String loginPw = infoMember.getInfoMemberPw();
+		infoMember.setInfoMemberId(loginId);
+		infoMember.setInfoMemberPw(loginPw);
+		infoMember = infoMemberService.findByUserIdAndPassword(infoMember);
+		System.out.println("infoMember LoginController : " + infoMember);
+
+		String result = "";
+		if(infoMember == null){
+			model.addAttribute("loginHelper", "로그인 실패");
+			result = "login";
 		}
-		return "redirect:/login";
+		if(infoMember != null) {
+			session.setAttribute("memberLoginId", loginId);
+			model.addAttribute("infoMember", infoMember);
+			result = "home";
+		}
+		return result;
 	}
 }

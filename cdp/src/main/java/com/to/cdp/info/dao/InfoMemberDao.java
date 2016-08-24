@@ -53,4 +53,20 @@ public class InfoMemberDao {
 	public InfoMember findByUserIdAndPassword(InfoMember infoMember) {
 		return sqlSession.selectOne(NS + ".findByUserIdAndPassword", infoMember);
 	}
+
+	public int infoMemberIdCheck(String infoMemberId) {
+		return sqlSession.selectOne(NS + ".infoMemberIdCheck", infoMemberId);
+	}
+
+	public InfoMember loginMemberDetail(InfoMember infoMember) {
+		return sqlSession.selectOne(NS + ".loginMemberDetail", infoMember);
+	}
+
+	public String infoMemberLastKey() {
+		return sqlSession.selectOne(NS + ".infoMemberLastKey");
+	}
+
+	public InfoMember selectInfoMemberLevel(InfoMember infoMember) {
+		return sqlSession.selectOne(NS + ".selectInfoMemberLevel", infoMember);
+	}
 }

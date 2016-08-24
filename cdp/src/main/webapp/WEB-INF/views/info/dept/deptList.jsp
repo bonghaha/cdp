@@ -1,86 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DeptList</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#goHome").click(function(){
-			$("#deptListAction").attr("action", "/home");
-			$("#deptListAction").submit();
-		});
-		$("#goInsert").click(function(){
-			$("#deptListAction").attr("action", "/infoDeptInsert");
-			$("#deptListAction").submit();
-		});
 		$("#deptSearch").click(function(){
 			$("#deptListAction").attr("action", "/infoDeptList");
 			$("#deptListAction").submit();
 		});
 	});
 </script>
+<style>
+.infoDept {
+	width: 80%;
+}
+
+</style>
 </head>
 <body>
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- ÇĞ°ú ¸®½ºÆ® -->
-			<h1>ÇĞ°ú ¸®½ºÆ®</h1>
-			<div>
-				<table>
-					<tr>
-						<th>¹øÈ£</th>
-						<th>ÇĞ°ú°è¿­</th>
-						<th>ÇĞºÎ</th>
-						<th>ÇĞ°ú¸í</th>
+			<!-- í•™ê³¼ ë¦¬ìŠ¤íŠ¸ -->
+			<div id="infoDept" align="center">
+				<h1>í•™ê³¼ ë¦¬ìŠ¤íŠ¸</h1><br/>
+				<table class="w3-table w3-striped w3-border ">
+					<tr class="w3-dark-grey">
+						<th>ê³„ì—´</th>
+						<th>í•™ê³¼</th>
 					</tr>
-					<c:forEach var="id" items="${infoDeptList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
+					<c:forEach var="idl" items="${infoDeptList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 						<tr>
-							<td>${id.infoDeptCode}</td>
-							<td>${id.infoDeptBigName}</td>
-							<td>${id.infoDeptMiddleName}</td>
-							<td><a href="/infoDeptDetail?infoDeptCode=${id.infoDeptCode}&searchType=${searchType}&searchWord=${searchWord}">${id.infoDeptSmallName}</a></td>
+							<td>${idl.lClass}</td>
+							<td><a href="/infoDeptDetail?majorSeq=${idl.majorSeq}&searchType=${searchType}&searchWord=${searchWord}" style="font-weight: bold;">${idl.mClass}</a></td>
 						</tr>
 					</c:forEach>
 				</table>
+				<br/>
 				<form id="deptListAction" action="">
 					<div>
 						<span>
 							<select name="searchType">
-								<option value="">::°Ë»öÁ¶°Ç::</option>
-								<option value="info_dept_bigname">ÇĞ°ú°è¿­</option>
-								<option value="info_dept_middlename">ÇĞºÎ</option>
-								<option value="info_dept_smallname">ÇĞ°ú¸í</option>
+								<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+								<option value="lClass">ê³„ì—´</option>
+								<option value="mClass">í•™ê³¼</option>
+								<option value="facilName">ì„¸ë¶€í•™ê³¼ëª…</option>
 							</select>
 						</span>
 						<span><input type="text" name="searchWord"/></span>
-						<span><input id="deptSearch" type="button" value="°Ë»ö"/></span>
+						<span><input id="deptSearch" class="w3-btn w3-dark-grey" type="button" value="ê²€ìƒ‰"/></span>
 					</div>
 					
-					<!-- ÆäÀÌÂ¡ -->
+					<!-- í˜ì´ì§• -->
 					<div>
 					
-						<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 						<span>
-							<a href="/infoDeptList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+							<a href="/infoDeptList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 						</span>
 						
-						<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage>1}">
 							<span>
-								<a href="/infoDeptList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+								<a href="/infoDeptList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 							</span>
 						</c:if>
 						
-						<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+						<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 						<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 							<c:choose>
 								<c:when test="${pageNo eq pageHelper.clickPage}">
-									<span><a href="/infoDeptList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/infoDeptList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page" style="font-weight: bold;">${pageNo}</font></a></span>
 								</c:when>
 								<c:otherwise>
 									<span><a href="/infoDeptList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -88,29 +84,19 @@
 							</c:choose>
 						</c:forEach>
 						
-						<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+						<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 							<span>
-								<a href="/infoDeptList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+								<a href="/infoDeptList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 							</span>
 						</c:if>
 						
-						<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+						<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 							<span>
-								<a href="/infoDeptList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+								<a href="/infoDeptList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 							</span>
 						</c:if>
-					</div>
-					
-					<!-- È¨À¸·Î °¡±â -->
-					<div>
-						<span>
-							<input id="goHome" type="button" value="È¨À¸·Î °¡±â"/>
-						</span>
-						<span>
-							<input id="goInsert" type="button" value="ÀÔ·Â"/>
-						</span>
 					</div>
 				</form>
 			</div>

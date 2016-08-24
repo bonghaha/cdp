@@ -1,6 +1,5 @@
 package com.to.cdp.info.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,44 +19,11 @@ public class InfoDeptController {
 	@Autowired
 	private InfoDeptService infoDeptService;
 	
-	// 1. infoDeptInsert
-	@RequestMapping(value="/infoDeptInsert", method=RequestMethod.GET)
-	public String infoDeptInsert(){
-		return "info/dept/deptInsert";
-	}
-	
-	@RequestMapping(value="/infoDeptInsert", method=RequestMethod.POST)
-	public String infoDeptInsert(InfoDept infoDept){
-		infoDeptService.infoDeptInsert(infoDept);
-		return "redirect:/infoDeptList";
-	}
-	
-	// 2. infoDeptUpdate
-	@RequestMapping(value="/infoDeptUpdate", method=RequestMethod.GET)
-	public String infoDeptUpdate(){
-		return "infoDeptUpdate";
-	}
-	
-	@RequestMapping(value="/infoDeptUpdate", method=RequestMethod.POST)
-	public String infoDeptUpdate(InfoDept infoDept){
-		return "infoDeptDetail";
-	}
-	
-	// 3. infoDeptDelete
-	@RequestMapping(value="/infoDeptDelete", method=RequestMethod.GET)
-	public String infoDeptDelete(){
-		return "infoDeptDelete";
-	}
-	
-	@RequestMapping(value="/infoDeptDelete", method=RequestMethod.POST)
-	public String infoDeptDelete(InfoDept infoDept){
-		return "redirect:/infoDeptList";
-	}
-	
 	// 4. infoDeptList
 	@RequestMapping(value="/infoDeptList", method=RequestMethod.GET)
 	public String infoDeptList(
 			Model model,
+			InfoDept infoDept,
 			Map<String, Object> map,
 			PageHelper pageHelper,
 			@RequestParam(value="clickPage", defaultValue = "1") int clickPage,
@@ -65,21 +31,20 @@ public class InfoDeptController {
 			@RequestParam(value="blockSize", defaultValue = "10") int blockSize,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
-			map = new HashMap<>();
-			map.put("searchType", searchType);
-			map.put("searchWord", searchWord);
 			
-			int totalCount = infoDeptService.infoDeptCountBySearch(map);	// totalCount ±∏«œ±‚
-			pageHelper.pageSet(totalCount, linePerPage, clickPage,blockSize);	//∆‰¿Ã¡ˆ º¬∆√«œ±‚
-			System.out.println("pageHelper InfoDeptController :" + pageHelper);
-			map.put("pageHelper", pageHelper);
-			
-			List<InfoDept> infoDeptList = infoDeptService.infoDeptList(map);
-			model.addAttribute("infoDeptList", infoDeptList);
-			model.addAttribute("pageHelper", pageHelper);
-			model.addAttribute("searchType", searchType);
-			model.addAttribute("searchWord", searchWord);
-			return "info/dept/deptList";
+		map.put("searchType", searchType);
+		map.put("searchWord", searchWord);
+		List<InfoDept> infoDeptList = infoDeptService.infoDeptList(map);	// ÌååÏã±Ìïú Í∞íÎì§(list) ListÏóê ÎÑ£Í∏∞
+		
+		pageHelper.pageSet(infoDeptList.size(), linePerPage, clickPage, blockSize);	// ÌéòÏù¥ÏßÄ ÏÖãÌåÖ
+		System.out.println("pageHelper InfoDeptController :" + pageHelper);
+		System.out.println("infoDeptList InfoDeptController :" + infoDeptList.size());
+		
+		model.addAttribute("infoDeptList", infoDeptList);
+		model.addAttribute("pageHelper", pageHelper);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
+		return "info/dept/deptList";
 	}
 	
 	@RequestMapping(value="/infoDeptList", method=RequestMethod.POST)
@@ -92,9 +57,11 @@ public class InfoDeptController {
 	public String infoDeptDetail(
 			InfoDept infoDept, 
 			Model model,
+			@RequestParam(value="majorSeq") String majorSeq,
 			@RequestParam(value="searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value="searchWord", required = false, defaultValue = "") String searchWord){
-		infoDept = infoDeptService.infoDeptDetail(infoDept);
+		
+		infoDept = infoDeptService.infoDeptDetail(majorSeq);
 		model.addAttribute("infoDept", infoDept);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);

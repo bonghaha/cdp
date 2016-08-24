@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +23,51 @@ public class InfoMemberController {
 	private InfoMemberService infoMemberService;
 	
 	// 0 . index
-	@RequestMapping(value="/home", method=RequestMethod.GET)
-	public String index(){
+	@RequestMapping(value="/home")
+	public String home(
+			InfoMember infoMember, 
+			HttpSession session,
+			Model model){
+		infoMember.setInfoMemberId((String) session.getAttribute("memberLoginId"));
+		infoMember = infoMemberService.loginMemberDetail(infoMember);
+		System.out.println("infoMember LoginController : " + infoMember);
+//		if(session.getAttribute("memberLoginId") == null){
+////			model.addAttribute("loginHelper", "로그인이 필요합니다");
+//			session.setAttribute("memberLoginId", null);
+//			session.invalidate();
+//		}
+		if(session.getAttribute("memberLoginId") != null) {
+			model.addAttribute("infoMember", infoMember);
+		}
+		return "home";
+	}
+	
+	@RequestMapping(value="/homeByCancel")
+	public String homeByCancel(){
 		return "home";
 	}
 	
 	// 1. infoMemberInsert
 	@RequestMapping(value="/infoMemberInsert", method=RequestMethod.GET)
 	public String infoMemberInsert(){
+		return "info/member/memberInsert";
+	}
+	
+	// 아이디 중복확인
+	@RequestMapping(value="/infoMemberIdCheck", method=RequestMethod.GET)
+	public String infoMemberIdCheck(
+			Model model,
+			@RequestParam(value="infoMemberId") String infoMemberId){
+		
+		System.out.println("infoMemberIdCheck InfoMemberController 실행!!");
+		int idCheckResult = infoMemberService.infoMemberIdCheck(infoMemberId);
+		if(idCheckResult == 0){
+			model.addAttribute("infoMemberId", infoMemberId);
+			model.addAttribute("infoMemberIdHelper", "사용가능한 아이디입니다");
+		}else if(idCheckResult != 0){
+			model.addAttribute("infoMemberIdHelper", "중복된 아이디가 존재합니다");
+		}
+		model.addAttribute("idCheckResult", idCheckResult);
 		return "info/member/memberInsert";
 	}
 	

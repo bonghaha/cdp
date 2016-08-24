@@ -1,13 +1,74 @@
 package com.to.cdp.rec.model;
 
 public class RecDept {
-
-	
-	private String recDeptCode; 		//ÃßÃµÇĞ°úÄÚµå
-	private String recUniteCode;		//ÃßÃµÅëÇÕÄÚµå
-	private String infoDeptCode;		//ÇĞ°úºĞ·ù¹øÈ£
-	private String recDeptReason;		//ÃßÃµÀÌÀ¯
-	private String recDeptContent;		//³»¿ë ¹× ÀıÀÚ
-	private String recDeptCondition;	//±¸ºĞ(»óÅÂ)
-	private String recDeptRegisterDate;	//Àû¿ë³âµµ
+	private String recDeptCode; 		// ì¶”ì²œí•™ê³¼ì½”ë“œ
+	private String jobdicSeq;			// ì§ì—…ì½”ë“œ
+	private String job;
+	private String majorSeq;			// í•™ê³¼ì½”ë“œ
+	private String mClass;				// í•™ê³¼ëª…
+	private String recDeptReason;		// ì¶”ì²œí•™ê³¼ì´ìœ 
+	private String recDeptContent;		// ì¶”ì²œí•™ê³¼ë‚´ìš©
+	private String recDeptCondition;	// ì¶”ì²œí•™ê³¼ìƒíƒœ
+	private String recDeptRegisterDate;	// ì¶”ì²œí•™ê³¼ë“±ë¡ì¼
+	public String getRecDeptCode() {
+		return recDeptCode;
+	}
+	public void setRecDeptCode(String recDeptCode) {
+		this.recDeptCode = recDeptCode;
+	}
+	public String getJobdicSeq() {
+		return jobdicSeq;
+	}
+	public void setJobdicSeq(String jobdicSeq) {
+		this.jobdicSeq = jobdicSeq;
+	}
+	public String getMajorSeq() {
+		return majorSeq;
+	}
+	public void setMajorSeq(String majorSeq) {
+		this.majorSeq = majorSeq;
+	}
+	public String getRecDeptReason() {
+		return recDeptReason;
+	}
+	public void setRecDeptReason(String recDeptReason) {
+		this.recDeptReason = recDeptReason;
+	}
+	public String getRecDeptContent() {
+		return recDeptContent;
+	}
+	public void setRecDeptContent(String recDeptContent) {
+		this.recDeptContent = recDeptContent;
+	}
+	public String getRecDeptCondition() {
+		return recDeptCondition;
+	}
+	public void setRecDeptCondition(String recDeptCondition) {
+		this.recDeptCondition = recDeptCondition;
+	}
+	public String getRecDeptRegisterDate() {
+		return recDeptRegisterDate;
+	}
+	public void setRecDeptRegisterDate(String recDeptRegisterDate) {
+		this.recDeptRegisterDate = recDeptRegisterDate;
+	}
+	public String getmClass() {
+		return mClass;
+	}
+	public void setmClass(String mClass) {
+		this.mClass = mClass;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	@Override
+	public String toString() {
+		return "RecDept [recDeptCode=" + recDeptCode + ", jobdicSeq=" + jobdicSeq + ", job=" + job + ", majorSeq="
+				+ majorSeq + ", mClass=" + mClass + ", recDeptReason=" + recDeptReason + ", recDeptContent="
+				+ recDeptContent + ", recDeptCondition=" + recDeptCondition + ", recDeptRegisterDate="
+				+ recDeptRegisterDate + "]";
+	}
 }
