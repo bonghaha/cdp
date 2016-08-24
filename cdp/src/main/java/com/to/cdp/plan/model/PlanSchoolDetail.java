@@ -8,6 +8,7 @@ public class PlanSchoolDetail {
 	private String planSchoolDetailContent;
 	private String planSchoolDetailStartDate;
 	private String planSchoolDetailEndDate;
+	private String planSchoolDetailCondition;
 	public String getPlanSchoolDetailCode() {
 		return planSchoolDetailCode;
 	}
@@ -50,11 +51,18 @@ public class PlanSchoolDetail {
 	public void setInfoMemberId(String infoMemberId) {
 		this.infoMemberId = infoMemberId;
 	}
+	public String getPlanSchoolDetailCondition() {
+		return planSchoolDetailCondition;
+	}
+	public void setPlanSchoolDetailCondition(String planSchoolDetailCondition) {
+		this.planSchoolDetailCondition = planSchoolDetailCondition;
+	}
 	@Override
 	public String toString() {
 		return "PlanSchoolDetail [planSchoolDetailCode=" + planSchoolDetailCode + ", planSchoolCode=" + planSchoolCode
 				+ ", infoMemberId=" + infoMemberId + ", planSchoolDetailNo=" + planSchoolDetailNo
 				+ ", planSchoolDetailContent=" + planSchoolDetailContent + ", planSchoolDetailStartDate="
-				+ planSchoolDetailStartDate + ", planSchoolDetailEndDate=" + planSchoolDetailEndDate + "]";
+				+ planSchoolDetailStartDate + ", planSchoolDetailEndDate=" + planSchoolDetailEndDate
+				+ ", planSchoolDetailCondition=" + planSchoolDetailCondition + "]";
 	}
 }

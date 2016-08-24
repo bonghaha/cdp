@@ -108,37 +108,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LIMIT 1;
 	</select>
 	
-	<!-- 계획학교상세마지막키 -->
-	<select id="planSchoolDetailLastKey"
-			resultType="String">
-		SELECT 
-			plan_school_detail_code
-		FROM 
-			plan_school_detail
-		ORDER BY LENGTH(plan_school_detail_code) DESC, plan_school_detail_code DESC 
-		LIMIT 1;	
-	</select>
-	
-	<select id="planSchoolDetailInsert"
-			parameterType="com.to.cdp.plan.model.PlanSchoolDetail">
-		INSERT INTO plan_school_detail	(
-			plan_school_detail_code, 
-			plan_school_code,
-			info_member_id, 
-			plan_school_detail_content,
-			plan_school_detail_startdate,
-			plan_school_detail_enddate
-			)
-		VALUES (
-			#{planSchoolDetailCode}, 
-			#{planSchoolCode}, 
-			#{infoMemberId}, 
-			#{planSchoolDetailContent},
-			#{planSchoolDetailStartDate},
-			#{planSchoolDetailEndDate}
-			)		
-	</select>
-	
 	<!-- planSchoolListByMemberLoginId&planUniteCode -->
 	<select id="planSchoolList"
 			parameterType="com.to.cdp.plan.model.PlanSchool"
@@ -156,20 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			plan_school_enddate planSchoolEndDate
 		FROM plan_school
 		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
-	</select>
-	
-	<!-- 계획학교상세리스트뽑기 -->
-	<select id="planSchoolDetailList"
-			parameterType="com.to.cdp.plan.model.PlanSchoolDetail"
-			resultType="com.to.cdp.plan.model.PlanSchoolDetail">
-		SELECT
-			plan_school_detail_code planSchoolDetailCode,
-			plan_school_code planSchoolCode,
-			plan_school_detail_content planSchoolDetailContent,
-			plan_school_detail_startdate planSchoolDetailStartDate,
-			plan_school_detail_enddate planSchoolDetailEndDate
-		FROM plan_school_detail
-		WHERE info_member_id = #{infoMemberId} AND plan_school_code = #{planSchoolCode}
 	</select>
 	
 	<select id="selectSchoolName"

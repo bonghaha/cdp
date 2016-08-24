@@ -92,7 +92,7 @@ display:inline-block;
 					planSchoolCode:planSchoolCode
 				},
 				success:function(data){
-// 					id.attr("disabled","disabled");
+					
 					planSchoolDetailListTop.empty();
 					planSchoolDetailList.empty();
 					planSchoolDetailListTop.append('<div>');
@@ -113,11 +113,6 @@ display:inline-block;
 					planSchoolDetailListTop.append('</div>');
 					planSchoolDetailListTop.append('<br>');
 					
-					planSchoolDetailList.append('<div>');
-					planSchoolDetailList.append('<span>내용</span>');
-					planSchoolDetailList.append('<span>시작일</span>');
-					planSchoolDetailList.append('<span>종료일</span>');
-					planSchoolDetailList.append('</div>');
 					$(data).each(function(index,item){
 						planSchoolDetailList.append(
 							'<div>'
@@ -126,9 +121,20 @@ display:inline-block;
 							+'<span><input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></span>'
 							+'<span><input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></span>'
 							+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="수정"/></span>'
-							+'<span><input class="goPlanSchoolDetailFinish" type="button" value="완료"/></span>'
-							+'</form>'
-							+'</div>');
+							+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="삭제"/></span>');
+						
+						if(item.planSchoolDetailCondition == 0){
+							planSchoolDetailList.append(
+								'<span><input class="goPlanSchoolDetailFinish" type="button" value="완료"/></span>'
+								+'</form>'
+								+'</div>'
+								+'<br/>');
+						}else if(item.planSchoolDetailCondition == 1){
+							planSchoolDetailList.append('<span>실천완료</span>'
+									+'</form>'
+									+'</div>'
+									+'<br/>');
+						}
 					});
 					planSchoolDetailListBot.append('<hr>');
 // 					planSchoolDetailListBot.append('<span><input id="'+index+'" class="hidePlanSchoolDetailList'+index+'" type="button" value="접기"/></span>')
@@ -460,7 +466,7 @@ display:inline-block;
 		<div align="center">
 		<img src="/resources/image/ing66.PNG">
 		</div>
-			<h1>계획 통합 리스트</h1>
+			<h1>실천 리스트</h1>
 			<div>${sessionScope.memberLoginId}님이 등록하신 계획입니다</div>
 			<div>직업 : ${planUnite.job}</div>
 			<div>계획 제목 : ${planUnite.planUniteTitle}</div>

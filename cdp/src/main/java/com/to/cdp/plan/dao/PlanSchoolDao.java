@@ -54,16 +54,4 @@ public class PlanSchoolDao {
 	public RecSchool selectSchoolName(RecSchool recSchool) {
 		return sqlSession.selectOne(NS + ".selectSchoolName", recSchool);
 	}
-
-	public int planSchoolDetailInsert(PlanSchoolDetail planSchoolDetail) {
-		return sqlSession.insert(NS + ".planSchoolDetailInsert", planSchoolDetail);
-	}
-
-	public String planSchoolDetailLastKey() {
-		return sqlSession.selectOne(NS + ".planSchoolDetailLastKey");
-	}
-
-	public List<PlanSchoolDetail> planSchoolDetailList(PlanSchoolDetail planSchoolDetail) {
-		return sqlSession.selectList(NS + ".planSchoolDetailList", planSchoolDetail);
-	}
 }
