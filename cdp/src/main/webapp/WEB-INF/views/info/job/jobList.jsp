@@ -54,7 +54,7 @@
 				    <li><a class="w3-blue-grey" href="/infoJobList">
 				    	<font class="jl_fontMain">직업리스트</font><br/>
 				    	<font class="jl_fontSub">직업을 선택하세요</font></a></li>
-				    <li><a href="/infoJobDetail?jobdicSeq=${ijl.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">
+				    <li><a href="/infoJobDetail?searchType=${searchType}&searchWord=${searchWord}">
 				    	<font class="jl_fontMain">직업상세보기</font><br/>
 				    	<font class="jl_fontSub">계획을 등록을 클릭 해주세요</font></a></li>
 				    <li><a href="/planUniteInsert">

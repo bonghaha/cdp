@@ -23,6 +23,7 @@ public class PlanSchoolService {
 	
 	// planSchoolInsert
 	public int planSchoolInsert(PlanSchool planSchool) {
+		// 코드값 생성
 		String planSchoolLastKey = "";
 		String planSchoolCode = "";
 		String planSchoolPre = "plan_school_";
@@ -57,6 +58,19 @@ public class PlanSchoolService {
 	
 	// planSchoolList
 	public List<PlanSchool> planSchoolList(PlanSchool planSchool){
+		// 퍼센테이지값 생성
+		int percentNum = 0;
+		String planSchoolPercentSuf = "%";
+		
+		// 계획학교코드에 해당하는 계획학교상세카운트하기
+		int allCount = planSchoolDao.psdCountByPlanSchoolCode(planSchool);
+		// psdCountByPscWithCondition
+		int completeCount = planSchoolDao.psdCountByPscWithCondition(planSchool);
+		percentNum = completeCount/allCount*100;
+		
+		String planSchoolPercent = percentNum + planSchoolPercentSuf;
+		planSchool.setPlanSchoolPercent(planSchoolPercent);
+		
 		return planSchoolDao.planSchoolList(planSchool);
 	}
 	

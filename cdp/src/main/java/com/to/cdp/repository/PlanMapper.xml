@@ -77,6 +77,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	***************************PlanSchool****************************
 	***************************************************************** -->
 	
+	<!-- 계획학교퍼센트 구하기 위한 plan_school의 개수-->
+	<select id="psdCountByPlanSchoolCode"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_school_detail
+		WHERE
+			plan_school_code = #{planSchoolCode}
+	</select>
+	
+	<select id="psdCountByPscWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_school_detail
+		WHERE
+			plan_school_code = #{planSchoolCode}
+		AND
+			plan_school_detail_condition = 1
+	</select>
+	
+	
 	<insert id="planSchoolInsert"
 			parameterType="com.to.cdp.plan.model.PlanSchool">
 		INSERT INTO plan_school	(
@@ -122,7 +148,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			plan_school_count planSchoolCount,
 			plan_school_registerdate planSchoolRegisterDate,
 			plan_school_startdate planSchoolStartDate,
-			plan_school_enddate planSchoolEndDate
+			plan_school_enddate planSchoolEndDate,
+			plan_school_percent planSchoolPercent
 		FROM plan_school
 		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
 	</select>

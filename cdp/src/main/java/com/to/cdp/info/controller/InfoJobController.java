@@ -91,6 +91,7 @@ public class InfoJobController {
 		infoMember.setInfoMemberId(infoMemberId);
 		infoMember = infoMemberService.selectInfoMemberLevel(infoMember);
 		
+		System.out.println("infoJob /infoJobDetail : " + infoJob);
 		model.addAttribute("infoJob", infoJob);
 		model.addAttribute("infoMember", infoMember);
 		model.addAttribute("searchType", searchType);

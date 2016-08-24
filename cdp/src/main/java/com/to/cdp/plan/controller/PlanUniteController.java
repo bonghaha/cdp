@@ -16,6 +16,7 @@ import com.to.cdp.info.model.InfoJob;
 import com.to.cdp.plan.model.PlanCert;
 import com.to.cdp.plan.model.PlanDept;
 import com.to.cdp.plan.model.PlanSchool;
+import com.to.cdp.plan.model.PlanSchoolDetail;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.plan.service.PlanCertService;
 import com.to.cdp.plan.service.PlanDeptService;
@@ -96,11 +97,6 @@ public class PlanUniteController {
 		return "plan/unite/uniteDetail";
 	}
 	
-	@RequestMapping(value="/planUniteDetail", method=RequestMethod.POST)
-	public String planUniteDetail(){
-		return "planUniteDetail";
-	}
-	
 	//planUniteAllList화면에서 ajax로 planSchool리스트 보여주기
 	@RequestMapping(value="/showPlanSchoolList")
 	@ResponseBody
@@ -115,10 +111,10 @@ public class PlanUniteController {
 		String memberLoginId = (String) session.getAttribute("memberLoginId");
 		planSchool.setInfoMemberId(memberLoginId);
 		System.out.println("planSchool /showPlanSchoolList : " + planSchool);
-		
+		// planSchoolPercent insert 후 전체list 출력
 		planSchoolList = planSchoolService.planSchoolList(planSchool);
 		System.out.println("planSchoolList /showPlanSchoolList : " + planSchoolList);
-		// ModelAndView 사용해서 view랑 model값 저장 할 필요 X
+		
 		return planSchoolList;
 	}
 	

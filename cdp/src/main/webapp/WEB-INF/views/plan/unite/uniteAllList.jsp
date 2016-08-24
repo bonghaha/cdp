@@ -42,7 +42,7 @@ display:inline-block;
 							+'<form id="planSchoolListForm">'
 							+'<input type="hidden" name="planSchoolCode" value="'+item.planSchoolCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
-							+'<span><input id="'+index+'" class="showPlanSchoolDetail" type="button" value="▶"/></span>'
+							+'<span><input id="'+index+'" class="showPlanSchoolDetail" name="showPlanSchoolDetail'+index+'" type="button" value="▶"/></span>'
 							+'<span>'+item.schoolName+'</span>'
 							+'<span>'
 							+'<select name="planSchoolCondition">'
@@ -58,6 +58,7 @@ display:inline-block;
 							+'<span>'+item.planSchoolRegisterDate+'</td>'
 							+'<span><input class="goPlanSchoolUpdate" type="button" value="등록"/></span>'
 							+'<span><input class="goPlanSchoolDelete" type="button" value="삭제"/></span>'
+							+'<span><input type="text" value="'+item.planSchoolPercent+'"/></span>'
 							+'</form>'
 							+'</div>'
 							+'<div>'
@@ -69,7 +70,7 @@ display:inline-block;
 							+'</div>'
 							+'</div>');
 					});
-					$('#planSchoolListBot').append('<span><input id="hidePlanSchoolList" type="button" value="접기"/></span>')
+					$('#planSchoolListBot').append('<span><input id="hidePlanSchoolList" type="button" value="학교접기"/></span>')
 					
 				},
 				error:function(error){
@@ -80,11 +81,12 @@ display:inline-block;
 		
 		//계획학교디테일리스트 보기
 		$(document).on('click', '.showPlanSchoolDetail', function(){
+			var planSchoolDetailBtn = this.name;
 			var planSchoolCode = this.form.planSchoolCode.value;
-			var id = this.id;
-			var planSchoolDetailListTop = $('#planSchoolDetailListTop'+id);
-			var planSchoolDetailList = $('#planSchoolDetailList'+id);
-			var planSchoolDetailListBot = $('#planSchoolDetailListBot'+id);
+			var no = this.id;
+			var planSchoolDetailListTop = $('#planSchoolDetailListTop'+no);
+			var planSchoolDetailList = $('#planSchoolDetailList'+no);
+			var planSchoolDetailListBot = $('#planSchoolDetailListBot'+no);
 			$.ajax({
 				url:'/planSchoolDetailList',
 				type:'POST',
@@ -92,7 +94,7 @@ display:inline-block;
 					planSchoolCode:planSchoolCode
 				},
 				success:function(data){
-					
+					$('input[name='+planSchoolDetailBtn+']').attr("disabled","disabled");
 					planSchoolDetailListTop.empty();
 					planSchoolDetailList.empty();
 					planSchoolDetailListTop.append('<div>');
@@ -104,7 +106,6 @@ display:inline-block;
 					planSchoolDetailListTop.append(
 							'<form id="planSchoolDetailForm">'
 							+'<span><input type="hidden" name="planSchoolCode" value="'+planSchoolCode+'"/>'
-							+'<span><input type="hidden" name="forShowPlanSchoolDetailList" value="'+id+'"/>'
 							+'<span><input type="text" name="planSchoolDetailContent" value=""/></span>'
 							+'<span><input type="date" name="planSchoolDetailStartDate" value=""/></span>'
 							+'<span><input type="date" name="planSchoolDetailEndDate" value=""/></span>'
@@ -114,30 +115,36 @@ display:inline-block;
 					planSchoolDetailListTop.append('<br>');
 					
 					$(data).each(function(index,item){
-						planSchoolDetailList.append(
-							'<div>'
-							+'<form id="planSchoolDetailListForm">'
-							+'<span><input type="text" name="planSchoolDetailContent" value="'+item.planSchoolDetailContent+'"/></span>'
-							+'<span><input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></span>'
-							+'<span><input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></span>'
-							+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="수정"/></span>'
-							+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="삭제"/></span>');
-						
 						if(item.planSchoolDetailCondition == 0){
 							planSchoolDetailList.append(
-								'<span><input class="goPlanSchoolDetailFinish" type="button" value="완료"/></span>'
+								'<div>'
+								+'<form id="planSchoolDetailListForm" name="planSchoolDetailListForm'+index+'">'
+								+'<input type="hidden" name="indexVal" value="'+index+'">'
+								+'<span><input type="text" name="planSchoolDetailContent" value="'+item.planSchoolDetailContent+'"/></span>'
+								+'<span><input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input class="goPlanSchoolDetailFinish" type="button" value="완료"/></span>'
 								+'</form>'
-								+'</div>'
-								+'<br/>');
-						}else if(item.planSchoolDetailCondition == 1){
-							planSchoolDetailList.append('<span>실천완료</span>'
-									+'</form>'
-									+'</div>'
-									+'<br/>');
+								+'</div>');
 						}
+						if(item.planSchoolDetailCondition == 1){
+							planSchoolDetailList.append(
+									'<div>'
+									+'<span><input type="text" name="planSchoolDetailContent" readonly="readonly" value="'+item.planSchoolDetailContent+'"/></span>'
+									+'<span><input type="date" name="planSchoolDetailStartDate" readonly="readonly" value="'+item.planSchoolDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planSchoolDetailEndDate" readonly="readonly" value="'+item.planSchoolDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
+									+'</div>');
+						}
+						planSchoolDetailList.append('<br/>');
 					});
-					planSchoolDetailListBot.append('<hr>');
-// 					planSchoolDetailListBot.append('<span><input id="'+index+'" class="hidePlanSchoolDetailList'+index+'" type="button" value="접기"/></span>')
+					planSchoolDetailListBot.append(
+						'<div>'
+						+'<span><input id="'+no+'" class="hidePlanSchoolDetailList" name="hidePlanSchoolList'+no+'" type="button" value="접기"/></span>'
+						+'</div>'
+						+'<hr>');
 				},
 				error:function(error){
 					alert('디테일리스트 출력 실패..');
@@ -145,15 +152,26 @@ display:inline-block;
 			});
 		});
 		
-// 		$(document).on('click', '.hidePlanSchoolDetailList', function(){
-// 			var id = this.id;
-// 			var planSchoolDetailList = $('#planSchoolDetailList'+id);
-// 			$('#planSchoolDetailListTop').empty();
-// 			$('#planSchoolDetailList').empty();
-// 			$('#planSchoolDetailListBot').empty();
-// 			$('#showPlanSchoolDetailList').removeAttr("disabled");
-// 		});
+		// 계획학교상세완료처리
+		$(document).on('click', '.goPlanSchoolDetailFinish', function(){
+			var no = this.id;
+		});
 		
+		// 계획학교상세리스트 접기
+		$(document).on('click', '.hidePlanSchoolDetailList', function(){
+			console.log("hidePlanSchoolDetailList 버튼 클릭 !");
+			var hidePlanSchoolDetailListBtn = this.name;
+			var no = this.id;
+			var planSchoolDetailListTop = $('#planSchoolDetailListTop'+no);
+			var planSchoolDetailList = $('#planSchoolDetailList'+no);
+			var planSchoolDetailListBot = $('#planSchoolDetailListBot'+no);
+			planSchoolDetailListTop.empty();
+			planSchoolDetailList.empty();
+			planSchoolDetailListBot.empty();
+			$('input[name=showPlanSchoolDetail'+no+']').removeAttr("disabled");
+		});
+		
+		// 계획학교상세등록
 		$(document).on('click', '.planSchoolDetailSubmit', function(){
 			var planSchoolCode = this.form.planSchoolCode.value;
 			var planSchoolDetailContent = this.form.planSchoolDetailContent.value;

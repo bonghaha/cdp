@@ -12,6 +12,7 @@ public class PlanSchool {
 	private String planSchoolRegisterDate;	// 계획학교등록일
 	private String planSchoolStartDate;		// 계획학교시작일
 	private String planSchoolEndDate;		// 계획학교종료일
+	private String planSchoolPercent;
 	public String getPlanSchoolCode() {
 		return planSchoolCode;
 	}
@@ -78,12 +79,19 @@ public class PlanSchool {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
+	public String getPlanSchoolPercent() {
+		return planSchoolPercent;
+	}
+	public void setPlanSchoolPercent(String planSchoolPercent) {
+		this.planSchoolPercent = planSchoolPercent;
+	}
 	@Override
 	public String toString() {
 		return "PlanSchool [planSchoolCode=" + planSchoolCode + ", planUniteCode=" + planUniteCode + ", infoMemberId="
 				+ infoMemberId + ", recSchoolCode=" + recSchoolCode + ", schoolName=" + schoolName
 				+ ", planSchoolCondition=" + planSchoolCondition + ", planSchoolContent=" + planSchoolContent
 				+ ", planSchoolCount=" + planSchoolCount + ", planSchoolRegisterDate=" + planSchoolRegisterDate
-				+ ", planSchoolStartDate=" + planSchoolStartDate + ", planSchoolEndDate=" + planSchoolEndDate + "]";
+				+ ", planSchoolStartDate=" + planSchoolStartDate + ", planSchoolEndDate=" + planSchoolEndDate
+				+ ", planSchoolPercent=" + planSchoolPercent + "]";
 	}
 }

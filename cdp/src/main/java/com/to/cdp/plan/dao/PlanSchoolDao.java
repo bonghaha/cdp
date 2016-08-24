@@ -54,4 +54,14 @@ public class PlanSchoolDao {
 	public RecSchool selectSchoolName(RecSchool recSchool) {
 		return sqlSession.selectOne(NS + ".selectSchoolName", recSchool);
 	}
+
+	// 계획학교코드에 해당하는 계획학교상세 카운트하기
+	public int psdCountByPlanSchoolCode(PlanSchool planSchool) {
+		return sqlSession.selectOne(NS + ".psdCountByPlanSchoolCode", planSchool);
+	}
+
+	// 계확학교상세완료상태 카운트하기
+	public int psdCountByPscWithCondition(PlanSchool planSchool) {
+		return sqlSession.selectOne(NS + ".psdCountByPscWithCondition", planSchool);
+	}
 }

@@ -84,12 +84,12 @@ $(document).ready(function(){
 						<font class="jd_fontSub">직업을 선택하세요</font></a>
 					</li>
 					<li>
-						<a class="w3-blue-grey" href="/infoJobDetail?jobdicSeq=${ijl.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">
+						<a class="w3-blue-grey" href="/infoJobDetail?jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">
 						<font class="jd_fontMain">직업상세보기</font><br/>
 						<font class="jd_fontSub">계획을 등록을 클릭 해주세요</font></a>
 					</li>
 					<li>
-						<a href="/planUniteInsert">
+						<a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">
 						<font class="jd_fontMain">계획 등록</font><br/>
 						<font class="jd_fontSub">계획 등록을 해주세요</font></a>
 					</li>
@@ -128,18 +128,25 @@ $(document).ready(function(){
 							<th>전망</th>
 							<th>연봉</th>
 						</tr>
-						<c:if test="${infoJob != null}">
-							<tr>
-								<td>${infoJob.job}</td>
-								<td>${infoJob.profession}</td>
-								<td>${infoJob.summary}</td>
-								<td>${infoJob.similarJob}</td>
-								<td>${infoJob.equalemployment}</td>
-								<td>${infoJob.possibility}</td>
-								<td>${infoJob.prospect}</td>
-								<td>${infoJob.salery}</td>
-							</tr>
-						</c:if>
+						<c:choose>
+							<c:when test="${infoJob.job != null}">
+								<tr>
+									<td>${infoJob.job}</td>
+									<td>${infoJob.profession}</td>
+									<td>${infoJob.summary}</td>
+									<td>${infoJob.similarJob}</td>
+									<td>${infoJob.equalemployment}</td>
+									<td>${infoJob.possibility}</td>
+									<td>${infoJob.prospect}</td>
+									<td>${infoJob.salery}</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td colspan="8">직업 리스트에서 직업을 선택해 주세요</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 					</table>
 				</div>
 				<div>

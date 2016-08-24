@@ -213,29 +213,27 @@ input[type=text] {
 		      <li class="topMenuLi">
 		      	<a id="fontDecoNone" class="menuLink"  href="#">진로심리검사</a>
 			    <ul class="submenu">
-		              <li><a id="fontDecoNone" class="submenuLink longLink">심리검사</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink">진로탐색프로그램</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink">진로심리검사안내</a></li>
-		              
+	              <li><a id="fontDecoNone" class="submenuLink longLink">심리검사</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink">진로탐색프로그램</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink">진로심리검사안내</a></li>
 		        </ul>
 		      </li>
 		      
 		      <li class="topMenuLi">
 		      	<a id="fontDecoNone" class="menuLink" href="#">직업·학과정보</a>
 		      	<ul class="submenu">
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoJobListSub">직업정보</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoSchoolList">학교정보</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoDeptList">학과정보</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoCertList">자격증정보</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoJobListSub">직업정보</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoSchoolList">학교정보</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoDeptList">학과정보</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/infoCertList">자격증정보</a></li>
 		        </ul>
 		      </li>
 		      <li class="topMenuLi">
 		      	<a id="fontDecoNone" class="menuLink" href="#">경력관리</a>
 		      	<ul class="submenu">
-		              <li><a id="fontDecoNone" class="submenuLink longLink">아직</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink">뭘</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink">할지</a></li>
-		              
+	              <li><a id="fontDecoNone" class="submenuLink longLink">아직</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink">뭘</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink">할지</a></li>
 		        </ul>
 		      </li>
 		      <li class="topMenuLi">
@@ -244,11 +242,9 @@ input[type=text] {
 		      <li class="topMenuLi">
 		      	<a id="fontDecoNone" class="menuLink" href="#">마이페이지</a>
 		      	<ul class="submenu">
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/myInfoManagement">내 정보관리</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/resumeDetail">이력관리</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/planUniteList">계획관리</a></li>
-		              <li><a id="fontDecoNone" class="submenuLink longLink" href="/actDetail">실천관리</a></li>
-		              
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/myInfoManagement">내 정보관리</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/resumeDetail">이력관리</a></li>
+	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/planUniteList">계획관리</a></li>
 		        </ul>
 		      </li>
 	      </ul>
