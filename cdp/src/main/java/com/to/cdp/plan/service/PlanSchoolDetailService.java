@@ -37,4 +37,14 @@ public class PlanSchoolDetailService {
 	public List<PlanSchoolDetail> planSchoolDetailList(PlanSchoolDetail planSchoolDetail) {
 		return planSchoolDetailDao.planSchoolDetailList(planSchoolDetail);
 	}
+
+	// 완료버튼 클릭시 condition 1로 바꾸기
+	public int planSchoolDetailComplete(PlanSchoolDetail planSchoolDetail) {
+		return planSchoolDetailDao.planSchoolDetailComplete(planSchoolDetail);
+	}
+
+	// planSchoolDetailCode에 해당하는 planSchoolCode받기
+	public String psCodeByPsdCode(PlanSchoolDetail planSchoolDetail) {
+		return planSchoolDetailDao.psCodeByPsdCode(planSchoolDetail);
+	}
 }

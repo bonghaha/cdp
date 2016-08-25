@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.plan.model.PlanDept;
+import com.to.cdp.plan.model.PlanSchool;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.rec.model.RecDept;
 
@@ -53,4 +54,14 @@ public class PlanDeptDao {
 	public RecDept selectDeptMClass(RecDept recDept) {
 		return sqlSession.selectOne(NS + ".selectDeptMClass", recDept);
 	}
+	
+	// 계획학과코드에 해당하는 계획학과상세 카운트하기
+	public int pddCountByPlanDeptCode(PlanDept planDept) {
+		return sqlSession.selectOne(NS + ".pddCountByPlanDeptCode", planDept);
+	}
+
+	// 계확학과상세완료상태 카운트하기
+	public int pddCountByPdcWithCondition(PlanDept planDept) {
+		return sqlSession.selectOne(NS + ".pddCountByPdcWithCondition", planDept);
+	}	
 }

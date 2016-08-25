@@ -85,9 +85,10 @@ public class PlanSchoolController {
 			planUnite.setInfoMemberId(memberLoginId);
 			planSchoolList = planSchoolService.planSchoolListByBtn(planUnite);
 		}
-		System.out.println("planSchoolList /planSchoolInsertAndlList : " + planSchoolList);
-		System.out.println("planUnite /planSchoolInsertAndlList : " + planUnite);
+//		System.out.println("planSchoolList /planSchoolInsertAndlList : " + planSchoolList);
+//		System.out.println("planUnite /planSchoolInsertAndlList : " + planUnite);
 		planUnite = planUniteService.planUniteDetail(planUnite);
+		
 		model.addAttribute("planSchoolList", planSchoolList);
 		model.addAttribute("planUnite", planUnite);
 		return "plan/unite/uniteAllList";

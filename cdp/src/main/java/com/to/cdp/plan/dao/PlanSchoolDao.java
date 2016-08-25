@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.plan.model.PlanSchool;
-import com.to.cdp.plan.model.PlanSchoolDetail;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.rec.model.RecSchool;
 

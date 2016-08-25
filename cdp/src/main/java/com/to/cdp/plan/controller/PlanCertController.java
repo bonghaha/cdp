@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.to.cdp.plan.model.PlanCert;
+import com.to.cdp.plan.model.PlanDept;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.plan.service.PlanCertService;
+import com.to.cdp.plan.service.PlanUniteService;
 import com.to.cdp.rec.model.RecCert;
 
 @Controller
 public class PlanCertController {
 	@Autowired
 	private PlanCertService planCertService;
-	
+	@Autowired
+	private PlanUniteService planUniteService;
 	
 	// 2. planCertUpdate
 	@RequestMapping(value="/planCertUpdate")
@@ -48,14 +51,13 @@ public class PlanCertController {
 	}
 	
 	// 4. planCertList
-	@RequestMapping(value="/planCertList", method=RequestMethod.GET)
+	@RequestMapping(value="/planCertList", method=RequestMethod.POST)
 	public String planCertList(){
 		return "planCertList";
 	}
 	
-	@RequestMapping(value="/planCertInsertAndList", method=RequestMethod.POST)
+	@RequestMapping(value="/planCertInsertAndList")
 	public String planCertList(
-			PlanCert planCert,
 			PlanUnite planUnite,
 			RecCert recCert,
 			@RequestParam(value="recCertCodes", required=false) List<String> recCertCodeList,
@@ -66,13 +68,15 @@ public class PlanCertController {
 		String memberLoginId = (String) session.getAttribute("memberLoginId");
 		
 		if(recCertCodeList != null){
-			System.out.println("recCertCodeList planCertInsertAndList : " + recCertCodeList);
-			System.out.println("recCertCodeList.size() planCertInsertAndList : " + recCertCodeList.size());
+//			System.out.println("recCertCodeList planCertInsertAndList : " + recCertCodeList);
+//			System.out.println("recCertCodeList.size() planCertInsertAndList : " + recCertCodeList.size());
+			PlanCert planCert = null;
 			
 			for(String recCertCode : recCertCodeList){
 				recCert.setRecCertCode(recCertCode);
 				recCert = planCertService.selectCertjmFldNm(recCert);
 				
+				planCert = new PlanCert();
 				planCert.setJmFldNm(recCert.getJmFldNm());
 				planCert.setInfoMemberId(memberLoginId);
 				planCert.setRecCertCode(recCertCode);
@@ -84,8 +88,11 @@ public class PlanCertController {
 			planUnite.setInfoMemberId(memberLoginId);
 			planCertList = planCertService.planCertListByBtn(planUnite);
 		}
-		System.out.println("planCertList planCertInsertAndList : " + planCertList);
+//		System.out.println("planCertList planCertInsertAndList : " + planCertList);
+		planUnite = planUniteService.planUniteDetail(planUnite);
+		
 		model.addAttribute("planCertList", planCertList);
+		model.addAttribute("planUnite", planUnite);
 		return "plan/unite/uniteAllList";
 	}
 	

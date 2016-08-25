@@ -20,6 +20,27 @@ public class PlanSchoolDetailController {
 	@Autowired
 	private PlanSchoolDetailService planSchoolDetailService;
 	
+	@RequestMapping(value="/planSchoolDetailComplete")
+	@ResponseBody
+	public ModelAndView planSchoolDetailComplete(PlanSchoolDetail planSchoolDetail){
+		System.out.println("=========planSchoolDetailController /planSchoolDetailComplete======");
+		
+		System.out.println("planSchoolDetail : " + planSchoolDetail);
+		// condition 1로 업데이트
+		planSchoolDetailService.planSchoolDetailComplete(planSchoolDetail);
+		
+		// planSchoolCode 받아와서 /planSchoolDetailList 로 가기
+		String planSchoolCode = planSchoolDetailService.psCodeByPsdCode(planSchoolDetail);
+		System.out.println("planSchool : " + planSchoolCode);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("planSchoolCode", planSchoolCode);
+		mav.setViewName("redirect:/planSchoolDetailList");
+		
+		System.out.println("======planSchoolDetailController /planSchoolDetailComplete END=====");
+		return mav;
+	}
+	
 	// planSchoolDetailList(ajax)
 	@RequestMapping(value="/planSchoolDetailList")
 	@ResponseBody

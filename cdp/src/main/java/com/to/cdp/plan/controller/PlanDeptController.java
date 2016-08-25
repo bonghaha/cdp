@@ -14,15 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.to.cdp.plan.model.PlanDept;
+import com.to.cdp.plan.model.PlanSchool;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.plan.service.PlanDeptService;
+import com.to.cdp.plan.service.PlanUniteService;
 import com.to.cdp.rec.model.RecDept;
 
 @Controller
 public class PlanDeptController {
 	@Autowired
 	private PlanDeptService planDeptService;
-	
+	@Autowired
+	private PlanUniteService planUniteService;
 	
 	// planUniteAll화면에서 삭제버튼 누르면 planDeptCode로 delete시키기
 	// 비밀번호 확인 후 삭제 해야하는데 일단 그냥 하자
@@ -50,7 +53,6 @@ public class PlanDeptController {
 	// 1. planDeptInsert(planUnite 만들기)
 	@RequestMapping(value="/planDeptInsertAndList")
 	public String planDeptList(
-			PlanDept planDept,
 			PlanUnite planUnite,
 			RecDept recDept,
 			@RequestParam(value="recDeptCodes", required=false) List<String> recDeptCodeList,
@@ -62,17 +64,19 @@ public class PlanDeptController {
 		String memberLoginId = (String) session.getAttribute("memberLoginId");
 		// PlanUniteDetail에서 ajax 통해 만들어진 체크박스가 있으면 if문 실행
 		if(recDeptCodeList != null){
-			System.out.println("recDeptCodeList /planSchooInsertAndlList : " + recDeptCodeList);
-			System.out.println("recDeptCodeList.size()  /planSchooInsertAndlList : " + recDeptCodeList.size());
+//			System.out.println("recDeptCodeList /planSchooInsertAndlList : " + recDeptCodeList);
+//			System.out.println("recDeptCodeList.size()  /planSchooInsertAndlList : " + recDeptCodeList.size());
+			PlanDept planDept = null;
 			
 			for(String recDeptCode : recDeptCodeList){
 				//recDeptCode로 mClass따와서 planDept에 셋팅
 				recDept.setRecDeptCode(recDeptCode);
 				recDept = planDeptService.selectDeptMClass(recDept);
 				
-				planDept.setmClass(recDept.getmClass());
+				planDept = new PlanDept();
 				planDept.setInfoMemberId(memberLoginId);
 				planDept.setRecDeptCode(recDeptCode);
+				planDept.setmClass(recDept.getmClass());
 				planDept.setPlanUniteCode(planUnite.getPlanUniteCode());
 				planDeptService.planDeptInsert(planDept);
 			}
@@ -81,8 +85,10 @@ public class PlanDeptController {
 			planUnite.setInfoMemberId(memberLoginId);
 			planDeptList = planDeptService.planDeptListByBtn(planUnite);
 		}
-		System.out.println("planDeptList /planDeptInsertAndlList : " + planDeptList);
-		System.out.println("planUnite /planSchooInsertAndlList : " + planUnite);
+//		System.out.println("planDeptList /planDeptInsertAndlList : " + planDeptList);
+//		System.out.println("planUnite /planSchooInsertAndlList : " + planUnite);
+		planUnite = planUniteService.planUniteDetail(planUnite);
+		
 		model.addAttribute("planDeptList", planDeptList);
 		model.addAttribute("planUnite", planUnite);
 		return "plan/unite/uniteAllList";

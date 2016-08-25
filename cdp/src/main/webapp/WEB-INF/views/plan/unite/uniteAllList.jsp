@@ -7,8 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-display:inline-block;
+.processVar{
+display: block;
+background-color: red;}
+
 </style>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -58,8 +62,10 @@ display:inline-block;
 							+'<span>'+item.planSchoolRegisterDate+'</td>'
 							+'<span><input class="goPlanSchoolUpdate" type="button" value="등록"/></span>'
 							+'<span><input class="goPlanSchoolDelete" type="button" value="삭제"/></span>'
-							+'<span><input type="text" value="'+item.planSchoolPercent+'"/></span>'
 							+'</form>'
+							+'</div>'
+							+'<div class="w3-progress-container">'
+							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planSchoolPercent+'">'+item.planSchoolPercent+'</div>'
 							+'</div>'
 							+'<div>'
 							+'<div id="planSchoolDetailListTop'+index+'">'
@@ -119,13 +125,14 @@ display:inline-block;
 							planSchoolDetailList.append(
 								'<div>'
 								+'<form id="planSchoolDetailListForm" name="planSchoolDetailListForm'+index+'">'
-								+'<input type="hidden" name="indexVal" value="'+index+'">'
+								+'<input type="hidden" name="indexVal" value="'+no+'">'
+								+'<input type="hidden" name="planSchoolDetailCode" value="'+item.planSchoolDetailCode+'">'
 								+'<span><input type="text" name="planSchoolDetailContent" value="'+item.planSchoolDetailContent+'"/></span>'
 								+'<span><input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></span>'
 								+'<span><input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></span>'
 								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="수정"/></span>'
 								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="삭제"/></span>'
-								+'<span><input class="goPlanSchoolDetailFinish" type="button" value="완료"/></span>'
+								+'<span><input id="'+no+'" class="goPlanSchoolDetailComplete" type="button" value="완료"/></span>'
 								+'</form>'
 								+'</div>');
 						}
@@ -153,8 +160,28 @@ display:inline-block;
 		});
 		
 		// 계획학교상세완료처리
-		$(document).on('click', '.goPlanSchoolDetailFinish', function(){
-			var no = this.id;
+		// plan_school_detail_code 값에 해당하는 condition 1로 바꾸기
+		// plan_school_detail_condition 1로 바꾸기
+		$(document).on('click', '.goPlanSchoolDetailComplete', function(){
+			var no = this.id; // 계획학교상세리스트보기버튼 no
+			var planSchoolDetailCode = this.form.planSchoolDetailCode.value;
+			console.log("planSchoolDetailCode : " + planSchoolDetailCode);
+			$.ajax({
+				url:'/planSchoolDetailComplete',
+				type:'POST',
+				data:{
+					planSchoolDetailCode:planSchoolDetailCode
+				},
+				success:function(data){
+					alert("완료처리 성공!");
+					$('#hidePlanSchoolList').trigger('click');
+					$('#showPlanSchoolList').trigger('click');
+					console.log("no :" + no);
+				},
+				error:function(error){
+					alert("완료처리 실패..");
+				}
+			});
 		});
 		
 		// 계획학교상세리스트 접기
@@ -177,12 +204,10 @@ display:inline-block;
 			var planSchoolDetailContent = this.form.planSchoolDetailContent.value;
 			var planSchoolDetailStartDate = this.form.planSchoolDetailStartDate.value;
 			var planSchoolDetailEndDate = this.form.planSchoolDetailEndDate.value;
-			var forShowPlanSchoolDetailList = this.form.forShowPlanSchoolDetailList.value;
 			console.log("planSchoolCode : " + planSchoolCode);
 			console.log("planSchoolDetailContent : " + planSchoolDetailContent);
 			console.log("planSchoolDetailStartDate : " + planSchoolDetailStartDate);
 			console.log("planSchoolDetailEndDate : " + planSchoolDetailEndDate);
-			console.log("forShowPlanSchoolDetailList : " + forShowPlanSchoolDetailList);
 			$.ajax({
 				url:'/planSchoolDetailInsert',
 				type:'POST',
@@ -194,6 +219,8 @@ display:inline-block;
 				},
 				success:function(){
 					alert("planSchoolDetail 입력 성공!");
+					$('#hidePlanSchoolList').trigger('click');
+					$('#showPlanSchoolList').trigger('click');
 				},
 				error:function(error){
 					alert("planSchoolDetail 입력 실패..");
@@ -280,9 +307,11 @@ display:inline-block;
 					
 					$(data).each(function(index,item){
 						$('#planDeptList').append(
-							'<form id="planDeptListForm">'
+							'<div>'
+							+'<form id="planDeptListForm">'
 							+'<input type="hidden" name="planDeptCode" value="'+item.planDeptCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
+							+'<span><input id="'+index+'" class="showPlanDeptDetail" name="showPlanDeptDetail'+index+'" type="button" value="▶"/></span>'
 							+'<span>'+item.mClass+'</span>'
 							+'<span>'
 							+'<select name="planDeptCondition">'
@@ -298,12 +327,169 @@ display:inline-block;
 							+'<span>'+item.planDeptRegisterDate+'</td>'
 							+'<span><input class="goPlanDeptUpdate" type="button" value="등록"/></span>'
 							+'<span><input class="goPlanDeptDelete" type="button" value="삭제"/></span>'
-							+'</form>');
+							+'</form>'
+							+'</div>'
+							+'<div class="w3-progress-container">'
+							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planDeptPercent+'">'+item.planDeptPercent+'</div>'
+							+'</div>'
+							+'<div>'
+							+'<div id="planDeptDetailListTop'+index+'">'
+							+'</div>'
+							+'<div id="planDeptDetailList'+index+'">'
+							+'</div>'
+							+'<div id="planDeptDetailListBot'+index+'">'
+							+'</div>'
+							+'</div>');
 					});
-					$('#planDeptListBot').append('<span><input id="hidePlanDeptList" type="button" value="접기"/></span>')
+					$('#planDeptListBot').append('<span><input id="hidePlanDeptList" type="button" value="학과접기"/></span>')
+					
 				},
 				error:function(error){
 					alert("error:"+error)
+				}
+			});
+		});
+		
+		//계획학과디테일리스트 보기
+		$(document).on('click', '.showPlanDeptDetail', function(){
+			var planDeptDetailBtn = this.name;
+			var planDeptCode = this.form.planDeptCode.value;
+			var no = this.id;
+			var planDeptDetailListTop = $('#planDeptDetailListTop'+no);
+			var planDeptDetailList = $('#planDeptDetailList'+no);
+			var planDeptDetailListBot = $('#planDeptDetailListBot'+no);
+			console.log("no :" + no);
+			$.ajax({
+				url:'/planDeptDetailList',
+				type:'POST',
+				data:{
+					planDeptCode:planDeptCode
+				},
+				success:function(data){
+					$('input[name='+planDeptDetailBtn+']').attr("disabled","disabled");
+					planDeptDetailListTop.empty();
+					planDeptDetailList.empty();
+					planDeptDetailListTop.append('<div>');
+					planDeptDetailListTop.append('<span>내용</span>');
+					planDeptDetailListTop.append('<span>시작일</span>');
+					planDeptDetailListTop.append('<span>종료일</span>');
+					planDeptDetailListTop.append('</div>');
+					planDeptDetailListTop.append('<div>');
+					planDeptDetailListTop.append(
+							'<form id="planDeptDetailForm">'
+							+'<span><input type="hidden" name="planDeptCode" value="'+planDeptCode+'"/>'
+							+'<span><input type="text" name="planDeptDetailContent" value=""/></span>'
+							+'<span><input type="date" name="planDeptDetailStartDate" value=""/></span>'
+							+'<span><input type="date" name="planDeptDetailEndDate" value=""/></span>'
+							+'<span><input class="planDeptDetailSubmit" type="button" value="확인"/></span>'
+							+'</form>');
+					planDeptDetailListTop.append('</div>');
+					planDeptDetailListTop.append('<br>');
+					
+					$(data).each(function(index,item){
+						if(item.planDeptDetailCondition == 0){
+							planDeptDetailList.append(
+								'<div>'
+								+'<form id="planDeptDetailListForm" name="planDeptDetailListForm'+index+'">'
+								+'<input type="hidden" name="indexVal" value="'+no+'">'
+								+'<input type="hidden" name="planDeptDetailCode" value="'+item.planDeptDetailCode+'">'
+								+'<span><input type="text" name="planDeptDetailContent" value="'+item.planDeptDetailContent+'"/></span>'
+								+'<span><input type="date" name="planDeptDetailStartDate" value="'+item.planDeptDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planDeptDetailEndDate" value="'+item.planDeptDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanDeptDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanDeptDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input id="'+no+'" class="goPlanDeptDetailComplete" type="button" value="완료"/></span>'
+								+'</form>'
+								+'</div>');
+						}
+						if(item.planDeptDetailCondition == 1){
+							planDeptDetailList.append(
+									'<div>'
+									+'<span><input type="text" name="planDeptDetailContent" readonly="readonly" value="'+item.planDeptDetailContent+'"/></span>'
+									+'<span><input type="date" name="planDeptDetailStartDate" readonly="readonly" value="'+item.planDeptDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planDeptDetailEndDate" readonly="readonly" value="'+item.planDeptDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
+									+'</div>');
+						}
+						planDeptDetailList.append('<br/>');
+					});
+					planDeptDetailListBot.append(
+						'<div>'
+						+'<span><input id="'+no+'" class="hidePlanDeptDetailList" name="hidePlanDeptList'+no+'" type="button" value="접기"/></span>'
+						+'</div>'
+						+'<hr>');
+				},
+				error:function(error){
+					alert('디테일리스트 출력 실패..');
+				},
+			});
+		});
+		
+		// 계획학과상세완료처리
+		// plan_dept_detail_code 값에 해당하는 condition 1로 바꾸기
+		// plan_dept_detail_condition 1로 바꾸기
+		$(document).on('click', '.goPlanDeptDetailComplete', function(){
+			var no = this.id; // 계획학교상세리스트보기버튼 no
+			var planDeptDetailCode = this.form.planDeptDetailCode.value;
+			console.log("planDeptDetailCode : " + planDeptDetailCode);
+			$.ajax({
+				url:'/planDeptDetailComplete',
+				type:'POST',
+				data:{
+					planDeptDetailCode:planDeptDetailCode
+				},
+				success:function(data){
+					alert("완료처리 성공!");
+					$('#hidePlanDeptList').trigger('click');
+					$('#showPlanDeptList').trigger('click');
+					console.log("no :" + no);
+				},
+				error:function(error){
+					alert("완료처리 실패..");
+				}
+			});
+		});
+		
+		// 계획학과상세리스트 접기
+		$(document).on('click', '.hidePlanDeptDetailList', function(){
+			console.log("hidePlanDeptDetailList 버튼 클릭 !");
+			var hidePlanDeptDetailListBtn = this.name;
+			var no = this.id;
+			var planDeptDetailListTop = $('#planDeptDetailListTop'+no);
+			var planDeptDetailList = $('#planDeptDetailList'+no);
+			var planDeptDetailListBot = $('#planDeptDetailListBot'+no);
+			planDeptDetailListTop.empty();
+			planDeptDetailList.empty();
+			planDeptDetailListBot.empty();
+			$('input[name=showPlanDeptDetail'+no+']').removeAttr("disabled");
+		});
+		
+		// 계획학과상세등록
+		$(document).on('click', '.planDeptDetailSubmit', function(){
+			var planDeptCode = this.form.planDeptCode.value;
+			var planDeptDetailContent = this.form.planDeptDetailContent.value;
+			var planDeptDetailStartDate = this.form.planDeptDetailStartDate.value;
+			var planDeptDetailEndDate = this.form.planDeptDetailEndDate.value;
+			console.log("planDeptCode : " + planDeptCode);
+			console.log("planDeptDetailContent : " + planDeptDetailContent);
+			console.log("planDeptDetailStartDate : " + planDeptDetailStartDate);
+			console.log("planDeptDetailEndDate : " + planDeptDetailEndDate);
+			$.ajax({
+				url:'/planDeptDetailInsert',
+				type:'POST',
+				data:{
+					planDeptCode:planDeptCode,
+					planDeptDetailContent:planDeptDetailContent,
+					planDeptDetailStartDate:planDeptDetailStartDate,
+					planDeptDetailEndDate:planDeptDetailEndDate
+				},
+				success:function(){
+					alert("planDeptDetail 입력 성공!");
+					$('#hidePlanDeptList').trigger('click');
+					$('#showPlanDeptList').trigger('click');
+				},
+				error:function(error){
+					alert("planDeptDetail 입력 실패..");
 				}
 			});
 		});
@@ -347,7 +533,7 @@ display:inline-block;
 	    	});
 	    });
 		
-		/* 계획학과 각각의 폼 삭제하기 */
+		/* 계획학교 각각의 폼 삭제하기 */
 		$(document).on('click','.goPlanDeptDelete',function(){
 			var planDeptCode = this.form.planDeptCode.value;
 			$.ajax({
@@ -365,6 +551,7 @@ display:inline-block;
 			});
 		});
 		
+		
 //------------------------------------------------------------------------------------------------
 		//계획자격증리스트 
 		$('#showPlanCertList').click(function(){
@@ -373,7 +560,7 @@ display:inline-block;
 				url:'/showPlanCertList',
 				type:'POST',
 				data:{planUniteCode:planUniteCode},
-				success:function(data){	//planSchoolList 담기
+				success:function(data){	//planCertList 담기
 					$('#showPlanCertList').attr("disabled","disabled");
 					$('#planCertListTop').empty();
 					$('#planCertList').empty();
@@ -387,9 +574,11 @@ display:inline-block;
 					
 					$(data).each(function(index,item){
 						$('#planCertList').append(
-							'<form id="planCertListForm">'
+							'<div>'
+							+'<form id="planCertListForm">'
 							+'<input type="hidden" name="planCertCode" value="'+item.planCertCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
+							+'<span><input id="'+index+'" class="showPlanCertDetail" name="showPlanCertDetail'+index+'" type="button" value="▶"/></span>'
 							+'<span>'+item.jmFldNm+'</span>'
 							+'<span>'
 							+'<select name="planCertCondition">'
@@ -405,12 +594,168 @@ display:inline-block;
 							+'<span>'+item.planCertRegisterDate+'</td>'
 							+'<span><input class="goPlanCertUpdate" type="button" value="등록"/></span>'
 							+'<span><input class="goPlanCertDelete" type="button" value="삭제"/></span>'
-							+'</form>');
+							+'</form>'
+							+'</div>'
+							+'<div class="w3-progress-container">'
+							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planCertPercent+'">'+item.planCertPercent+'</div>'
+							+'</div>'
+							+'<div>'
+							+'<div id="planCertDetailListTop'+index+'">'
+							+'</div>'
+							+'<div id="planCertDetailList'+index+'">'
+							+'</div>'
+							+'<div id="planCertDetailListBot'+index+'">'
+							+'</div>'
+							+'</div>');
 					});
-					$('#planCertListBot').append('<span><input id="hidePlanCertList" type="button" value="접기"/></span>')
+					$('#planCertListBot').append('<span><input id="hidePlanCertList" type="button" value="자격증접기"/></span>')
+					
 				},
 				error:function(error){
 					alert("error:"+error)
+				}
+			});
+		});
+		
+		//계획자격증 디테일리스트 보기
+		$(document).on('click', '.showPlanCertDetail', function(){
+			var planCertDetailBtn = this.name;
+			var planCertCode = this.form.planCertCode.value;
+			var no = this.id;
+			var planCertDetailListTop = $('#planCertDetailListTop'+no);
+			var planCertDetailList = $('#planCertDetailList'+no);
+			var planCertDetailListBot = $('#planCertDetailListBot'+no);
+			$.ajax({
+				url:'/planCertDetailList',
+				type:'POST',
+				data:{
+					planCertCode:planCertCode
+				},
+				success:function(data){
+					$('input[name='+planCertDetailBtn+']').attr("disabled","disabled");
+					planCertDetailListTop.empty();
+					planCertDetailList.empty();
+					planCertDetailListTop.append('<div>');
+					planCertDetailListTop.append('<span>내용</span>');
+					planCertDetailListTop.append('<span>시작일</span>');
+					planCertDetailListTop.append('<span>종료일</span>');
+					planCertDetailListTop.append('</div>');
+					planCertDetailListTop.append('<div>');
+					planCertDetailListTop.append(
+							'<form id="planCertDetailForm">'
+							+'<span><input type="hidden" name="planCertCode" value="'+planCertCode+'"/>'
+							+'<span><input type="text" name="planCertDetailContent" value=""/></span>'
+							+'<span><input type="date" name="planCertDetailStartDate" value=""/></span>'
+							+'<span><input type="date" name="planCertDetailEndDate" value=""/></span>'
+							+'<span><input class="planCertDetailSubmit" type="button" value="확인"/></span>'
+							+'</form>');
+					planCertDetailListTop.append('</div>');
+					planCertDetailListTop.append('<br>');
+					
+					$(data).each(function(index,item){
+						if(item.planCertDetailCondition == 0){
+							planCertDetailList.append(
+								'<div>'
+								+'<form id="planCertDetailListForm" name="planCertDetailListForm'+index+'">'
+								+'<input type="hidden" name="indexVal" value="'+no+'">'
+								+'<input type="hidden" name="planCertDetailCode" value="'+item.planCertDetailCode+'">'
+								+'<span><input type="text" name="planCertDetailContent" value="'+item.planCertDetailContent+'"/></span>'
+								+'<span><input type="date" name="planCertDetailStartDate" value="'+item.planCertDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planCertDetailEndDate" value="'+item.planCertDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanCertDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanCertDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input id="'+no+'" class="goPlanCertDetailComplete" type="button" value="완료"/></span>'
+								+'</form>'
+								+'</div>');
+						}
+						if(item.planCertDetailCondition == 1){
+							planCertDetailList.append(
+									'<div>'
+									+'<span><input type="text" name="planCertDetailContent" readonly="readonly" value="'+item.planCertDetailContent+'"/></span>'
+									+'<span><input type="date" name="planCertDetailStartDate" readonly="readonly" value="'+item.planCertDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planCertDetailEndDate" readonly="readonly" value="'+item.planCertDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
+									+'</div>');
+						}
+						planCertDetailList.append('<br/>');
+					});
+					planCertDetailListBot.append(
+						'<div>'
+						+'<span><input id="'+no+'" class="hidePlanCertDetailList" name="hidePlanCertList'+no+'" type="button" value="접기"/></span>'
+						+'</div>'
+						+'<hr>');
+				},
+				error:function(error){
+					alert('디테일리스트 출력 실패..');
+				},
+			});
+		});
+		
+		// 계획자격증 상세완료처리
+		// plan_cert_detail_code 값에 해당하는 condition 1로 바꾸기
+		// plan_cert_detail_condition 1로 바꾸기
+		$(document).on('click', '.goPlanCertDetailComplete', function(){
+			var no = this.id; // 계획학교상세리스트보기버튼 no
+			var planCertDetailCode = this.form.planCertDetailCode.value;
+			console.log("planCertDetailCode : " + planCertDetailCode);
+			$.ajax({
+				url:'/planCertDetailComplete',
+				type:'POST',
+				data:{
+					planCertDetailCode:planCertDetailCode
+				},
+				success:function(data){
+					alert("완료처리 성공!");
+					$('#hidePlanCertList').trigger('click');
+					$('#showPlanCertList').trigger('click');
+					console.log("no :" + no);
+				},
+				error:function(error){
+					alert("완료처리 실패..");
+				}
+			});
+		});
+		
+		// 계획자격증 상세리스트 접기
+		$(document).on('click', '.hidePlanCertDetailList', function(){
+			console.log("hidePlanCertDetailList 버튼 클릭 !");
+			var hidePlanCertDetailListBtn = this.name;
+			var no = this.id;
+			var planCertDetailListTop = $('#planCertDetailListTop'+no);
+			var planCertDetailList = $('#planCertDetailList'+no);
+			var planCertDetailListBot = $('#planCertDetailListBot'+no);
+			planCertDetailListTop.empty();
+			planCertDetailList.empty();
+			planCertDetailListBot.empty();
+			$('input[name=showPlanCertDetail'+no+']').removeAttr("disabled");
+		});
+		
+		// 계획자격증 상세등록
+		$(document).on('click', '.planCertDetailSubmit', function(){
+			var planCertCode = this.form.planCertCode.value;
+			var planCertDetailContent = this.form.planCertDetailContent.value;
+			var planCertDetailStartDate = this.form.planCertDetailStartDate.value;
+			var planCertDetailEndDate = this.form.planCertDetailEndDate.value;
+			console.log("planCertCode : " + planCertCode);
+			console.log("planCertDetailContent : " + planCertDetailContent);
+			console.log("planCertDetailStartDate : " + planCertDetailStartDate);
+			console.log("planCertDetailEndDate : " + planCertDetailEndDate);
+			$.ajax({
+				url:'/planCertDetailInsert',
+				type:'POST',
+				data:{
+					planCertCode:planCertCode,
+					planCertDetailContent:planCertDetailContent,
+					planCertDetailStartDate:planCertDetailStartDate,
+					planCertDetailEndDate:planCertDetailEndDate
+				},
+				success:function(){
+					alert("planCertDetail 입력 성공!");
+					$('#hidePlanCertList').trigger('click');
+					$('#showPlanCertList').trigger('click');
+				},
+				error:function(error){
+					alert("planCertDetail 입력 실패..");
 				}
 			});
 		});

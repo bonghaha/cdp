@@ -12,6 +12,7 @@ public class PlanDept {
 	private String planDeptRegisterDate;	// 계획학과등록일
 	private String planDeptStartDate;		// 계획학과시작일
 	private String planDeptEndDate;			// 계획학과종료일
+	private String planDeptPercent;
 	public String getPlanDeptCode() {
 		return planDeptCode;
 	}
@@ -78,12 +79,18 @@ public class PlanDept {
 	public void setmClass(String mClass) {
 		this.mClass = mClass;
 	}
+	public String getPlanDeptPercent() {
+		return planDeptPercent;
+	}
+	public void setPlanDeptPercent(String planDeptPercent) {
+		this.planDeptPercent = planDeptPercent;
+	}
 	@Override
 	public String toString() {
 		return "PlanDept [planDeptCode=" + planDeptCode + ", planUniteCode=" + planUniteCode + ", infoMemberId="
 				+ infoMemberId + ", recDeptCode=" + recDeptCode + ", mClass=" + mClass + ", planDeptCondition="
 				+ planDeptCondition + ", planDeptContent=" + planDeptContent + ", planDeptCount=" + planDeptCount
 				+ ", planDeptRegisterDate=" + planDeptRegisterDate + ", planDeptStartDate=" + planDeptStartDate
-				+ ", planDeptEndDate=" + planDeptEndDate + "]";
+				+ ", planDeptEndDate=" + planDeptEndDate + ", planDeptPercent=" + planDeptPercent + "]";
 	}
 }

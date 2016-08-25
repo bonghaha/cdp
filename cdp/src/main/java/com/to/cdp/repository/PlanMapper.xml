@@ -148,8 +148,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			plan_school_count planSchoolCount,
 			plan_school_registerdate planSchoolRegisterDate,
 			plan_school_startdate planSchoolStartDate,
-			plan_school_enddate planSchoolEndDate,
-			plan_school_percent planSchoolPercent
+			plan_school_enddate planSchoolEndDate
 		FROM plan_school
 		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
 	</select>
@@ -210,6 +209,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--*****************************************************************
 	***************************PlanDept******************************
 	***************************************************************** -->
+	
+	<!-- 계획학과퍼센트 구하기 위한 plan_dept의 개수-->
+	<select id="pddCountByPlanDeptCode"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_dept_detail
+		WHERE
+			plan_dept_code = #{planDeptCode}
+	</select>
+	
+	<select id="pddCountByPdcWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_dept_detail
+		WHERE
+			plan_dept_code = #{planDeptCode}
+		AND
+			plan_dept_detail_condition = 1
+	</select>
 	
 	<!-- planDeptInsert -->
 	<insert id="planDeptInsert"
@@ -327,6 +351,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--*****************************************************************
 	***************************PlanCert******************************
 	***************************************************************** -->
+
+	<!-- 계획자격증퍼센트 구하기 위한 plan_cert의 개수-->
+	<select id="pcdCountByPlancertCode"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_cert_detail
+		WHERE
+			plan_cert_code = #{planCertCode}
+	</select>
+	
+	<select id="pcdCountByPccWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_cert_detail
+		WHERE
+			plan_cert_code = #{planCertCode}
+		AND
+			plan_cert_detail_condition = 1
+	</select>
 	
 	<insert id="planCertInsert"
 			parameterType="com.to.cdp.plan.model.PlanCert">

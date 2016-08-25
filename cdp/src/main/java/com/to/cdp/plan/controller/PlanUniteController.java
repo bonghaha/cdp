@@ -103,7 +103,8 @@ public class PlanUniteController {
 	public List<PlanSchool> showPlanSchoolList(
 			HttpSession session,
 			PlanSchool planSchool){
-
+		
+		System.out.println("===============PlanUniteController===============");
 		System.out.println("planSchool /showPlanSchoolList : " + planSchool);
 		
 		//VO(PlanSchool)에서 아이디와 planUniteCode가 조건에 해당하는 것 리스트에 넣기
@@ -113,8 +114,9 @@ public class PlanUniteController {
 		System.out.println("planSchool /showPlanSchoolList : " + planSchool);
 		// planSchoolPercent insert 후 전체list 출력
 		planSchoolList = planSchoolService.planSchoolList(planSchool);
-		System.out.println("planSchoolList /showPlanSchoolList : " + planSchoolList);
+		System.out.println("planSchoolList : " + planSchoolList);
 		
+		System.out.println("============PlanUniteController End==============");
 		return planSchoolList;
 	}
 	
@@ -125,6 +127,7 @@ public class PlanUniteController {
 			HttpSession session,
 			PlanDept planDept){
 
+		System.out.println("===============PlanUniteController===============");
 		System.out.println("planDept /showPlanDeptList : " + planDept);
 		
 		//VO(PlanDept)에서 아이디와 planUniteCode가 조건에 해당하는 것 리스트에 넣기
@@ -132,10 +135,11 @@ public class PlanUniteController {
 		String memberLoginId = (String) session.getAttribute("memberLoginId");
 		planDept.setInfoMemberId(memberLoginId);
 		System.out.println("planDept /showPlanDeptList : " + planDept);
-		
+		// planDeptPercent insert 후 전체list 출력
 		planDeptList = planDeptService.planDeptList(planDept);
-		System.out.println("planDeptList /showPlanDeptList : " + planDeptList);
-		// ModelAndView 사용해서 view랑 model값 저장 할 필요 X
+		System.out.println("planDeptList : " + planDeptList);
+		
+		System.out.println("============PlanUniteController End==============");
 		return planDeptList;
 	}
 		
@@ -146,6 +150,7 @@ public class PlanUniteController {
 			HttpSession session,
 			PlanCert planCert){
 
+		System.out.println("===============PlanUniteController===============");
 		System.out.println("planCert /showPlanCertList : " + planCert);
 		
 		//VO(PlanCert)에서 아이디와 planUniteCode가 조건에 해당하는 것 리스트에 넣기
@@ -153,10 +158,11 @@ public class PlanUniteController {
 		String memberLoginId = (String) session.getAttribute("memberLoginId");
 		planCert.setInfoMemberId(memberLoginId);
 		System.out.println("planCert /showPlanCertList : " + planCert);
-		
+		// planCertPercent insert 후 전체list 출력
 		planCertList = planCertService.planCertList(planCert);
-		System.out.println("planCertList /showPlanCertList : " + planCertList);
-		// ModelAndView 사용해서 view랑 model값 저장 할 필요 X
+		System.out.println("planCertList : " + planCertList);
+		
+		System.out.println("============PlanUniteController End==============");
 		return planCertList;
 	}
 }

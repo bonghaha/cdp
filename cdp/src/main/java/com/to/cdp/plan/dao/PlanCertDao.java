@@ -1,13 +1,13 @@
 package com.to.cdp.plan.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.to.cdp.plan.model.PlanCert;
+import com.to.cdp.plan.model.PlanSchool;
 import com.to.cdp.plan.model.PlanUnite;
 import com.to.cdp.rec.model.RecCert;
 
@@ -56,5 +56,15 @@ public class PlanCertDao {
 
 	public RecCert selectCertjmFldNm(RecCert recCert) {
 		return sqlSession.selectOne(NS + ".selectCertjmFldNm", recCert);
+	}
+	
+	// 계획학교코드에 해당하는 계획학교상세 카운트하기
+	public int pcdCountByPlancertCode(PlanCert planCert) {
+		return sqlSession.selectOne(NS + ".pcdCountByPlancertCode", planCert);
+	}
+
+	// 계확학교상세완료상태 카운트하기
+	public int pcdCountByPccWithCondition(PlanCert planCert) {
+		return sqlSession.selectOne(NS + ".pcdCountByPccWithCondition", planCert);
 	}
 }

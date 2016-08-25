@@ -25,4 +25,14 @@ public class PlanSchoolDetailDao {
 	public List<PlanSchoolDetail> planSchoolDetailList(PlanSchoolDetail planSchoolDetail) {
 		return sqlSession.selectList(NS + ".planSchoolDetailList", planSchoolDetail);
 	}
+
+	// 완료버튼 클릭시 condition 1로 바꾸기
+	public int planSchoolDetailComplete(PlanSchoolDetail planSchoolDetail) {
+		return sqlSession.update(NS + ".planSchoolDetailComplete", planSchoolDetail);
+	}
+
+	// planSchoolDetailCode에 해당하는 planSchoolCode받기
+	public String psCodeByPsdCode(PlanSchoolDetail planSchoolDetail) {
+		return sqlSession.selectOne(NS + ".psCodeByPsdCode", planSchoolDetail);
+	}
 }

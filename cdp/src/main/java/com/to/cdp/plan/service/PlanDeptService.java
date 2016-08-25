@@ -1,5 +1,6 @@
 package com.to.cdp.plan.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +55,49 @@ public class PlanDeptService {
 		return planDeptDao.planDeptDelete(planDept);
 	}
 	
+	// 퍼센트값 구하는 메서드
+	public PlanDept setPlanDeptPercent(PlanDept planDept){
+		// 퍼센테이지값 생성
+		int percentNum = 0;
+		String planDeptPercentSuf = "%";
+		
+		// 계획학교코드에 해당하는 계획학교상세카운트하기
+		double allCount = planDeptDao.pddCountByPlanDeptCode(planDept);
+		// psdCountByPscWithCondition
+		double completeCount = planDeptDao.pddCountByPdcWithCondition(planDept);
+		
+		System.out.println("allCount PlanDeptService : " + allCount);
+		System.out.println("completeCount PlanDeptService : " + completeCount);
+		percentNum = (int) ((completeCount/allCount)*100);
+		System.out.println("percentNum PlanDeptService : " + percentNum);
+		
+		String planDeptPercent = percentNum + planDeptPercentSuf;
+		System.out.println("planDeptPercent PlanDeptService : " + planDeptPercent);
+		planDept.setPlanDeptPercent(planDeptPercent);
+		return planDept;
+	}	
+	
 	// planDeptList
 	public List<PlanDept> planDeptList(PlanDept planDept){
-		return planDeptDao.planDeptList(planDept);
+		System.out.println("===============PlanDeptService===============");
+		List<PlanDept> planDeptListForSet = planDeptDao.planDeptList(planDept);	// planDept객체 정보들담아서 리스트
+		List<PlanDept> planDeptList = new ArrayList<PlanDept>();	// planDept객체 정보들담아서 리스트
+		
+		System.out.println("planDeptListForSet.size() : " + planDeptListForSet.size());
+		int size = planDeptListForSet.size();
+		
+		for(int i=0; i<size; i++){
+			System.out.println("-------for Start-------");
+			planDept = new PlanDept();
+			planDept = planDeptListForSet.get(i);
+			planDept = setPlanDeptPercent(planDept);
+			planDeptList.add(planDept);
+			
+			System.out.println("-------for End-------");
+		}
+		System.out.println("planDeptList : " + planDeptList);
+		System.out.println("=============PlanDeptService End=============");
+		return planDeptList;
 	}
 	
 	// planDeptDetail

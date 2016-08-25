@@ -12,6 +12,7 @@ public class PlanCert {
 	private String recCertCode;
 	private String jmFldNm;
 	private String infoMemberId;
+	private String planCertPercent;
 	public String getPlanCertCode() {
 		return planCertCode;
 	}
@@ -78,12 +79,18 @@ public class PlanCert {
 	public void setJmFldNm(String jmFldNm) {
 		this.jmFldNm = jmFldNm;
 	}
+	public String getPlanCertPercent() {
+		return planCertPercent;
+	}
+	public void setPlanCertPercent(String planCertPercent) {
+		this.planCertPercent = planCertPercent;
+	}
 	@Override
 	public String toString() {
 		return "PlanCert [planCertCode=" + planCertCode + ", planUniteCode=" + planUniteCode + ", planCertCondition="
 				+ planCertCondition + ", planCertContent=" + planCertContent + ", planCertCount=" + planCertCount
 				+ ", planCertRegisterDate=" + planCertRegisterDate + ", planCertStartDate=" + planCertStartDate
 				+ ", planCertEndDate=" + planCertEndDate + ", recCertCode=" + recCertCode + ", jmFldNm=" + jmFldNm
-				+ ", infoMemberId=" + infoMemberId + "]";
+				+ ", infoMemberId=" + infoMemberId + ", planCertPercent=" + planCertPercent + "]";
 	}
 }

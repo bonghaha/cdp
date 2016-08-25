@@ -1,5 +1,6 @@
 package com.to.cdp.plan.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,22 +57,49 @@ public class PlanSchoolService {
 		return planSchoolDao.planSchoolDelete(planSchool);
 	}
 	
-	// planSchoolList
-	public List<PlanSchool> planSchoolList(PlanSchool planSchool){
+	// 퍼센트값 구하는 메서드
+	public PlanSchool setPlanSchoolPercent(PlanSchool planSchool){
 		// 퍼센테이지값 생성
 		int percentNum = 0;
 		String planSchoolPercentSuf = "%";
 		
 		// 계획학교코드에 해당하는 계획학교상세카운트하기
-		int allCount = planSchoolDao.psdCountByPlanSchoolCode(planSchool);
+		double allCount = planSchoolDao.psdCountByPlanSchoolCode(planSchool);
 		// psdCountByPscWithCondition
-		int completeCount = planSchoolDao.psdCountByPscWithCondition(planSchool);
-		percentNum = completeCount/allCount*100;
+		double completeCount = planSchoolDao.psdCountByPscWithCondition(planSchool);
+		
+		System.out.println("allCount PlanSchoolService : " + allCount);
+		System.out.println("completeCount PlanSchoolService : " + completeCount);
+		percentNum = (int) ((completeCount/allCount)*100);
+		System.out.println("percentNum PlanSchoolService : " + percentNum);
 		
 		String planSchoolPercent = percentNum + planSchoolPercentSuf;
+		System.out.println("planSchoolPercent PlanSchoolService : " + planSchoolPercent);
 		planSchool.setPlanSchoolPercent(planSchoolPercent);
+		return planSchool;
+	}
+	
+	// planSchoolList
+	public List<PlanSchool> planSchoolList(PlanSchool planSchool){
+		System.out.println("===============PlanSchoolService===============");
+		List<PlanSchool> planSchoolListForSet = planSchoolDao.planSchoolList(planSchool);	// planSchool객체 정보들담아서 리스트
+		List<PlanSchool> planSchoolList = new ArrayList<PlanSchool>();	// planSchool객체 정보들담아서 리스트
 		
-		return planSchoolDao.planSchoolList(planSchool);
+		System.out.println("planSchoolListForSet.size() : " + planSchoolListForSet.size());
+		int size = planSchoolListForSet.size();
+		
+		for(int i=0; i<size; i++){
+			System.out.println("-------for Start-------");
+			planSchool = new PlanSchool();
+			planSchool = planSchoolListForSet.get(i);
+			planSchool = setPlanSchoolPercent(planSchool);
+			planSchoolList.add(planSchool);
+			
+			System.out.println("-------for End-------");
+		}
+		System.out.println("planSchoolList : " + planSchoolList);
+		System.out.println("=============PlanSchoolService End=============");
+		return planSchoolList;
 	}
 	
 	// planSchoolDetail
