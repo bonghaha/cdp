@@ -75,7 +75,7 @@
 		    <div class="a">
 		    	<div>
 		    		<!-- 경로 넣어야 함  -->
-		    		<a href="/" class="w3-btn w3-pink" id="inlineBlock">
+		    		<a href="/intro" class="w3-btn w3-pink" id="inlineBlock">
 			    		<span>
 			    			<br/><br/><br/><br/><br/>
 			    			<font class="fontMain">프로젝트 소개</font><br/><br/>
