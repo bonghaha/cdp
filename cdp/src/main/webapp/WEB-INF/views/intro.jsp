@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +30,7 @@
 </head>
 <body>
 	<div>
-		<h1><a href="/">프로젝트명 : 공공API를 활용한 경력 개발 프로그램 (CDP : Career Development Program)</a></h1>
+		<h1><a href="/home">프로젝트명 : 공공API를 활용한 경력 개발 프로그램 (CDP : Career Development Program)</a></h1>
 	</div>
 	<div>
 		<h2>프로젝트 주제</h2>
@@ -56,7 +58,7 @@
 	</div>
 	<br>
 	<div class="a">
-		<a href="/" class="w3-btn w3-pink" id="inlineBlock">
+		<a href="/home" class="w3-btn w3-pink" id="inlineBlock">
     		<span>
     			<font class="fontMain">홈으로 가기</font><br>
     			<img alt="" src="/resources/image/image.PNG" width="100" height="100">
