@@ -91,7 +91,7 @@ public class PlanDeptController {
 		
 		model.addAttribute("planDeptList", planDeptList);
 		model.addAttribute("planUnite", planUnite);
-		return "plan/unite/uniteAllList";
+		return "plan/unite/uniteDetail";
 	}
 	
 	@RequestMapping(value="/planDeptList", method=RequestMethod.POST)

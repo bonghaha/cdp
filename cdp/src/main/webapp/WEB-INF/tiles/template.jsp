@@ -211,12 +211,7 @@ input[type=text] {
 		<nav id="topMenu">
 	      <ul>
 		      <li class="topMenuLi">
-		      	<a id="fontDecoNone" class="menuLink"  href="#">진로심리검사</a>
-			    <ul class="submenu">
-	              <li><a id="fontDecoNone" class="submenuLink longLink">심리검사</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink">진로탐색프로그램</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink">진로심리검사안내</a></li>
-		        </ul>
+		      	<a id="fontDecoNone" class="menuLink"  href="/resumeDetail">이력서관리</a>
 		      </li>
 		      
 		      <li class="topMenuLi">
@@ -229,23 +224,13 @@ input[type=text] {
 		        </ul>
 		      </li>
 		      <li class="topMenuLi">
-		      	<a id="fontDecoNone" class="menuLink" href="#">경력관리</a>
-		      	<ul class="submenu">
-	              <li><a id="fontDecoNone" class="submenuLink longLink">아직</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink">뭘</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink">할지</a></li>
-		        </ul>
+		      	<a id="fontDecoNone" class="menuLink" href="/planUniteList">계획관리</a>
 		      </li>
 		      <li class="topMenuLi">
 		      	<a id="fontDecoNone" class="menuLink" href="/articleList">Q&A 게시판</a>
 		      </li>
 		      <li class="topMenuLi">
-		      	<a id="fontDecoNone" class="menuLink" href="#">마이페이지</a>
-		      	<ul class="submenu">
-	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/myInfoManagement">내 정보관리</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/resumeDetail">이력관리</a></li>
-	              <li><a id="fontDecoNone" class="submenuLink longLink" href="/planUniteList">계획관리</a></li>
-		        </ul>
+		      	<a id="fontDecoNone" class="menuLink" href="/myInfoManagement">내정보관리</a>
 		      </li>
 	      </ul>
 		</nav>

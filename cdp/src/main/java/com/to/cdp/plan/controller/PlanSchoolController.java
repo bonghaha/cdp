@@ -91,7 +91,7 @@ public class PlanSchoolController {
 		
 		model.addAttribute("planSchoolList", planSchoolList);
 		model.addAttribute("planUnite", planUnite);
-		return "plan/unite/uniteAllList";
+		return "plan/unite/uniteDetail";
 	}
 	
 	@RequestMapping(value="/planSchoolList", method=RequestMethod.POST)

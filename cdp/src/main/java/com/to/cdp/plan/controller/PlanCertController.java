@@ -93,7 +93,7 @@ public class PlanCertController {
 		
 		model.addAttribute("planCertList", planCertList);
 		model.addAttribute("planUnite", planUnite);
-		return "plan/unite/uniteAllList";
+		return "plan/unite/uniteDetail";
 	}
 	
 	// 5. planCertDetail
