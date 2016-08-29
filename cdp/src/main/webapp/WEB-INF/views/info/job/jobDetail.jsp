@@ -63,6 +63,9 @@ $(document).ready(function(){
 	.jd_fontSub{
 		font-size: 13px;
 	}
+	.thWidth{
+		width: 100px;
+	}
 </style>
 </head>
 <body>
@@ -76,7 +79,7 @@ $(document).ready(function(){
 				<br/><br/>
 				<ul class="w3-pagination w3-border w3-round w3-xlarge">
 					<li>
-						<a href="#">&laquo;</a>
+						<a href="/infoJobList">&laquo;</a>
 					</li>
 					<li>
 						<a href="/infoJobList">
@@ -109,7 +112,7 @@ $(document).ready(function(){
 						<font class="jd_fontSub">세부적인 계획을 작성 해주세요</font></a>
 					</li>
 					<li>
-						<a href="#">&raquo;</a>
+						<a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">&raquo;</a>
 					</li>
 				</ul>
 			</div>
@@ -119,14 +122,14 @@ $(document).ready(function(){
 				<div style="text-align: center;">
 					<table class="w3-table w3-striped w3-border">
 						<tr class="w3-dark-grey">
-							<th>직업명</th>
-							<th>직업분야</th>
-							<th>직업설명</th>
-							<th>유사직업</th>
-							<th>고용평등</th>
-							<th>발전가능성</th>
-							<th>전망</th>
-							<th>연봉</th>
+							<th class="thWidth">직업명</th>
+							<th class="thWidth">직업분야</th>
+							<th width="600px">직업설명</th>
+							<th width="300px">유사직업</th>
+							<th class="thWidth">고용평등</th>
+							<th class="thWidth">발전가능성</th>
+							<th class="thWidth">전망</th>
+							<th class="thWidth">연봉</th>
 						</tr>
 						<c:choose>
 							<c:when test="${infoJob.job != null}">
@@ -150,15 +153,13 @@ $(document).ready(function(){
 					</table>
 				</div>
 				<div>
+				<br/>
 					<form id="jobDetailAction" action="">
 						<input type="hidden" name="jobdicSeq" value="${infoJob.jobdicSeq}"/>
 						<input type="hidden" name="job" value="${infoJob.job}"/>
 						<input type="hidden" name="searchType" value="${searchType}"/>
 						<input type="hidden" name="searchWord" value="${searchWord}"/>
-						<div align="center">
-							<span><input class="w3-btn w3-dark-grey" id="goJobList" type="button" value="리스트로 가기"/></span>
-						</div>
-						<hr>
+						
 						<c:choose>
 							<c:when test="${infoMember.infoMemberLevel eq 1}">
 								관리자
@@ -186,10 +187,16 @@ $(document).ready(function(){
 									<span><input class="w3-btn w3-dark-grey" id="recDeptList" type="button" value="추천학과리스트"/></span>
 									<span><input class="w3-btn w3-dark-grey" id="recCertList" type="button" value="추천자격증리스트"/></span>
 								</div>
-								<br>
+								<hr>
+								
+						
 								<div align="center">
 									<span><input class="w3-btn w3-dark-grey" id="goPlanUniteInsert" type="button" value="계획등록"></span>
 									<span><input class="w3-btn w3-dark-grey" id="goPlanUniteList" type="button" value="계획리스트"/></span>
+								</div>
+								<br/>
+								<div align="center">
+									<span><input class="w3-btn w3-dark-grey" id="goJobList" type="button" value="뒤로 가기"/></span>
 								</div>
 							</c:when>
 						</c:choose>

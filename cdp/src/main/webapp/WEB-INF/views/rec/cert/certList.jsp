@@ -45,37 +45,38 @@
 		<t:putAttribute name="body">
 			<!-- 자격증 리스트 -->
 			<h1>추천 자격증 리스트</h1>
-			<div>
+			<div align="center">
 				<form id="certListAction" action="">
 					<input type="hidden" name="jobdicSeq" value="${infoJob.jobdicSeq}">
 					<input type="hidden" name="recCertCode" value="${recCert.recCertCode}">
 					<input type="hidden" name="jmCd" value="${recCert.jmCd}">
-					<table>
-						<tr>
-							<th>선택</th>
-							<th>자격증코드</th>
+					<table class="w3-table w3-striped w3-border">
+						<tr class="w3-dark-grey">
+							
+							<%-- <th>자격증코드</th> --%>
 							<th>자격증명</th>
 							<th>대직무분야명</th>
 							<th>중직무분야명</th>
-							<th>추천상태</th>
-							<th>추천이유</th>
-							<th>추천내용</th>
+							<%-- <th>추천상태</th> --%>
+							<th width="400px">추천이유</th>
+							<th width="400px">추천내용</th>
 							<th>추천등록일</th>
 						</tr>
 						<c:forEach var="rwicl" items="${recWithInfoCertList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 							<tr>
-								<td><input id="recCertCheck" type="checkbox" name="recCertCode" value="${rwicl.recCertCode}"></td>
-								<td>${rwicl.jmCd}</td>
+								
+								<%-- <td>${rwicl.jmCd}</td> --%>
 								<td><a href="/infoCertDetail?jmCd=${rwicl.jmCd}&jobdicSeq=${rwicl.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${rwicl.jmFldNm}</a></td>
 								<td>${rwicl.obligFldNm}</td>
 								<td>${rwicl.mdobligFldNm}</td>
-								<td>${rwicl.recCertCondition}</td>
+								<%-- <td>${rwicl.recCertCondition}</td> --%>
 								<td>${rwicl.recCertReason}</td>
 								<td>${rwicl.recCertContent}</td>
 								<td>${rwicl.recCertRegisterDate}</td>
 							</tr>
 						</c:forEach>
 					</table>
+					<br/>
 					<div>
 						<span>
 							<select name="searchType">
@@ -86,7 +87,7 @@
 							</select>
 						</span>
 						<span><input type="text" name="searchWord"/></span>
-						<span><input id="certSearch" type="button" value="검색"/></span>
+						<span><input id="certSearch" class="w3-btn w3-dark-grey" type="button" value="검색"/></span>
 					</div>
 					
 					<!-- 페이징 -->
@@ -107,7 +108,7 @@
 						<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 							<c:choose>
 								<c:when test="${pageNo eq pageHelper.clickPage}">
-									<span><a href="/recCertList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/recCertList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}"><font style="font-weight: bold;">${pageNo}</font></a></span>
 								</c:when>
 								<c:otherwise>
 									<span><a href="/recCertList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -129,12 +130,10 @@
 							</span>
 						</c:if>
 					</div>
-					
+					<br/>
 					<!-- 홈으로 가기 -->
 					<div>
-						<span><input id="goBack" type="button" value="뒤로가기"/></span>
-						<span><input id="goHome" type="button" value="HOME"/></span>
-						<span><input id="goRecCertInsert" type="button" value="자격증리스트보기"/></span>
+						<span><input id="goBack" class="w3-btn w3-dark-grey" type="button" value="뒤로가기"/></span>
 					</div>
 				</form>
 			</div>

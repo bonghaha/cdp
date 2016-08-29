@@ -57,10 +57,10 @@
 				    <li><a href="/infoJobDetail?searchType=${searchType}&searchWord=${searchWord}">
 				    	<font class="jl_fontMain">직업상세보기</font><br/>
 				    	<font class="jl_fontSub">계획을 등록을 클릭 해주세요</font></a></li>
-				    <li><a href="/planUniteInsert">
+				    <li><a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">
 				    	<font class="jl_fontMain">계획 등록</font><br/>
 				    	<font class="jl_fontSub">계획 등록을 해주세요</font></a></li>
-				    <li><a href="#">
+				    <li><a href="/planUniteList">
 				    	<font class="jl_fontMain">계획리스트</font><br/>
 				    	<font class="jl_fontSub">계획리스트를 선택 해주세요</font></a></li>
 				    <li><a href="#">
@@ -69,7 +69,7 @@
 				    <li><a href="#">
 				    	<font class="jl_fontMain">계획 통합 리스트</font><br/>
 				    	<font class="jl_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
-				    <li><a href="#">&raquo;</a></li>
+				    <li><a href="/infoJobDetail?searchType=${searchType}&searchWord=${searchWord}">&raquo;</a></li>
 				  </ul>
 				</div>
 				<br/><br/>
@@ -117,13 +117,13 @@
 						<div>
 							<!-- 첫페이지로 이동 -->
 							<span>
-								<a href="/infoJobList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}"><font class="page">처음</font></a>
+								<a href="/infoJobList?clickPage=1&searchType=${searchType}&searchWord=${searchWord}">처음</a>
 							</span>
 							
 							<!-- 이전페이지로 이동 -->
 							<c:if test="${pageHelper.clickPage>1}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}"><font class="page">이전</font></a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage-1}&searchType=${searchType}&searchWord=${searchWord}">이전</a>
 								</span>
 							</c:if>
 							
@@ -131,10 +131,10 @@
 							<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 								<c:choose>
 									<c:when test="${pageNo eq pageHelper.clickPage}">
-										<span><a href="/infoJobList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page" style="font-weight: bold;">${pageNo}</font></a></span>
+										<span><a href="/infoJobList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font style="font-weight: bold;">${pageNo}</font></a></span>
 									</c:when>
 									<c:otherwise>
-										<span><a href="/infoJobList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}"><font class="page">${pageNo}</font></a></span>
+										<span><a href="/infoJobList?clickPage=${pageNo}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -142,14 +142,14 @@
 							<!-- 다음페이지으로 이동 -->
 							<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}"><font class="page">다음</font></a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage+1}&searchType=${searchType}&searchWord=${searchWord}">다음</a>
 								</span>
 							</c:if>
 							
 							<!-- 10페이지 뒤로 이동 -->
 							<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 								<span>
-									<a href="/infoJobList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}"><font class="page">10페이지 뒤로</font></a>
+									<a href="/infoJobList?clickPage=${pageHelper.clickPage+10}&searchType=${searchType}&searchWord=${searchWord}">10페이지 뒤로</a>
 								</span>
 							</c:if>
 						</div>

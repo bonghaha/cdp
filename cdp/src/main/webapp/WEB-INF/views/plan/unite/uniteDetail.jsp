@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -43,7 +44,7 @@
 	                    $('#schoolList').append('<td><a href="/recSchoolReason?recSchoolCode='+item.recSchoolCode+'" target="_blank">'+item.schoolName+'</a></td>');
 	                    $('#schoolList').append('</tr>');
 	                });
-	                $('#btnForSchool').append('<div><input id="checkedSchoolSubmit" type="button" value="계획등록"/></div>')
+	                	$('#btnForSchool').append('<br/><div align="center"><input id="checkedSchoolSubmit" class="w3-btn w3-dark-grey" type="button" value="계획등록"/></div>')
 	            },
 	            error:function(error){
 	                alert("error:"+error);
@@ -87,7 +88,7 @@
 	                    $('#deptList').append('<td><a href="/recDeptReason?recDeptCode='+item.recDeptCode+'" target="_blank">'+item.mClass+'</a></td>');
 	                    $('#deptList').append('</tr>');
 	                });
-	                $('#btnForDept').append('<div><input id="checkedDeptSubmit" type="button" value="계획등록"/></div>')
+	                $('#btnForDept').append('<br/><div align="center"><input id="checkedDeptSubmit" class="w3-btn w3-dark-grey" type="button" value="계획등록"/></div>')
 	            },
 	            error:function(error){
 	                alert("error:"+error);
@@ -135,7 +136,7 @@
 	                    $('#certList').append('<td>'+item.seriesNm+'</td>');
 	                    $('#certList').append('</tr>');
 	                });
-	                $('#btnForCert').append('<div><input id="checkedCertSubmit" type="button" value="계획등록"/></div>')
+	                $('#btnForCert').append('<br/><div align="center"><input id="checkedCertSubmit" class="w3-btn w3-dark-grey" type="button" value="계획등록"/></div>')
 	            },
 	            error:function(error){
 	                alert("error:"+error);
@@ -158,27 +159,56 @@
 	
 	
 </script>
-	<style>
-		table,th,tr,td{
-			border : 1px black solid;
-		}
-	</style>
+<style>
+	.ud_fontMain{
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.ud_fontSub{
+		font-size: 13px;	
+	}		
+</style>
 </head>
 <body>
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-		<div align="center">
-		<img src="/resources/image/ing55.PNG">
-		</div>
-			<h1>계획 통합 상세보기</h1>
+		<div class="w3-container" align="center">
+				  <h1>커리어 플래너</h1>
+				  <p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
+				  <br/><br/>
+				  <ul class="w3-pagination w3-border w3-round w3-xlarge">
+				    <li><a href="/planUniteList">&laquo;</a></li>
+				    <li><a href="/infoJobList">
+				    	<font class="ud_fontMain">직업리스트</font><br/>
+				    	<font class="ud_fontSub">직업을 선택하세요</font></a></li>
+				    <li><a href="/infoJobDetail?searchType=${searchType}&searchWord=${searchWord}">
+				    	<font class="ud_fontMain">직업상세보기</font><br/>
+				    	<font class="ud_fontSub">계획을 등록을 클릭 해주세요</font></a></li>
+				    <li><a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">
+				    	<font class="ud_fontMain">계획 등록</font><br/>
+				    	<font class="ud_fontSub">계획 등록을 해주세요</font></a></li>
+				    <li><a href="/planUniteList">
+				    	<font class="ud_fontMain">계획리스트</font><br/>
+				    	<font class="ud_fontSub">계획리스트를 선택 해주세요</font></a></li>
+				    <li><a class="w3-blue-grey" href="/planUniteDetail">
+				    	<font class="ud_fontMain">계획 상세보기</font><br/>
+				    	<font class="ud_fontSub">각각의 계획을 등록 해주세요</font></a></li>
+				    <li><a href="#">
+				    	<font class="ud_fontMain">계획 통합 리스트</font><br/>
+				    	<font class="ud_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
+				    <li><a href="/planUniteDetail?planUniteCode=${pul.planUniteCode}&jobdicSeq=${pul.jobdicSeq}">&raquo;</a></li>
+				  </ul>
+				</div>
+				<br/><br/>
+			<h1>계획 상세보기</h1>
 			<div>
 				<form id="uniteDetailAction" action="">
 					<input id="planUniteCode" type="hidden" name="planUniteCode" value="${planUnite.planUniteCode}">
 					<input id="jobdicSeq" type="hidden" name="jobdicSeq" value="${planUnite.jobdicSeq}">
 					<input id="job" type="hidden" name="job" value="${planUnite.job}">
-					<table>
-						<tr>
+					<table class="w3-table w3-striped w3-border ">
+						<tr class="w3-dark-grey">
 							<th>직종</th>
 							<th>제목</th>
 							<th>내용</th>
@@ -193,11 +223,11 @@
 					</table>
 					<hr>
 					<div>
-						<span><input id="showRecSchoolList" type="button" value="추천학교리스트"/></span>
+						<span><input id="showRecSchoolList" class="w3-btn w3-dark-grey" type="button" value="추천학교리스트"/></span>
 					</div>
 					<div>
-						<table>
-							<thead id="schoolListTop">
+						<table class="w3-table w3-striped w3-border ">
+							<thead id="schoolListTop" class="w3-dark-grey">
 								
 							</thead>
 							<!-- 추천학교 리스트 보여주기(ajax) -->
@@ -209,11 +239,11 @@
 					</div>
 					<br>
 					<div>
-						<span><input id="showRecDeptList" type="button" value="추천학과리스트"/></span>
+						<span><input id="showRecDeptList" class="w3-btn w3-dark-grey" type="button" value="추천학과리스트"/></span>
 					</div>
 					<div>
-						<table>
-							<thead id="deptListTop">
+						<table class="w3-table w3-striped w3-border ">
+							<thead id="deptListTop" class="w3-dark-grey">
 								
 							</thead>
 							<!-- 추천학과 리스트 보여주기(ajax) -->
@@ -226,11 +256,11 @@
 					<br>
 					
 					<div>
-						<span><input id="showRecCertList" type="button" value="추천자격증리스트"/></span>
+						<span><input id="showRecCertList" class="w3-btn w3-dark-grey" type="button" value="추천자격증리스트"/></span>
 					</div>
 					<div>
-						<table>
-							<thead id="certListTop">
+						<table class="w3-table w3-striped w3-border ">
+							<thead id="certListTop" class="w3-dark-grey">
 								
 							</thead>
 							<!-- 추천자격증 리스트 보여주기(ajax) -->
@@ -246,8 +276,9 @@
 					<input id="planUniteCode" type="hidden" name="planUniteCode" value="${planUnite.planUniteCode}">
 					<input id="jobdicSeq" type="hidden" name="jobdicSeq" value="${planUnite.jobdicSeq}">
 					<input id="job" type="hidden" name="job" value="${planUnite.job}">
-					<div>
-						<span><input id="goPlanList" type="button" value="계획리스트보기"/></span>
+					<hr>
+					<div align="center">
+						<span><input id="goPlanList" class="w3-btn w3-dark-grey" type="button" value="계획통합리스트보기"/></span>
 					</div>
 				</form>
 			</div>

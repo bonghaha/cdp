@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -27,12 +28,12 @@
 			$("#deptListAction").submit();
 		});
 		
-		/* ¼±ÅÃÇÑ ÃßÃµµé °èÈ¹À¸·Î º¸³»±â */
+		/* ì„ íƒí•œ ì¶”ì²œë“¤ ê³„íšìœ¼ë¡œ ë³´ë‚´ê¸° */
 		$("#goPlanDeptInsert").click(function(){
-			var recDeptCode = [];	//¹è¿­ ÃÊ±âÈ­
+			var recDeptCode = [];	//ë°°ì—´ ì´ˆê¸°í™”
 			$("#deptListAction").attr("action","/planDeptInsert");
 			$("#recDeptCheck:checked").each(function(){
-				recDeptCode.push($(this).val());	//¹è¿­¿¡ Ã¼Å©µÈ°Íµé °¢°¢ÀÇ value °ª Çª½¬Çª½¬
+				recDeptCode.push($(this).val());	//ë°°ì—´ì— ì²´í¬ëœê²ƒë“¤ ê°ê°ì˜ value ê°’ í‘¸ì‰¬í‘¸ì‰¬
 			});
 			$("#deptListAction").submit();
 		});
@@ -43,67 +44,68 @@
 	<t:insertDefinition name="layout">
 		<!-- body -->
 		<t:putAttribute name="body">
-			<!-- ÇĞ°ú ¸®½ºÆ® -->
-			<h1>ÃßÃµ ÇĞ°ú ¸®½ºÆ®</h1>
-			<div>
+			<!-- í•™ê³¼ ë¦¬ìŠ¤íŠ¸ -->
+			<h1>ì¶”ì²œ í•™ê³¼ ë¦¬ìŠ¤íŠ¸</h1>
+			<div align="center">
 				<form id="deptListAction" action="">
 					<input type="hidden" name="jobdicSeq" value="${infoJob.jobdicSeq}">
 					<input type="hidden" name="recDeptCode" value="${recDept.recDeptCode}">
 					<input type="hidden" name="majorSeq" value="${recDept.majorSeq}">
-					<table>
-						<tr>
-							<th>¹øÈ£</th>
-							<th>ÇĞ°ú°è¿­</th>
-							<th>ÇĞ°ú¸í</th>
-							<th>ÃßÃµ»óÅÂ</th>
-							<th>ÃßÃµÀÌÀ¯</th>
-							<th>ÃßÃµ³»¿ë</th>
-							<th>ÃßÃµµî·ÏÀÏ</th>
+					<table class="w3-table w3-striped w3-border">
+						<tr class="w3-dark-grey">
+							<%-- <th>ë²ˆí˜¸</th> --%>
+							<th>í•™ê³¼ê³„ì—´</th>
+							<th>í•™ê³¼ëª…</th>
+							<%-- <th>ì¶”ì²œìƒíƒœ</th> --%>
+							<th width="400px">ì¶”ì²œì´ìœ </th>
+							<th width="400px">ì¶”ì²œë‚´ìš©</th>
+							<th>ì¶”ì²œë“±ë¡ì¼</th>
 						</tr>
 						<c:forEach var="rwidl" items="${recWithInfoDeptList}" begin="${pageHelper.startRow}" end="${pageHelper.lastRow}" step="1">
 							<tr>
-								<td>${rwidl.majorSeq}</td>
+								<%-- <td>${rwidl.majorSeq}</td> --%>
 								<td>${rwidl.lClass}</td>
 								<td><a href="/infoDeptDetail?majorSeq=${rwidl.majorSeq}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${rwidl.mClass}</a></td>
-								<td>${rwidl.recDeptCondition}</td>
+								<%-- <td>${rwidl.recDeptCondition}</td> --%>
 								<td>${rwidl.recDeptReason}</td>
 								<td>${rwidl.recDeptContent}</td>
 								<td>${rwidl.recDeptRegisterDate}</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<div>
+					<br/>
+					<div align="center">
 						<span>
 							<select name="searchType">
-								<option value="">::°Ë»öÁ¶°Ç::</option>
-								<option value="lClass">°è¿­</option>
-								<option value="mClass">ÇĞ°ú</option>
-								<option value="facilName">¼¼ºÎÇĞ°ú¸í</option>
+								<option value="">::ê²€ìƒ‰ì¡°ê±´::</option>
+								<option value="lClass">ê³„ì—´</option>
+								<option value="mClass">í•™ê³¼</option>
+								<option value="facilName">ì„¸ë¶€í•™ê³¼ëª…</option>
 							</select>
 						</span>
 						<span><input type="text" name="searchWord"/></span>
-						<span><input id="deptSearch" type="button" value="°Ë»ö"/></span>
+						<span><input id="deptSearch" class="w3-btn w3-dark-grey" type="button" value="ê²€ìƒ‰"/></span>
 					</div>
 					
-					<!-- ÆäÀÌÂ¡ -->
+					<!-- í˜ì´ì§• -->
 					<div>
-						<!-- Ã¹ÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì²«í˜ì´ì§€ë¡œ ì´ë™ -->
 						<span>
-							<a href="/recDeptList?clickPage=1&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">Ã³À½</a>
+							<a href="/recDeptList?clickPage=1&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ì²˜ìŒ</a>
 						</span>
 						
-						<!-- ÀÌÀüÆäÀÌÁö·Î ÀÌµ¿ -->
+						<!-- ì´ì „í˜ì´ì§€ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage>1}">
 							<span>
-								<a href="/recDeptList?clickPage=${pageHelper.clickPage-1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ÀÌÀü</a>
+								<a href="/recDeptList?clickPage=${pageHelper.clickPage-1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ì´ì „</a>
 							</span>
 						</c:if>
 						
-						<!-- ÆäÀÌÂ¡ÀÛ¾÷(1,2,3, ... , 9, 10 -->
+						<!-- í˜ì´ì§•ì‘ì—…(1,2,3, ... , 9, 10 -->
 						<c:forEach var="pageNo" begin="${pageHelper.eachFirstPage}" end="${pageHelper.eachLastPage}" step="1">
 							<c:choose>
 								<c:when test="${pageNo eq pageHelper.clickPage}">
-									<span><a href="/recDeptList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
+									<span><a href="/recDeptList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}"><font style="font-weight: bold;">${pageNo}</font></a></span>
 								</c:when>
 								<c:otherwise>
 									<span><a href="/recDeptList?clickPage=${pageNo}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">${pageNo}</a></span>
@@ -111,26 +113,25 @@
 							</c:choose>
 						</c:forEach>
 						
-						<!-- ´ÙÀ½ÆäÀÌÁöÀ¸·Î ÀÌµ¿ -->
+						<!-- ë‹¤ìŒí˜ì´ì§€ìœ¼ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage<pageHelper.lastPage}">
 							<span>
-								<a href="/recDeptList?clickPage=${pageHelper.clickPage+1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">´ÙÀ½</a>
+								<a href="/recDeptList?clickPage=${pageHelper.clickPage+1}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">ë‹¤ìŒ</a>
 							</span>
 						</c:if>
 						
-						<!-- 10ÆäÀÌÁö µÚ·Î ÀÌµ¿ -->
+						<!-- 10í˜ì´ì§€ ë’¤ë¡œ ì´ë™ -->
 						<c:if test="${pageHelper.clickPage+10<pageHelper.lastPage}">
 							<span>
-								<a href="/recDeptList?clickPage=${pageHelper.clickPage+10}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">10ÆäÀÌÁö µÚ·Î</a>
+								<a href="/recDeptList?clickPage=${pageHelper.clickPage+10}&jobdicSeq=${infoJob.jobdicSeq}&searchType=${searchType}&searchWord=${searchWord}">10í˜ì´ì§€ ë’¤ë¡œ</a>
 							</span>
 						</c:if>
 					</div>
-					
-					<!-- È¨À¸·Î °¡±â -->
+					<br/>
+					<!-- í™ˆìœ¼ë¡œ ê°€ê¸° -->
 					<div>
-						<span><input id="goBack" type="button" value="µÚ·Î°¡±â"/></span>
-						<span><input id="goHome" type="button" value="HOME"/></span>
-						<span><input id="goRecDeptInsert" type="button" value="ÇĞ°ú¸®½ºÆ®º¸±â"/></span>
+						<span><input id="goBack" class="w3-btn w3-dark-grey" type="button" value="ë’¤ë¡œê°€ê¸°"/></span>
+						<!-- <span><input id="goRecDeptInsert" class="w3-btn w3-dark-grey"type="button" value="í•™ê³¼ë¦¬ìŠ¤íŠ¸ë³´ê¸°"/></span> -->
 					</div>
 				</form>
 			</div>

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -34,13 +35,38 @@
 		});
 	});
 </script>
+<style>
+	#login_login { 
+		text-align: center;
+	}
+	#infoMemberId, #infoMemberPw {
+		
+		width:230px; height:40px;
+		border:1px solid #BDBDBD;
+		padding:15px;
+		font-size:16px;
+		/* color:#aaa; */
+      }
+	
+	/* #login, #reset {
+		width:230px; height:40px;
+		border:1px solid #BDBDBD;
+		padding:15px;
+		font-size:16px;
+		color:#aaa;
+	} */
+</style>
 </head>
 <body>
 	<t:insertDefinition name="layout">
 
 	<!-- body -->
 	<t:putAttribute name="body">
-		<h2>로그인</h2>
+		
+		<div id="login_login">
+			<h2 style="font-weight: bold;">평생교육의 꿈</h2>
+			<h2 style="font-weight: bold; color: #24468A;">CDP에 오신걸 환영합니다.</h2>
+			<br/><br/><br/>
 			<form id="loginAction">
 				<!-- 아이디 -->
 				<div>
@@ -51,23 +77,24 @@
 				<div>
 					<span id="infoMemberIdHelper"> </span>
 				</div>
-				
+				<br/>
 				<!-- 비밀번호 -->
 				<div>
 					<span><label for="infoMemberPw">PW</label></span>
 					<span><input id="infoMemberPw" type="password" name="infoMemberPw" value="admin1234"></span>
-					<span>6~18 문자(영문, 숫자, 언더스코어(_), 하이픈(-) 포함가능)</span>
+					<span>6~18 문자 (영문, 숫자, 언더스코어(_), 하이픈(-) 포함가능)</span>
 				</div>
 				<div>
 					<span id="infoMemberPwHelper"> </span>
 				</div>
-				
+				<br/><br/><br/>
 				<div>
-					<span><input id="login" type="button" value="로그인"></span>
-					<span><input id="reset" type="reset" value="리셋"></span>
+					<span><input class="w3-btn w3-dark-grey" id="login" type="button" value="로그인"></span>
+					<span><input class="w3-btn w3-dark-grey" id="reset" type="reset" value="리셋"></span>
 				</div>
 			</form>
 			<h3>${loginHelper}</h3>
+		</div>	
 		</t:putAttribute>
 	</t:insertDefinition>
 </body>

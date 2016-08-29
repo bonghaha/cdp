@@ -41,17 +41,17 @@
 				  <p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
 				  <br/><br/>
 				  <ul class="w3-pagination w3-border w3-round w3-xlarge">
-				    <li><a href="#">&laquo;</a></li>
+				    <li><a href="/infoJobDetail?jobdicSeq=${planUnite.jobdicSeq}&job=${planUnite.job}&searchType=${searchType}&searchWord=${searchWord}">&laquo;</a></li>
 				    <li><a href="/infoJobList">
 				    	<font class="ui_fontMain">직업리스트</font><br/>
 				    	<font class="ui_fontSub">직업을 선택하세요</font></a></li>
 				    <li><a href="/infoJobDetail?jobdicSeq=${planUnite.jobdicSeq}&job=${planUnite.job}&searchType=${searchType}&searchWord=${searchWord}">
 				    	<font class="ui_fontMain">직업상세보기</font><br/>
 				    	<font class="ui_fontSub">계획을 등록을 클릭 해주세요</font></a></li>
-				    <li><a class="w3-blue-grey" href="/planUniteInsert">
+				    <li><a class="w3-blue-grey" href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">
 				    	<font class="ui_fontMain">계획 등록</font><br/>
 				    	<font class="ui_fontSub">계획 등록을 해주세요</font></a></li>
-				    <li><a href="#">
+				    <li><a href="/planUniteList">
 				    	<font class="ui_fontMain">계획리스트</font><br/>
 				    	<font class="ui_fontSub">계획리스트를 선택 해주세요</font></a></li>
 				    <li><a href="#">
@@ -60,7 +60,7 @@
 				    <li><a href="#">
 				    	<font class="ui_fontMain">계획 통합 리스트</font><br/>
 				    	<font class="ui_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
-				    <li><a href="#">&raquo;</a></li>
+				    <li><a href="/planUniteList">&raquo;</a></li>
 				  </ul>
 				</div>
 				<br/><br/>
