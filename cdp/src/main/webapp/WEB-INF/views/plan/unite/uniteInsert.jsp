@@ -37,10 +37,11 @@
 		<t:putAttribute name="body">
 		<div id="uniteInsert">
 				<div class="w3-container" align="center">
-				  <h1>커리어 플래너</h1>
-				  <p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
+				  <font style="font-size: 60px;">커리어 플래너</font>
 				  <br/><br/>
-				  <ul class="w3-pagination w3-border w3-round w3-xlarge">
+				  <font style="font-size: 50px;">계획 등록을 해주세요.</font>
+				  <br/><br/>
+				  <%-- <ul class="w3-pagination w3-border w3-round w3-xlarge">
 				    <li><a href="/infoJobDetail?jobdicSeq=${planUnite.jobdicSeq}&job=${planUnite.job}&searchType=${searchType}&searchWord=${searchWord}">&laquo;</a></li>
 				    <li><a href="/infoJobList">
 				    	<font class="ui_fontMain">직업리스트</font><br/>
@@ -61,7 +62,7 @@
 				    	<font class="ui_fontMain">계획 통합 리스트</font><br/>
 				    	<font class="ui_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
 				    <li><a href="/planUniteList">&raquo;</a></li>
-				  </ul>
+				  </ul> --%>
 				</div>
 				<br/><br/>
 				<div class="w3-card-2" style="width:70%; margin-left: 15%;">

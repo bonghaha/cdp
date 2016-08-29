@@ -24,13 +24,13 @@
 	#infoJob{
 		width: 100%;
 	}
-	.jl_fontMain{
+	/* .jl_fontMain{
 		font-size: 18px;
 		font-weight: bold;
 	}
 	.jl_fontSub{
 		font-size: 13px;
-	}
+	} */
 	.page {
 		text-decoration: none;
 		color: black;
@@ -46,10 +46,11 @@
 			<!-- 직업 리스트 -->
 			<div id="infoJob">
 				<div class="w3-container" align="center">
-				  <h1>커리어 플래너</h1>
-				  <p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
+				  <font style="font-size: 60px;">커리어 플래너</font>
 				  <br/><br/>
-				  <ul class="w3-pagination w3-border w3-round w3-xlarge">
+				  <font style="font-size: 50px;">원하는 직업을 클릭 해주세요.</font>
+				  <br/><br/>
+				  <%-- <ul class="w3-pagination w3-border w3-round w3-xlarge">
 				    <li><a href="#">&laquo;</a></li>
 				    <li><a class="w3-blue-grey" href="/infoJobList">
 				    	<font class="jl_fontMain">직업리스트</font><br/>
@@ -70,7 +71,7 @@
 				    	<font class="jl_fontMain">계획 통합 리스트</font><br/>
 				    	<font class="jl_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
 				    <li><a href="/infoJobDetail?searchType=${searchType}&searchWord=${searchWord}">&raquo;</a></li>
-				  </ul>
+				  </ul> --%>
 				</div>
 				<br/><br/>
 				<h1>직업 리스트</h1>

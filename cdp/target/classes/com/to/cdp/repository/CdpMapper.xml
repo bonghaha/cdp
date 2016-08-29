@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.CdpMapper">
+
+<!--*****************************************************************
+	***************************InfoMember****************************
+	***************************************************************** -->
+	
+	<!-- 아이디로 권한 받기 -->
+	<select id="selectInfoMemberLevel"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT
+			info_member_level infoMemberLevel
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+	
+	<!-- 회원가입 시 아이디 중복확인용 -->
+	<select id="infoMemberIdCheck"
+			parameterType="string"
+			resultType="integer">
+		SELECT
+			count(*)
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+	
+	<!-- findByUserIdAndPassword -->
+	<select id="findByUserIdAndPassword"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_code infoMemberCode,
+			info_member_id infoMemberId,
+		 	info_member_pw infoMemberPw,
+		 	info_member_name infoMemberName,
+		 	info_member_phone infoMemberPhone,
+		 	info_member_email infoMemberEmail,
+		 	info_member_birth infoMemberBirth,
+		 	info_member_level infoMemberLevel,
+		 	info_member_joindate infoMemberJoinDate
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId} AND info_member_pw = #{infoMemberPw}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="infoMemberInsert"
+			parameterType="com.to.cdp.info.model.InfoMember">
+		INSERT INTO info_member (
+			info_member_code,
+			info_member_id, 
+			info_member_pw, 
+			info_member_name, 
+			info_member_phone, 
+			info_member_email, 
+			info_member_birth, 
+			info_member_level, 
+			info_member_joindate
+			)
+		VALUES (
+			#{infoMemberCode}, 
+			#{infoMemberId}, 
+			#{infoMemberPw}, 
+			#{infoMemberName}, 
+			#{infoMemberPhone}, 
+			#{infoMemberEmail}, 
+			#{infoMemberBirth}, 
+			#{infoMemberLevel}, 
+			now()
+			)
+	</insert>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="infoMemberLastKey"
+			resultType="String">
+		SELECT 
+			info_member_code
+		FROM 
+			info_member
+		ORDER BY LENGTH(info_member_code) DESC, info_member_code DESC LIMIT 1;
+	</select>
+	
+	
+	
+	<!-- 전체 회원 수 구하기 (조건검색 포함)-->
+	<select id="infoMemberCountBySearch"
+			parameterType="java.util.Map"
+			resultType="integer">
+		SELECT 
+			count(*) 
+		FROM info_member
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_member_level')">
+						info_member_level LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_id')">
+						info_member_id LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_name')">
+			 			info_member_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 회원상세보기 -->
+	<select id="infoMemberDetail"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_id infoMemberId,
+		 	info_member_pw infoMemberPw,
+		 	info_member_name infoMemberName,
+		 	info_member_phone infoMemberPhone,
+		 	info_member_email infoMemberEmail,
+		 	info_member_birth infoMemberBirth,
+		 	info_member_level infoMemberLevel,
+		 	info_member_joindate infoMemberJoinDate
+		FROM info_member
+		WHERE info_member_code = #{infoMemberCode}
+	</select>
+	
+	<!-- 로그인회원 정보 조회 -->
+	<select id="loginMemberDetail"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_id infoMemberId,
+		 	info_member_pw infoMemberPw,
+		 	info_member_name infoMemberName,
+		 	info_member_phone infoMemberPhone,
+		 	info_member_email infoMemberEmail,
+		 	info_member_birth infoMemberBirth,
+		 	info_member_level infoMemberLevel,
+		 	info_member_joindate infoMemberJoinDate
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+	
+	<!-- 회원리스트 -->
+	<select id="infoMemberList"
+			parameterType="java.util.Map"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT 
+			info_member_code infoMemberCode,
+			info_member_id infoMemberId,
+			info_member_name infoMemberName,
+			info_member_phone infoMemberPhone,
+			info_member_email infoMemberEmail,
+			info_member_birth infoMemberBirth,
+			info_member_level infoMemberLevel,
+			info_member_joindate infoMemberJoinDate
+		FROM info_member
+		<where>
+			<if test="searchWord != null">
+				<choose>
+		 			<when test="searchType.equals('info_member_level')">
+						info_member_level LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_id')">
+						info_member_id LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+					<when test="searchType.equals('info_member_name')">
+			 			info_member_name LIKE CONCAT('%', #{searchWord}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
+		ORDER BY info_member_joindate DESC
+	</select>
+</mapper>

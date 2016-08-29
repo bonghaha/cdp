@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.PlanMapper">
+	
+<!--*****************************************************************
+	***************************PlanUnite*****************************
+	***************************************************************** -->
+	
+	<!-- planUniteInsert -->
+	<insert id="planUniteInsert"
+			parameterType="com.to.cdp.plan.model.PlanUnite">
+		INSERT INTO plan_unite (
+			plan_unite_code, 
+			plan_unite_title, 
+			plan_unite_content, 
+			plan_unite_registerdate, 
+			jobdic_seq,
+			job,
+			info_member_id 
+			)
+		VALUES (
+			#{planUniteCode}, 
+			#{planUniteTitle}, 
+			#{planUniteContent}, 
+			now(),
+			#{jobdicSeq},
+			#{job},
+			#{infoMemberId} 
+			)
+	</insert>
+	
+	<!-- Plan Unite 리스트보기 -->
+	<select id="planUniteList"
+			parameterType="com.to.cdp.plan.model.PlanUnite"
+			resultType="com.to.cdp.plan.model.PlanUnite">
+		SELECT                                               
+			plan_unite_code planUniteCode,
+			plan_unite_title planUniteTitle,
+			plan_unite_registerdate planUniteRegisterDate,
+			jobdic_seq jobdicSeq,
+			job
+		FROM plan_unite
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+	
+	<!-- Plan Unite Detail -->
+	<select id="planUniteDetail"
+			parameterType="com.to.cdp.plan.model.PlanUnite"
+			resultType="com.to.cdp.plan.model.PlanUnite">
+		SELECT                                               
+			plan_unite_code planUniteCode,
+			info_member_id infoMemberId,
+			jobdic_seq jobdicSeq,
+			job,
+			plan_unite_title planUniteTitle,
+			plan_unite_content planUniteContent,
+			plan_unite_registerdate planUniteRegisterdate
+		FROM plan_unite
+		WHERE plan_unite_code = #{planUniteCode}
+		
+	</select>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="planUniteLastKey"
+			resultType="String">
+		SELECT 
+			plan_unite_code
+		FROM 
+			plan_unite
+		ORDER BY LENGTH(plan_unite_code) DESC, plan_unite_code DESC 
+		LIMIT 1;
+	</select>	
+	
+<!--*****************************************************************
+	***************************PlanSchool****************************
+	***************************************************************** -->
+	
+	<!-- 계획학교퍼센트 구하기 위한 plan_school의 개수-->
+	<select id="psdCountByPlanSchoolCode"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_school_detail
+		WHERE
+			plan_school_code = #{planSchoolCode}
+	</select>
+	
+	<select id="psdCountByPscWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_school_detail
+		WHERE
+			plan_school_code = #{planSchoolCode}
+		AND
+			plan_school_detail_condition = 1
+	</select>
+	
+	
+	<insert id="planSchoolInsert"
+			parameterType="com.to.cdp.plan.model.PlanSchool">
+		INSERT INTO plan_school	(
+			plan_school_code, 
+			info_member_id, 
+			rec_school_code, 
+			school_name,
+			plan_unite_code,
+			plan_school_registerdate
+			)
+		VALUES (
+			#{planSchoolCode}, 
+			#{infoMemberId}, 
+			#{recSchoolCode}, 
+			#{schoolName},
+			#{planUniteCode},
+			now()
+			)
+	</insert>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="planSchoolLastKey"
+			resultType="String">
+		SELECT 
+			plan_school_code
+		FROM 
+			plan_school
+		ORDER BY LENGTH(plan_school_code) DESC, plan_school_code DESC 
+		LIMIT 1;
+	</select>
+	
+	<!-- planSchoolListByMemberLoginId&planUniteCode -->
+	<select id="planSchoolList"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="com.to.cdp.plan.model.PlanSchool">
+		SELECT
+			plan_school_code planSchoolCode,
+			plan_unite_code planUniteCode,
+			rec_school_code recSchoolCode,
+			school_name schoolName,
+			plan_school_condition planSchoolCondition,
+			plan_school_content planSchoolContent,
+			plan_school_count planSchoolCount,
+			plan_school_registerdate planSchoolRegisterDate,
+			plan_school_startdate planSchoolStartDate,
+			plan_school_enddate planSchoolEndDate
+		FROM plan_school
+		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
+	</select>
+	
+	<select id="selectSchoolName"
+			parameterType="com.to.cdp.rec.model.RecSchool"
+			resultType="com.to.cdp.rec.model.RecSchool">
+		SELECT
+			school_name schoolName
+		FROM rec_school
+		WHERE rec_school_code = #{recSchoolCode}
+	</select>
+	
+	<!-- planSchool 한개 상세보기 -->
+	<select id="planSchoolDetail"
+			parameterType="com.to.cdp.plan.model.PlanSchool"
+			resultType="com.to.cdp.plan.model.PlanSchool">
+		SELECT
+			plan_school_code planSchoolCode,
+			plan_unite_code planUniteCode,
+			rec_school_code recSchoolCode,
+			plan_school_condition planSchoolCondition,
+			plan_school_content planSchoolContent,
+			plan_school_count planSchoolCount,
+			plan_school_registerdate planSchoolRegisterDate,
+			plan_school_startdate planSchoolStartDate,
+			plan_school_enddate planSchoolEndDate
+		FROM plan_school
+		WHERE info_member_id = #{infoMemberId} 
+		AND plan_unite_code = #{planUniteCode}
+		AND plan_school_code = #{planSchoolCode}
+	</select>
+	
+	<!-- planSchool 업데이트 -->
+	<update id="planSchoolUpdate"
+			parameterType="com.to.cdp.plan.model.PlanSchool">
+		UPDATE 
+			plan_school
+		SET
+			plan_school_condition = #{planSchoolCondition},
+			plan_school_content = #{planSchoolContent},
+			plan_school_count = #{planSchoolCount},
+			plan_school_startdate = #{planSchoolStartDate},
+			plan_school_enddate = #{planSchoolEndDate}
+		WHERE 
+			plan_school_code = #{planSchoolCode}
+	</update>
+	
+	<!-- planSchool 삭제 -->
+	<delete id="planSchoolDelete"
+			parameterType="com.to.cdp.plan.model.PlanSchool">
+		DELETE 
+		FROM plan_school 
+		WHERE plan_school_code=#{planSchoolCode}
+	</delete>
+	
+	
+<!--*****************************************************************
+	***************************PlanDept******************************
+	***************************************************************** -->
+	
+	<!-- 계획학과퍼센트 구하기 위한 plan_dept의 개수-->
+	<select id="pddCountByPlanDeptCode"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_dept_detail
+		WHERE
+			plan_dept_code = #{planDeptCode}
+	</select>
+	
+	<select id="pddCountByPdcWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_dept_detail
+		WHERE
+			plan_dept_code = #{planDeptCode}
+		AND
+			plan_dept_detail_condition = 1
+	</select>
+	
+	<!-- planDeptInsert -->
+	<insert id="planDeptInsert"
+			parameterType="java.util.Map">
+		INSERT INTO plan_dept (
+			plan_dept_code,
+			plan_unite_code, 
+			plan_dept_condition, 
+			plan_dept_content, 
+			plan_dept_count, 
+			plan_dept_registerdate,
+			plan_dept_startdate,
+			plan_dept_enddate,
+			rec_dept_code,
+			m_class,
+			info_member_id
+			)
+		VALUES (
+			#{planDeptCode}, 
+			#{planUniteCode}, 
+			#{planDeptCondition}, 
+			#{planDeptContent}, 
+			#{planDeptCount}, 
+			now(),
+			#{planDeptStartDate},
+			#{planDeptEndDate},
+			#{recDeptCode},
+			#{mClass},
+			#{infoMemberId} 
+			)
+	</insert>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="planDeptLastKey"
+			resultType="String">
+		SELECT 
+			plan_dept_code
+		FROM 
+			plan_dept
+		ORDER BY LENGTH(plan_dept_code) DESC, plan_dept_code DESC 
+		LIMIT 1;
+	</select>
+	
+	<!-- planDeptListByMemberLoginId&planUniteCode -->
+	<select id="planDeptList"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="com.to.cdp.plan.model.PlanDept">
+		SELECT
+			plan_dept_code planDeptCode,
+			plan_unite_code planUniteCode,
+			rec_dept_code recDeptCode,
+			m_class mClass,
+			plan_dept_condition planDeptCondition,
+			plan_dept_content planDeptContent,
+			plan_dept_count planDeptCount,
+			plan_dept_registerdate planDeptRegisterDate,
+			plan_dept_startdate planDeptStartDate,
+			plan_dept_enddate planDeptEndDate
+		FROM plan_dept
+		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
+	</select>
+	
+	<select id="selectDeptMClass"
+			parameterType="com.to.cdp.rec.model.RecDept"
+			resultType="com.to.cdp.rec.model.RecDept">
+		SELECT
+			m_class mClass
+		FROM rec_dept
+		WHERE rec_dept_code = #{recDeptCode}
+	</select>
+	
+	<!-- planDept 한개 상세보기 -->
+	<select id="planDeptDetail"
+			parameterType="com.to.cdp.plan.model.PlanDept"
+			resultType="com.to.cdp.plan.model.PlanDept">
+		SELECT
+			plan_dept_code planDeptCode,
+			plan_unite_code planUniteCode,
+			rec_dept_code recDeptCode,
+			plan_dept_condition planDeptCondition,
+			plan_dept_content planDeptContent,
+			plan_dept_count planDeptCount,
+			plan_dept_registerdate planDeptRegisterDate,
+			plan_dept_startdate planDeptStartDate,
+			plan_dept_enddate planDeptEndDate
+		FROM plan_dept
+		WHERE info_member_id = #{infoMemberId} 
+		AND plan_unite_code = #{planUniteCode}
+		AND plan_dept_code = #{planDeptCode}
+	</select>
+	
+	<!-- planDept 업데이트 -->
+	<update id="planDeptUpdate"
+			parameterType="com.to.cdp.plan.model.PlanDept">
+		UPDATE 
+			plan_dept
+		SET
+			plan_dept_condition = #{planDeptCondition},
+			plan_dept_content = #{planDeptContent},
+			plan_dept_count = #{planDeptCount},
+			plan_dept_startdate = #{planDeptStartDate},
+			plan_dept_enddate = #{planDeptEndDate}
+		WHERE 
+			plan_dept_code = #{planDeptCode}
+	</update>
+	
+	<!-- planDept 삭제 -->
+	<delete id="planDeptDelete"
+			parameterType="com.to.cdp.plan.model.PlanDept">
+		DELETE 
+		FROM plan_dept 
+		WHERE plan_dept_code=#{planDeptCode}
+	</delete>
+	
+<!--*****************************************************************
+	***************************PlanCert******************************
+	***************************************************************** -->
+
+	<!-- 계획자격증퍼센트 구하기 위한 plan_cert의 개수-->
+	<select id="pcdCountByPlancertCode"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_cert_detail
+		WHERE
+			plan_cert_code = #{planCertCode}
+	</select>
+	
+	<select id="pcdCountByPccWithCondition"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			plan_cert_detail
+		WHERE
+			plan_cert_code = #{planCertCode}
+		AND
+			plan_cert_detail_condition = 1
+	</select>
+	
+	<insert id="planCertInsert"
+			parameterType="com.to.cdp.plan.model.PlanCert">
+		INSERT INTO plan_cert (
+			plan_cert_code, 
+			info_member_id, 
+			rec_cert_code, 
+			jm_fld_nm,
+			plan_unite_code,
+			plan_cert_registerdate
+			)
+		VALUES (
+			#{planCertCode}, 
+			#{infoMemberId}, 
+			#{recCertCode}, 
+			#{jmFldNm},
+			#{planUniteCode},
+			now()
+			)
+	</insert>
+	
+	<select id="planCertCount"
+			resultType="integer">
+		SELECT
+			count(*)
+		FROM plan_cert
+	</select>
+	
+	<!-- planCertListByMemberLoginId&planUniteCode -->
+	<select id="planCertList"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="com.to.cdp.plan.model.PlanCert">
+		SELECT
+			plan_cert_code planCertCode,
+			plan_unite_code planUniteCode,
+			rec_cert_code recCertCode,
+			jm_fld_nm jmFldNm,
+			plan_cert_condition planCertCondition,
+			plan_cert_content planCertContent,
+			plan_cert_count planCertCount,
+			plan_cert_registerdate planCertRegisterDate,
+			plan_cert_startdate planCertStartDate,
+			plan_cert_enddate planCertEndDate
+		FROM plan_cert
+		WHERE info_member_id = #{infoMemberId} AND plan_unite_code = #{planUniteCode}
+	</select>
+	
+	<select id="selectCertjmFldNm"
+			parameterType="com.to.cdp.rec.model.RecCert"
+			resultType="com.to.cdp.rec.model.RecCert">
+		SELECT
+			jm_fld_nm jmFldNm
+		FROM rec_cert
+		WHERE rec_cert_code = #{recCertCode}
+	</select>
+	
+	<!-- 마지막으로 등록한 primaryKey 값 가져오기 -->
+	<select id="planCertLastKey"
+			resultType="String">
+		SELECT 
+			plan_cert_code
+		FROM 
+			plan_cert
+		ORDER BY LENGTH(plan_cert_code) DESC, plan_cert_code DESC 
+		LIMIT 1;
+	</select>
+	
+	<!-- planCert 한개 상세보기 -->
+	<select id="planCertDetail"
+			parameterType="com.to.cdp.plan.model.PlanCert"
+			resultType="com.to.cdp.plan.model.PlanCert">
+		SELECT
+			plan_cert_code planCertCode,
+			plan_unite_code planUniteCode,
+			rec_cert_code recCertCode,
+			plan_cert_condition planCertCondition,
+			plan_cert_content planCertContent,
+			plan_cert_count planCertCount,
+			plan_cert_registerdate planCertRegisterDate,
+			plan_cert_startdate planCertStartDate,
+			plan_cert_enddate planCertEndDate
+		FROM plan_cert
+		WHERE info_member_id = #{infoMemberId} 
+		AND plan_unite_code = #{planUniteCode}
+		AND plan_cert_code = #{planCertCode}
+	</select>
+	
+	<!-- planCert 업데이트 -->
+	<update id="planCertUpdate"
+			parameterType="com.to.cdp.plan.model.PlanCert">
+		UPDATE 
+			plan_cert
+		SET
+			plan_cert_condition = #{planCertCondition},
+			plan_cert_content = #{planCertContent},
+			plan_cert_count = #{planCertCount},
+			plan_cert_startdate = #{planCertStartDate},
+			plan_cert_enddate = #{planCertEndDate}
+		WHERE 
+			plan_cert_code = #{planCertCode}
+	</update>
+	
+	<!-- planCert 삭제 -->
+	<delete id="planCertDelete"
+			parameterType="com.to.cdp.plan.model.PlanCert">
+		DELETE 
+		FROM plan_cert 
+		WHERE plan_cert_code=#{planCertCode}
+	</delete>
+</mapper>

@@ -74,10 +74,11 @@ $(document).ready(function(){
 		<t:putAttribute name="body">
 		<div id="infoJobDetail">
 			<div class="w3-container" align="center">
-				<h1>커리어 플래너</h1>
-				<p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
+				<font style="font-size: 60px;">커리어 플래너</font>
 				<br/><br/>
-				<ul class="w3-pagination w3-border w3-round w3-xlarge">
+				<font style="font-size: 40px;">직업에 맞는 추천 학교, 학과, 자격증 리스트가 있습니다.<br/>계획 등록을 해주세요.<br/>계획이 등록되어 있다면, 계획리스트를 선택 해주세요.</font>
+				<br/><br/>
+				<%-- <ul class="w3-pagination w3-border w3-round w3-xlarge">
 					<li>
 						<a href="/infoJobList">&laquo;</a>
 					</li>
@@ -114,7 +115,7 @@ $(document).ready(function(){
 					<li>
 						<a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">&raquo;</a>
 					</li>
-				</ul>
+				</ul> --%>
 			</div>
 			<br/><br/>
 			<h1>직업 상세보기</h1>

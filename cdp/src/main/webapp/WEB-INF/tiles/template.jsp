@@ -135,7 +135,7 @@ input[type=text] {
 .body {
 		    /*  border : 1px solid black;  */
 		    
-		    width: 87%;
+		    width:90%;
 		    /* height:				auto; */
  		    height: auto !important;   
 			vertical-align: middle;

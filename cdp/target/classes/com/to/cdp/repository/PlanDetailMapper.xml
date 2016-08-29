@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.PlanDetailMapper">
+	
+<!--*****************************************************************
+	*************************PlanSchoolDetail************************
+	***************************************************************** -->
+	
+	<!-- 계획학교상세마지막키 -->
+	<select id="planSchoolDetailLastKey"
+			resultType="String">
+		SELECT 
+			plan_school_detail_code
+		FROM 
+			plan_school_detail
+		ORDER BY LENGTH(plan_school_detail_code) DESC, plan_school_detail_code DESC 
+		LIMIT 1;	
+	</select>
+	
+	<!-- 계획학교상세등록 -->
+	<select id="planSchoolDetailInsert"
+			parameterType="com.to.cdp.plan.model.PlanSchoolDetail">
+		INSERT INTO plan_school_detail	(
+			plan_school_detail_code, 
+			plan_school_code,
+			info_member_id, 
+			plan_school_detail_content,
+			plan_school_detail_startdate,
+			plan_school_detail_enddate
+			)
+		VALUES (
+			#{planSchoolDetailCode}, 
+			#{planSchoolCode}, 
+			#{infoMemberId}, 
+			#{planSchoolDetailContent},
+			#{planSchoolDetailStartDate},
+			#{planSchoolDetailEndDate}
+			)		
+	</select>
+	
+	<!-- 계획학교상세리스트뽑기 -->
+	<select id="planSchoolDetailList"
+			parameterType="com.to.cdp.plan.model.PlanSchoolDetail"
+			resultType="com.to.cdp.plan.model.PlanSchoolDetail">
+		SELECT
+			plan_school_detail_code planSchoolDetailCode,
+			plan_school_code planSchoolCode,
+			plan_school_detail_content planSchoolDetailContent,
+			plan_school_detail_startdate planSchoolDetailStartDate,
+			plan_school_detail_enddate planSchoolDetailEndDate,
+			plan_school_detail_condition planSchoolDetailCondition
+		FROM plan_school_detail
+		WHERE info_member_id = #{infoMemberId} AND plan_school_code = #{planSchoolCode}
+	</select>
+	
+	<update id="planSchoolDetailComplete"
+			parameterType="com.to.cdp.plan.model.PlanSchoolDetail">
+		UPDATE plan_school_detail
+		SET
+			plan_school_detail_condition=1
+		WHERE 
+			plan_school_detail_code = #{planSchoolDetailCode}
+	</update>
+	
+	<select id="psCodeByPsdCode"
+			parameterType="com.to.cdp.plan.model.PlanSchoolDetail"
+			resultType="String">
+		SELECT
+			plan_school_code
+		FROM
+			plan_school_detail
+		WHERE
+			plan_school_detail_code = #{planSchoolDetailCode}
+	</select>
+	
+<!--*****************************************************************
+	*************************PlanDeptDetail**************************
+	***************************************************************** -->
+	
+	<!-- 계획학교상세마지막키 -->
+	<select id="planDeptDetailLastKey"
+			resultType="String">
+		SELECT 
+			plan_dept_detail_code
+		FROM 
+			plan_dept_detail
+		ORDER BY LENGTH(plan_dept_detail_code) DESC, plan_dept_detail_code DESC 
+		LIMIT 1;	
+	</select>
+	
+	<!-- 계획학교상세등록 -->
+	<select id="planDeptDetailInsert"
+			parameterType="com.to.cdp.plan.model.PlanDeptDetail">
+		INSERT INTO plan_dept_detail	(
+			plan_dept_detail_code, 
+			plan_dept_code,
+			info_member_id, 
+			plan_dept_detail_content,
+			plan_dept_detail_startdate,
+			plan_dept_detail_enddate
+			)
+		VALUES (
+			#{planDeptDetailCode}, 
+			#{planDeptCode}, 
+			#{infoMemberId}, 
+			#{planDeptDetailContent},
+			#{planDeptDetailStartDate},
+			#{planDeptDetailEndDate}
+			)		
+	</select>
+	
+	<!-- 계획학교상세리스트뽑기 -->
+	<select id="planDeptDetailList"
+			parameterType="com.to.cdp.plan.model.PlanDeptDetail"
+			resultType="com.to.cdp.plan.model.PlanDeptDetail">
+		SELECT
+			plan_dept_detail_code planDeptDetailCode,
+			plan_dept_code planDeptCode,
+			plan_dept_detail_content planDeptDetailContent,
+			plan_dept_detail_startdate planDeptDetailStartDate,
+			plan_dept_detail_enddate planDeptDetailEndDate,
+			plan_dept_detail_condition planDeptDetailCondition
+		FROM plan_dept_detail
+		WHERE info_member_id = #{infoMemberId} AND plan_dept_code = #{planDeptCode}
+	</select>
+	
+	<update id="planDeptDetailComplete"
+			parameterType="com.to.cdp.plan.model.PlanDeptDetail">
+		UPDATE plan_dept_detail
+		SET
+			plan_dept_detail_condition=1
+		WHERE 
+			plan_dept_detail_code = #{planDeptDetailCode}
+	</update>
+	
+	<select id="pdCodeByPddCode"
+			parameterType="com.to.cdp.plan.model.PlanDeptDetail"
+			resultType="String">
+		SELECT
+			plan_dept_code
+		FROM
+			plan_dept_detail
+		WHERE
+			plan_dept_detail_code = #{planDeptDetailCode}
+	</select>
+	
+<!--*****************************************************************
+	*************************PlanCertDetail**************************
+	***************************************************************** -->
+	
+	<!-- 계획학교상세마지막키 -->
+	<select id="planCertDetailLastKey"
+			resultType="String">
+		SELECT 
+			plan_cert_detail_code
+		FROM 
+			plan_cert_detail
+		ORDER BY LENGTH(plan_cert_detail_code) DESC, plan_cert_detail_code DESC 
+		LIMIT 1;	
+	</select>
+	
+	<!-- 계획학교상세등록 -->
+	<select id="planCertDetailInsert"
+			parameterType="com.to.cdp.plan.model.PlanCertDetail">
+		INSERT INTO plan_cert_detail	(
+			plan_cert_detail_code, 
+			plan_cert_code,
+			info_member_id, 
+			plan_cert_detail_content,
+			plan_cert_detail_startdate,
+			plan_cert_detail_enddate
+			)
+		VALUES (
+			#{planCertDetailCode}, 
+			#{planCertCode}, 
+			#{infoMemberId}, 
+			#{planCertDetailContent},
+			#{planCertDetailStartDate},
+			#{planCertDetailEndDate}
+			)		
+	</select>
+	
+	<!-- 계획학교상세리스트뽑기 -->
+	<select id="planCertDetailList"
+			parameterType="com.to.cdp.plan.model.PlanCertDetail"
+			resultType="com.to.cdp.plan.model.PlanCertDetail">
+		SELECT
+			plan_cert_detail_code planCertDetailCode,
+			plan_cert_code planCertCode,
+			plan_cert_detail_content planCertDetailContent,
+			plan_cert_detail_startdate planCertDetailStartDate,
+			plan_cert_detail_enddate planCertDetailEndDate,
+			plan_cert_detail_condition planCertDetailCondition
+		FROM plan_cert_detail
+		WHERE info_member_id = #{infoMemberId} AND plan_cert_code = #{planCertCode}
+	</select>
+	
+	<update id="planCertDetailComplete"
+			parameterType="com.to.cdp.plan.model.PlanCertDetail">
+		UPDATE plan_cert_detail
+		SET
+			plan_cert_detail_condition=1
+		WHERE 
+			plan_cert_detail_code = #{planCertDetailCode}
+	</update>
+	
+	<select id="pcCodeByPcdCode"
+			parameterType="com.to.cdp.plan.model.PlanCertDetail"
+			resultType="String">
+		SELECT
+			plan_cert_code
+		FROM
+			plan_cert_detail
+		WHERE
+			plan_cert_detail_code = #{planCertDetailCode}
+	</select>
+</mapper>

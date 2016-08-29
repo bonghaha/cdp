@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.to.cdp.repository.MyPageMapper">
+	
+	<!-- memberId로 개인정보 select -->
+	<select id="infoMemberDetail"
+			parameterType="com.to.cdp.info.model.InfoMember"
+			resultType="com.to.cdp.info.model.InfoMember">
+		SELECT
+			info_member_id infoMemberId,
+			info_member_pw infoMemberPw,
+			info_member_name infoMemberName,
+			info_member_birth infoMemberBirth,
+			info_member_phone infoMemberPhone,
+			info_member_email infoMemberEmail,
+			info_member_joindate infoMemberJoindate
+		FROM info_member
+		WHERE info_member_id = #{infoMemberId}
+	</select>
+	
+	<!-- 개인정보 수정 -->
+	<update id="myInfoMemberUpdate"
+			parameterType="com.to.cdp.info.model.InfoMember">
+		UPDATE info_member
+		SET
+			info_member_pw = #{infoMemberPw},
+			info_member_name = #{infoMemberName},
+			info_member_birth = #{infoMemberBirth},
+			info_member_phone = #{infoMemberPhone},
+			info_member_email = #{infoMemberEmail}
+		WHERE
+		info_member_id = #{infoMemberId}
+	</update>
+</mapper>

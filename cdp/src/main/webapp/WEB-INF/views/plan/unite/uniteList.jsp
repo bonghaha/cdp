@@ -33,10 +33,11 @@
 		<t:putAttribute name="body">
 		<div id="infoJob">
 				<div class="w3-container" align="center">
-				  <h1>커리어 플래너</h1>
-				  <p>단계별로 원하는 직업에 대한 학교,학과,자격증 플랜을 짜 봅시다!</p>
+				  <font style="font-size: 60px;">커리어 플래너</font>
 				  <br/><br/>
-				  <ul class="w3-pagination w3-border w3-round w3-xlarge">
+				  <font style="font-size: 40px;">계획리스트의 제목을 클릭 해주세요.<br/>계획 상세보기로 넘어갑니다.</font>
+				  <br/><br/>
+				  <%-- <ul class="w3-pagination w3-border w3-round w3-xlarge">
 				    <li><a href="/planUniteInsert?jobdicSeq=${infoJob.jobdicSeq}">&laquo;</a></li>
 				    <li><a href="/infoJobList">
 				    	<font class="ul_fontMain">직업리스트</font><br/>
@@ -57,7 +58,7 @@
 				    	<font class="ul_fontMain">계획 통합 리스트</font><br/>
 				    	<font class="ul_fontSub">세부적인 계획을 작성 해주세요</font></a></li>
 				    <li><a href="/planUniteDetail?planUniteCode=${pul.planUniteCode}&jobdicSeq=${pul.jobdicSeq}">&raquo;</a></li>
-				  </ul>
+				  </ul> --%>
 				</div>
 				<br/><br/>
 				<h1>계획 통합</h1>
@@ -90,9 +91,9 @@
 						</c:choose>
 					</table>
 					<br/>
-					<div align="center">
+					<!-- <div align="center">
 						<span><input id="goInfoJobList" class="w3-btn w3-dark-grey" type="button" value="계획등록하기"/></span>
-					</div>	
+					</div>	 -->
 				</form>
 			</div>
 		</div>

@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -28,48 +27,39 @@
 					$('#showPlanSchoolList').attr("disabled","disabled");
 					$('#planSchoolListTop').empty();
 					$('#planSchoolList').empty();
-					$('#planSchoolListTop').append('<div class="row">');
-					$('#planSchoolListTop').append('<div class="col-sm-1"></div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">학교명</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">계획상태</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">계획내용</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">변경횟수</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-2">계획시작일</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-2">계획종료예정일</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">계획등록일</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">등록</div>');
-					$('#planSchoolListTop').append('<div class="col-sm-1">삭제</div>');
-					$('#planSchoolListTop').append('</div>');
+					$('#planSchoolListTop').append('<span>학교명</span>');
+					$('#planSchoolListTop').append('<span>계획상태</span>');
+					$('#planSchoolListTop').append('<span>계획내용</span>');
+					$('#planSchoolListTop').append('<span>계획변경횟수</span>');
+					$('#planSchoolListTop').append('<span>계획시작일</span>');
+					$('#planSchoolListTop').append('<span>계획종료예정일</span>');
+					$('#planSchoolListTop').append('<span>계획등록일</span>');
 					
 					$(data).each(function(index,item){
-						$('#planSchoolList').append('<br/><div class="row">');
 						$('#planSchoolList').append(
 							'<div>'
 							+'<form id="planSchoolListForm">'
 							+'<input type="hidden" name="planSchoolCode" value="'+item.planSchoolCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
-							+'<div class="col-sm-1"><input id="'+index+'" class="showPlanSchoolDetail" name="showPlanSchoolDetail'+index+'" type="button" value="상세보기▼"/></div>'
-							+'<div class="col-sm-1">'+item.schoolName+'</div>'
-							+'<div class="col-sm-1">'
+							+'<span><input id="'+index+'" class="showPlanSchoolDetail" name="showPlanSchoolDetail'+index+'" type="button" value="▶"/></span>'
+							+'<span>'+item.schoolName+'</span>'
+							+'<span>'
 							+'<select name="planSchoolCondition">'
 							+'<option value="'+item.planSchoolCondition+'">'+item.planSchoolCondition+'</option>'
 							+'<option value="실천중">실천중</option>'
 							+'<option value="실천완료">실천완료</option>'
 							+'</select>'
-							+'</div>'
-							+'<div class="col-sm-1"><input type="text" name="planSchoolContent" value="'+item.planSchoolContent+'"/></div>'
-							+'<div class="col-sm-1"><input type="text" name="planSchoolCount" value="'+item.planSchoolCount+'" readonly="readonly"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planSchoolStartDate" value="'+item.planSchoolStartDate+'"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planSchoolEndDate" value="'+item.planSchoolEndDate+'"/></div>'
-							+'<div class="col-sm-1">'+item.planSchoolRegisterDate+'</div>'
-							+'<div class="col-sm-1"><input class="goPlanSchoolUpdate" type="button" value="등록"/></div>'
-							+'<div class="col-sm-1"><input class="goPlanSchoolDelete" type="button" value="삭제"/></div>'
+							+'</span>'
+							+'<span><input type="text" name="planSchoolContent" value="'+item.planSchoolContent+'"/></span>'
+							+'<span><input type="text" name="planSchoolCount" value="'+item.planSchoolCount+'" readonly="readonly"/></span>'
+							+'<span><input type="date" name="planSchoolStartDate" value="'+item.planSchoolStartDate+'"/></span>'
+							+'<span><input type="date" name="planSchoolEndDate" value="'+item.planSchoolEndDate+'"/></span>'
+							+'<span>'+item.planSchoolRegisterDate+'</td>'
+							+'<span><input class="goPlanSchoolUpdate" type="button" value="등록"/></span>'
+							+'<span><input class="goPlanSchoolDelete" type="button" value="삭제"/></span>'
 							+'</form>'
-							+'</div>');
-						$('#planSchoolList').append('</div>');
-						$('#planSchoolList').append('<div class="row">');
-						$('#planSchoolList').append(
-							'<div class="w3-progress-container col-sm-8">'
+							+'</div>'
+							+'<div class="w3-progress-container">'
 							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planSchoolPercent+'">'+item.planSchoolPercent+'</div>'
 							+'</div>'
 							+'<div>'
@@ -81,7 +71,7 @@
 							+'</div>'
 							+'</div>');
 					});
-					$('#planSchoolListBot').append('<br/><div><input id="hidePlanSchoolList" class="w3-btn w3-dark-grey" type="button" value="학교접기"/></div>')
+					$('#planSchoolListBot').append('<span><input id="hidePlanSchoolList" type="button" value="학교접기"/></span>')
 					
 				},
 				error:function(error){
@@ -109,19 +99,18 @@
 					planSchoolDetailListTop.empty();
 					planSchoolDetailList.empty();
 					planSchoolDetailListTop.append('<div>');
-					/* planSchoolDetailListTop.append('<div>내용</div>');
-					planSchoolDetailListTop.append('<div>시작일</div>');
-					planSchoolDetailListTop.append('<div>종료일</div>'); */
+					planSchoolDetailListTop.append('<span>내용</span>');
+					planSchoolDetailListTop.append('<span>시작일</span>');
+					planSchoolDetailListTop.append('<span>종료일</span>');
 					planSchoolDetailListTop.append('</div>');
-					planSchoolDetailListTop.append('<hr><div>');
+					planSchoolDetailListTop.append('<div>');
 					planSchoolDetailListTop.append(
 							'<form id="planSchoolDetailForm">'
-							+'<div><input type="hidden" name="planSchoolCode" value="'+planSchoolCode+'"/>'
-							+'<font style="font-size:20px">[실천등록]</font>'
-							+'<div>내용 : <input type="text" name="planSchoolDetailContent" value=""/></div>'
-							+'<div>시작일 : <input type="date" name="planSchoolDetailStartDate" value=""/></div>'
-							+'<div>종료일 : <input type="date" name="planSchoolDetailEndDate" value=""/></div>'
-							+'<div><input class="planSchoolDetailSubmit w3-btn w3-dark-grey" type="button" value="확인"/></div>'
+							+'<span><input type="hidden" name="planSchoolCode" value="'+planSchoolCode+'"/>'
+							+'<span><input type="text" name="planSchoolDetailContent" value=""/></span>'
+							+'<span><input type="date" name="planSchoolDetailStartDate" value=""/></span>'
+							+'<span><input type="date" name="planSchoolDetailEndDate" value=""/></span>'
+							+'<span><input class="planSchoolDetailSubmit" type="button" value="확인"/></span>'
 							+'</form>');
 					planSchoolDetailListTop.append('</div>');
 					planSchoolDetailListTop.append('<br>');
@@ -129,35 +118,33 @@
 					$(data).each(function(index,item){
 						if(item.planSchoolDetailCondition == 0){
 							planSchoolDetailList.append(
-								'<hr><div>'
+								'<div>'
 								+'<form id="planSchoolDetailListForm" name="planSchoolDetailListForm'+index+'">'
 								+'<input type="hidden" name="indexVal" value="'+no+'">'
 								+'<input type="hidden" name="planSchoolDetailCode" value="'+item.planSchoolDetailCode+'">'
-								+'<font style="font-size:20px">[실천내용]</font>'
-								+'<div>내용 : <input type="text" name="planSchoolDetailContent" value="'+item.planSchoolDetailContent+'"/></div>'
-								+'<div>시작일 : <input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></div>'
-								+'<div>종료일 : <input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></div><br/>'
-								+'<div><input class="goPlanSchoolDetailUpdate w3-btn w3-dark-grey" type="button" value="수정"/>'
-								+'<input class="goPlanSchoolDetailUpdate w3-btn w3-dark-grey" type="button" value="삭제"/>'
-								+'<input id="'+no+'" class="goPlanSchoolDetailComplete w3-btn w3-dark-grey" type="button" value="완료"/></div>'
+								+'<span><input type="text" name="planSchoolDetailContent" value="'+item.planSchoolDetailContent+'"/></span>'
+								+'<span><input type="date" name="planSchoolDetailStartDate" value="'+item.planSchoolDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planSchoolDetailEndDate" value="'+item.planSchoolDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanSchoolDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input id="'+no+'" class="goPlanSchoolDetailComplete" type="button" value="완료"/></span>'
 								+'</form>'
-								+'</div><hr>');
+								+'</div>');
 						}
 						if(item.planSchoolDetailCondition == 1){
 							planSchoolDetailList.append(
 									'<div>'
-									+'<font style="font-size:20px">[실천완료]</font>'
-									+'<div>내용 : <input type="text" name="planSchoolDetailContent" readonly="readonly" value="'+item.planSchoolDetailContent+'"/></div>'
-									+'<div>시작일 : <input type="date" name="planSchoolDetailStartDate" readonly="readonly" value="'+item.planSchoolDetailStartDate+'"/></div>'
-									+'<div>종료일 : <input type="date" name="planSchoolDetailEndDate" readonly="readonly" value="'+item.planSchoolDetailEndDate+'"/></div>'
-									+'<div>실천완료</div>'
+									+'<span><input type="text" name="planSchoolDetailContent" readonly="readonly" value="'+item.planSchoolDetailContent+'"/></span>'
+									+'<span><input type="date" name="planSchoolDetailStartDate" readonly="readonly" value="'+item.planSchoolDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planSchoolDetailEndDate" readonly="readonly" value="'+item.planSchoolDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
 									+'</div>');
 						}
 						planSchoolDetailList.append('<br/>');
 					});
 					planSchoolDetailListBot.append(
 						'<div>'
-						+'<div><input id="'+no+'" class="hidePlanSchoolDetailList w3-btn w3-dark-grey" name="hidePlanSchoolList'+no+'" type="button" value="상세보기접기"/></div>'
+						+'<span><input id="'+no+'" class="hidePlanSchoolDetailList" name="hidePlanSchoolList'+no+'" type="button" value="접기"/></span>'
 						+'</div>'
 						+'<hr>');
 				},
@@ -305,48 +292,39 @@
 					$('#showPlanDeptList').attr("disabled","disabled");
 					$('#planDeptListTop').empty();
 					$('#planDeptList').empty();
-					$('#planDeptListTop').append('<div class="row">');
-					$('#planDeptListTop').append('<div class="col-sm-1"></div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">학과명</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">계획상태</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">계획내용</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">변경횟수</div>');
-					$('#planDeptListTop').append('<div class="col-sm-2">계획시작일</div>');
-					$('#planDeptListTop').append('<div class="col-sm-2">계획종료예정일</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">계획등록일</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">등록</div>');
-					$('#planDeptListTop').append('<div class="col-sm-1">삭제</div>');
-					$('#planDeptListTop').append('</div>');
+					$('#planDeptListTop').append('<span>학과명</span>');
+					$('#planDeptListTop').append('<span>계획상태</span>');
+					$('#planDeptListTop').append('<span>계획내용</span>');
+					$('#planDeptListTop').append('<span>계획변경횟수</span>');
+					$('#planDeptListTop').append('<span>계획시작일</span>');
+					$('#planDeptListTop').append('<span>계획종료예정일</span>');
+					$('#planDeptListTop').append('<span>계획등록일</span>');
 					
 					$(data).each(function(index,item){
-						$('#planDeptList').append('<br/><div class="row">');
 						$('#planDeptList').append(
 							'<div>'
 							+'<form id="planDeptListForm">'
 							+'<input type="hidden" name="planDeptCode" value="'+item.planDeptCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
-							+'<div class="col-sm-1"><input id="'+index+'" class="showPlanDeptDetail" name="showPlanDeptDetail'+index+'" type="button" value="상세보기▼"/></div>'
-							+'<div class="col-sm-1">'+item.mClass+'</div>'
-							+'<div class="col-sm-1">'
+							+'<span><input id="'+index+'" class="showPlanDeptDetail" name="showPlanDeptDetail'+index+'" type="button" value="▶"/></span>'
+							+'<span>'+item.mClass+'</span>'
+							+'<span>'
 							+'<select name="planDeptCondition">'
 							+'<option value="'+item.planDeptCondition+'">'+item.planDeptCondition+'</option>'
 							+'<option value="실천중">실천중</option>'
 							+'<option value="실천완료">실천완료</option>'
 							+'</select>'
-							+'</div>'
-							+'<div class="col-sm-1"><input type="text" name="planDeptContent" value="'+item.planDeptContent+'"/></div>'
-							+'<div class="col-sm-1"><input type="text" name="planDeptCount" value="'+item.planDeptCount+'" readonly="readonly"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planDeptStartDate" value="'+item.planDeptStartDate+'"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planDeptEndDate" value="'+item.planDeptEndDate+'"/></div>'
-							+'<div class="col-sm-1">'+item.planDeptRegisterDate+'</div>'
-							+'<div class="col-sm-1"><input class="goPlanDeptUpdate" type="button" value="등록"/></div>'
-							+'<div class="col-sm-1"><input class="goPlanDeptDelete" type="button" value="삭제"/></div>'
+							+'</span>'
+							+'<span><input type="text" name="planDeptContent" value="'+item.planDeptContent+'"/></span>'
+							+'<span><input type="text" name="planDeptCount" value="'+item.planDeptCount+'" readonly="readonly"/></span>'
+							+'<span><input type="date" name="planDeptStartDate" value="'+item.planDeptStartDate+'"/></span>'
+							+'<span><input type="date" name="planDeptEndDate" value="'+item.planDeptEndDate+'"/></span>'
+							+'<span>'+item.planDeptRegisterDate+'</td>'
+							+'<span><input class="goPlanDeptUpdate" type="button" value="등록"/></span>'
+							+'<span><input class="goPlanDeptDelete" type="button" value="삭제"/></span>'
 							+'</form>'
-							+'</div>');
-						$('#planDeptList').append('</div>');
-						$('#planDeptList').append('<div class="row">');
-						$('#planDeptList').append(
-							'<div class="w3-progress-container">'
+							+'</div>'
+							+'<div class="w3-progress-container">'
 							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planDeptPercent+'">'+item.planDeptPercent+'</div>'
 							+'</div>'
 							+'<div>'
@@ -358,7 +336,7 @@
 							+'</div>'
 							+'</div>');
 					});
-					$('#planDeptListBot').append('<br/><div><input id="hidePlanDeptList"  class="w3-btn w3-dark-grey" type="button" value="학과접기"/></div>')
+					$('#planDeptListBot').append('<span><input id="hidePlanDeptList" type="button" value="학과접기"/></span>')
 					
 				},
 				error:function(error){
@@ -387,55 +365,52 @@
 					planDeptDetailListTop.empty();
 					planDeptDetailList.empty();
 					planDeptDetailListTop.append('<div>');
-					/* planDeptDetailListTop.append('<div>내용</div>');
-					planDeptDetailListTop.append('<div>시작일</div>');
-					planDeptDetailListTop.append('<div>종료일</div>'); */
+					planDeptDetailListTop.append('<span>내용</span>');
+					planDeptDetailListTop.append('<span>시작일</span>');
+					planDeptDetailListTop.append('<span>종료일</span>');
 					planDeptDetailListTop.append('</div>');
-					planDeptDetailListTop.append('<hr><div>');
+					planDeptDetailListTop.append('<div>');
 					planDeptDetailListTop.append(
 							'<form id="planDeptDetailForm">'
-							+'<div><input type="hidden" name="planDeptCode" value="'+planDeptCode+'"/>'
-							+'<font style="font-size:20px">[실천등록]</font>'
-							+'<div>내용 : <input type="text" name="planDeptDetailContent" value=""/></div>'
-							+'<div>시작일 : <input type="date" name="planDeptDetailStartDate" value=""/></div>'
-							+'<div>종료일 : <input type="date" name="planDeptDetailEndDate" value=""/></div>'
-							+'<div><input class="planDeptDetailSubmit w3-btn w3-dark-grey" type="button" value="확인"/></div>'
+							+'<span><input type="hidden" name="planDeptCode" value="'+planDeptCode+'"/>'
+							+'<span><input type="text" name="planDeptDetailContent" value=""/></span>'
+							+'<span><input type="date" name="planDeptDetailStartDate" value=""/></span>'
+							+'<span><input type="date" name="planDeptDetailEndDate" value=""/></span>'
+							+'<span><input class="planDeptDetailSubmit" type="button" value="확인"/></span>'
 							+'</form>');
 					planDeptDetailListTop.append('</div>');
-					planDeptDetailListTop.append('<br><hr>');
+					planDeptDetailListTop.append('<br>');
 					
 					$(data).each(function(index,item){
 						if(item.planDeptDetailCondition == 0){
 							planDeptDetailList.append(
-								'<hr><div>'
+								'<div>'
 								+'<form id="planDeptDetailListForm" name="planDeptDetailListForm'+index+'">'
 								+'<input type="hidden" name="indexVal" value="'+no+'">'
 								+'<input type="hidden" name="planDeptDetailCode" value="'+item.planDeptDetailCode+'">'
-								+'<font style="font-size:20px">[실천내용]</font>'
-								+'<div>내용 : <input type="text" name="planDeptDetailContent" value="'+item.planDeptDetailContent+'"/></div>'
-								+'<div>시작일 : <input type="date" name="planDeptDetailStartDate" value="'+item.planDeptDetailStartDate+'"/></div>'
-								+'<div>종료일 : <input type="date" name="planDeptDetailEndDate" value="'+item.planDeptDetailEndDate+'"/></div>'
-								+'<div><input class="goPlanDeptDetailUpdate w3-btn w3-dark-grey" type="button" value="수정"/>'
-								+'<input class="goPlanDeptDetailUpdate w3-btn w3-dark-grey" type="button" value="삭제"/>'
-								+'<input id="'+no+'" class="goPlanDeptDetailComplete w3-btn w3-dark-grey" type="button" value="완료"/></div>'
+								+'<span><input type="text" name="planDeptDetailContent" value="'+item.planDeptDetailContent+'"/></span>'
+								+'<span><input type="date" name="planDeptDetailStartDate" value="'+item.planDeptDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planDeptDetailEndDate" value="'+item.planDeptDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanDeptDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanDeptDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input id="'+no+'" class="goPlanDeptDetailComplete" type="button" value="완료"/></span>'
 								+'</form>'
 								+'</div>');
 						}
 						if(item.planDeptDetailCondition == 1){
 							planDeptDetailList.append(
 									'<div>'
-									+'<font style="font-size:20px">[실천완료]</font>'
-									+'<div>내용 : <input type="text" name="planDeptDetailContent" readonly="readonly" value="'+item.planDeptDetailContent+'"/></div>'
-									+'<div>시작일 : <input type="date" name="planDeptDetailStartDate" readonly="readonly" value="'+item.planDeptDetailStartDate+'"/></div>'
-									+'<div>종료일 : <input type="date" name="planDeptDetailEndDate" readonly="readonly" value="'+item.planDeptDetailEndDate+'"/></div>'
-									+'<div>실천완료</div>'
+									+'<span><input type="text" name="planDeptDetailContent" readonly="readonly" value="'+item.planDeptDetailContent+'"/></span>'
+									+'<span><input type="date" name="planDeptDetailStartDate" readonly="readonly" value="'+item.planDeptDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planDeptDetailEndDate" readonly="readonly" value="'+item.planDeptDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
 									+'</div>');
 						}
 						planDeptDetailList.append('<br/>');
 					});
 					planDeptDetailListBot.append(
 						'<div>'
-						+'<div><input id="'+no+'" class="hidePlanDeptDetailList w3-btn w3-dark-grey" name="hidePlanDeptList'+no+'" type="button" value="상세보기접기"/></div>'
+						+'<span><input id="'+no+'" class="hidePlanDeptDetailList" name="hidePlanDeptList'+no+'" type="button" value="접기"/></span>'
 						+'</div>'
 						+'<hr>');
 				},
@@ -584,48 +559,39 @@
 					$('#showPlanCertList').attr("disabled","disabled");
 					$('#planCertListTop').empty();
 					$('#planCertList').empty();
-					$('#planCertListTop').append('<div class="row">');
-					$('#planCertListTop').append('<div class="col-sm-1"></div>');
-					$('#planCertListTop').append('<div class="col-sm-1">자격증명</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">계획상태</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">계획내용</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">변경횟수</div>');
-					$('#planCertListTop').append('<div class="col-sm-2">계획시작일</div>');
-					$('#planCertListTop').append('<div class="col-sm-2">계획종료예정일</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">계획등록일</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">등록</div>');
-					$('#planCertListTop').append('<div class="col-sm-1">삭제</div>');
-					$('#planCertListTop').append('</div>');
+					$('#planCertListTop').append('<span>자격증명</span>');
+					$('#planCertListTop').append('<span>계획상태</span>');
+					$('#planCertListTop').append('<span>계획내용</span>');
+					$('#planCertListTop').append('<span>계획변경횟수</span>');
+					$('#planCertListTop').append('<span>계획시작일</span>');
+					$('#planCertListTop').append('<span>계획종료예정일</span>');
+					$('#planCertListTop').append('<span>계획등록일</span>');
 					
 					$(data).each(function(index,item){
-						$('#planCertList').append('<br/><div class="row">');
 						$('#planCertList').append(
 							'<div>'
 							+'<form id="planCertListForm">'
 							+'<input type="hidden" name="planCertCode" value="'+item.planCertCode+'"/>'
 							+'<input type="hidden" name="planUniteCode" value="'+item.planUniteCode+'"/>'
-							+'<div class="col-sm-1"><input id="'+index+'" class="showPlanCertDetail" name="showPlanCertDetail'+index+'" type="button" value="상세보기▼"/></div>'
-							+'<div class="col-sm-1">'+item.jmFldNm+'</div>'
-							+'<div class="col-sm-1">'
+							+'<span><input id="'+index+'" class="showPlanCertDetail" name="showPlanCertDetail'+index+'" type="button" value="▶"/></span>'
+							+'<span>'+item.jmFldNm+'</span>'
+							+'<span>'
 							+'<select name="planCertCondition">'
 							+'<option value="'+item.planCertCondition+'">'+item.planCertCondition+'</option>'
 							+'<option value="실천중">실천중</option>'
 							+'<option value="실천완료">실천완료</option>'
 							+'</select>'
-							+'</div>'
-							+'<div class="col-sm-1"><input type="text" name="planCertContent" value="'+item.planCertContent+'"/></div>'
-							+'<div class="col-sm-1"><input type="text" name="planCertCount" value="'+item.planCertCount+'" readonly="readonly"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planCertStartDate" value="'+item.planCertStartDate+'"/></div>'
-							+'<div class="col-sm-2"><input type="date" name="planCertEndDate" value="'+item.planCertEndDate+'"/></div>'
-							+'<div class="col-sm-1">'+item.planCertRegisterDate+'</div>'
-							+'<div class="col-sm-1"><input class="goPlanCertUpdate" type="button" value="등록"/></div>'
-							+'<div class="col-sm-1"><input class="goPlanCertDelete" type="button" value="삭제"/></div>'
+							+'</span>'
+							+'<span><input type="text" name="planCertContent" value="'+item.planCertContent+'"/></span>'
+							+'<span><input type="text" name="planCertCount" value="'+item.planCertCount+'" readonly="readonly"/></span>'
+							+'<span><input type="date" name="planCertStartDate" value="'+item.planCertStartDate+'"/></span>'
+							+'<span><input type="date" name="planCertEndDate" value="'+item.planCertEndDate+'"/></span>'
+							+'<span>'+item.planCertRegisterDate+'</td>'
+							+'<span><input class="goPlanCertUpdate" type="button" value="등록"/></span>'
+							+'<span><input class="goPlanCertDelete" type="button" value="삭제"/></span>'
 							+'</form>'
-							+'</div>');
-						$('#planCertList').append('</div>');
-						$('#planCertList').append('<div class="row">');
-						$('#planCertList').append(
-							'<div class="w3-progress-container">'
+							+'</div>'
+							+'<div class="w3-progress-container">'
 							+'<div id="myBar" class="w3-progressbar w3-yellow" style="width:'+item.planCertPercent+'">'+item.planCertPercent+'</div>'
 							+'</div>'
 							+'<div>'
@@ -637,7 +603,7 @@
 							+'</div>'
 							+'</div>');
 					});
-					$('#planCertListBot').append('<br/><div><input id="hidePlanCertList" class="w3-btn w3-dark-grey" type="button" value="자격증접기"/></div>')
+					$('#planCertListBot').append('<span><input id="hidePlanCertList" type="button" value="자격증접기"/></span>')
 					
 				},
 				error:function(error){
@@ -665,55 +631,52 @@
 					planCertDetailListTop.empty();
 					planCertDetailList.empty();
 					planCertDetailListTop.append('<div>');
-					/* planCertDetailListTop.append('<div>내용</div>');
-					planCertDetailListTop.append('<div>시작일</div>');
-					planCertDetailListTop.append('<div>종료일</div>'); */
-					planCertDetailListTop.append('</div><br/>');
+					planCertDetailListTop.append('<span>내용</span>');
+					planCertDetailListTop.append('<span>시작일</span>');
+					planCertDetailListTop.append('<span>종료일</span>');
+					planCertDetailListTop.append('</div>');
 					planCertDetailListTop.append('<div>');
 					planCertDetailListTop.append(
 							'<form id="planCertDetailForm">'
-							+'<div><input type="hidden" name="planCertCode" value="'+planCertCode+'"/>'
-							+'<font style="font-size:20px">[실천등록]</font>'
-							+'<div>내용 : <input type="text" name="planCertDetailContent" value=""/></div>'
-							+'<div>시작일 : <input type="date" name="planCertDetailStartDate" value=""/></div>'
-							+'<div>종료일 : <input type="date" name="planCertDetailEndDate" value=""/></div>'
-							+'<div><input class="planCertDetailSubmit w3-btn w3-dark-grey" type="button" value="확인"/></div>'
+							+'<span><input type="hidden" name="planCertCode" value="'+planCertCode+'"/>'
+							+'<span><input type="text" name="planCertDetailContent" value=""/></span>'
+							+'<span><input type="date" name="planCertDetailStartDate" value=""/></span>'
+							+'<span><input type="date" name="planCertDetailEndDate" value=""/></span>'
+							+'<span><input class="planCertDetailSubmit" type="button" value="확인"/></span>'
 							+'</form>');
-					planCertDetailListTop.append('</div><hr>');
+					planCertDetailListTop.append('</div>');
 					planCertDetailListTop.append('<br>');
 					
 					$(data).each(function(index,item){
 						if(item.planCertDetailCondition == 0){
 							planCertDetailList.append(
-								'<hr><div>'
+								'<div>'
 								+'<form id="planCertDetailListForm" name="planCertDetailListForm'+index+'">'
 								+'<input type="hidden" name="indexVal" value="'+no+'">'
 								+'<input type="hidden" name="planCertDetailCode" value="'+item.planCertDetailCode+'">'
-								+'<font style="font-size:20px">[실천내용]</font>'
-								+'<div>내용 : <input type="text" name="planCertDetailContent" value="'+item.planCertDetailContent+'"/></div>'
-								+'<div>시작일 : <input type="date" name="planCertDetailStartDate" value="'+item.planCertDetailStartDate+'"/></div>'
-								+'<div>종료일 : <input type="date" name="planCertDetailEndDate" value="'+item.planCertDetailEndDate+'"/></div>'
-								+'<div><input class="goPlanCertDetailUpdate w3-btn w3-dark-grey" type="button" value="수정"/>'
-								+'<input class="goPlanCertDetailUpdate w3-btn w3-dark-grey" type="button" value="삭제"/>'
-								+'<input id="'+no+'" class="goPlanCertDetailComplete w3-btn w3-dark-grey" type="button" value="완료"/></div>'
+								+'<span><input type="text" name="planCertDetailContent" value="'+item.planCertDetailContent+'"/></span>'
+								+'<span><input type="date" name="planCertDetailStartDate" value="'+item.planCertDetailStartDate+'"/></span>'
+								+'<span><input type="date" name="planCertDetailEndDate" value="'+item.planCertDetailEndDate+'"/></span>'
+								+'<span><input class="goPlanCertDetailUpdate" type="button" value="수정"/></span>'
+								+'<span><input class="goPlanCertDetailUpdate" type="button" value="삭제"/></span>'
+								+'<span><input id="'+no+'" class="goPlanCertDetailComplete" type="button" value="완료"/></span>'
 								+'</form>'
 								+'</div>');
 						}
 						if(item.planCertDetailCondition == 1){
 							planCertDetailList.append(
 									'<div>'
-									+'<font style="font-size:20px">[실천완료]</font>'
-									+'<div>내용 : <input type="text" name="planCertDetailContent" readonly="readonly" value="'+item.planCertDetailContent+'"/></div>'
-									+'<div>시작일 : <input type="date" name="planCertDetailStartDate" readonly="readonly" value="'+item.planCertDetailStartDate+'"/></div>'
-									+'<div>종료일 : <input type="date" name="planCertDetailEndDate" readonly="readonly" value="'+item.planCertDetailEndDate+'"/></div>'
-									+'<div>실천완료</div>'
+									+'<span><input type="text" name="planCertDetailContent" readonly="readonly" value="'+item.planCertDetailContent+'"/></span>'
+									+'<span><input type="date" name="planCertDetailStartDate" readonly="readonly" value="'+item.planCertDetailStartDate+'"/></span>'
+									+'<span><input type="date" name="planCertDetailEndDate" readonly="readonly" value="'+item.planCertDetailEndDate+'"/></span>'
+									+'<span>실천완료</span>'
 									+'</div>');
 						}
 						planCertDetailList.append('<br/>');
 					});
 					planCertDetailListBot.append(
 						'<div>'
-						+'<div><input id="'+no+'" class="hidePlanCertDetailList w3-btn w3-dark-grey" name="hidePlanCertList'+no+'" type="button" value="상세보기접기"/></div>'
+						+'<span><input id="'+no+'" class="hidePlanCertDetailList" name="hidePlanCertList'+no+'" type="button" value="접기"/></span>'
 						+'</div>'
 						+'<hr>');
 				},
@@ -1015,7 +978,7 @@
 		<div class="w3-container" align="center">
 				  <font style="font-size: 60px;">커리어 플래너</font>
 				  <br/><br/>
-				  
+				  <font style="font-size: 40px;">아래의 추천 학교, 학과, 자격증 리스트에서 각각의 계획을 선택 해주세요.</font>
 				  <br/><br/>
 				  <%-- <ul class="w3-pagination w3-border w3-round w3-xlarge">
 				    <li><a href="/planUniteList">&laquo;</a></li>
@@ -1059,17 +1022,66 @@
 						</tr>
 				</table>
 				<hr>
+				<!-- 계획리스트보여주기 -->
+				<div>
+					<!-- 계획학교리스트 -->
+					<div>
+						<font style="font-size: 40px;">[학교]</font>
+						<input id="showPlanSchoolList" class="w3-btn w3-dark-grey" type="button" value="학교"/>
+					</div>
+					<!-- 추천학교 리스트 보여주기(ajax) -->
+					<div>
+						<table class="w3-table w3-striped w3-border ">
+							
+						<thead id="planSchoolListTop" class="w3-dark-grey">
+						</thead>
+						<tbody id="planSchoolList">
+						</tbody>
+						</table>
+						<div id="planSchoolListBot">
+						</div>
+					</div>
+					<br/><br/>
+					<hr>
+					<br/><br/>
+					<!-- 계획학과리스트 -->
+					<div>
+						<input id="showPlanDeptList" type="button" value="학과"/>
+					</div>
+					<!-- 추천학과 리스트 보여주기(ajax) -->
+					<div>
+						<div id="planDeptListTop">
+						</div>
+						<div id="planDeptList">
+						</div>
+						<div id="planDeptListBot">
+						</div>
+					</div>
+					<hr>
+					
+					<!-- 계획자격증리스트 -->
+					<div>
+						<input id="showPlanCertList" type="button" value="자격증"/>
+					</div>
+					<!-- 추천자격증 리스트 보여주기(ajax) -->
+					<div>	
+						<div id="planCertListTop">
+						</div>
+						<div id="planCertList">
+						</div>
+						<div id="planCertListBot">
+						</div>
+					</div>
+					<hr>
+				</div>
 				
 				<!-- 추천리스트 보여주기 -->
-				<br/><br/>
-				<div align="center"><font style="font-size: 35px;">1단계 : 아래의 추천 학교, 학과, 자격증 리스트에서 각각의 계획을 선택 해주세요.</font></div>
-				<br/><br/>
 				<form id="uniteDetailAction" action="">
 					<input id="planUniteCode" type="hidden" name="planUniteCode" value="${planUnite.planUniteCode}">
 					<input id="jobdicSeq" type="hidden" name="jobdicSeq" value="${planUnite.jobdicSeq}">
 					<input id="job" type="hidden" name="job" value="${planUnite.job}">
 					<div>
-						<div><input id="showRecSchoolList" class="w3-btn w3-dark-grey" type="button" value="추천학교리스트"/></div>
+						<span><input id="showRecSchoolList" class="w3-btn w3-dark-grey" type="button" value="추천학교리스트"/></span>
 					</div>
 					<div>
 						<table class="w3-table w3-striped w3-border ">
@@ -1085,7 +1097,7 @@
 					</div>
 					<br>
 					<div>
-						<div><input id="showRecDeptList" class="w3-btn w3-dark-grey" type="button" value="추천학과리스트"/></div>
+						<span><input id="showRecDeptList" class="w3-btn w3-dark-grey" type="button" value="추천학과리스트"/></span>
 					</div>
 					<div>
 						<table class="w3-table w3-striped w3-border ">
@@ -1102,7 +1114,7 @@
 					<br>
 					
 					<div>
-						<div><input id="showRecCertList" class="w3-btn w3-dark-grey" type="button" value="추천자격증리스트"/></div>
+						<span><input id="showRecCertList" class="w3-btn w3-dark-grey" type="button" value="추천자격증리스트"/></span>
 					</div>
 					<div>
 						<table class="w3-table w3-striped w3-border ">
@@ -1117,68 +1129,7 @@
 						<div id="btnForCert"></div>
 					</div>
 					<br>
-				</form><br/><br/>
-				
-				
-				<!-- 계획리스트보여주기 -->
-				<hr>
-				<br/><br/>
-				<div align="center"><font style="font-size: 35px;">2단계 : 상세보기를 클릭 해 계획을 이루기 위한 실천을 기록 해주세요.</font></div>
-				<br/><br/>
-				<div>
-					<!-- 계획학교리스트 -->
-					<div>
-						<font style="font-size: 30px;">[학교]</font><br/>
-						<input id="showPlanSchoolList" class="w3-btn w3-dark-grey" type="button" value="학교"/>
-					</div>
-					<!-- 추천학교 리스트 보여주기(ajax) -->
-					<div >
-						<div id="planSchoolListTop" class="w3-container w3-dark-grey">
-						</div>
-						<div id="planSchoolList" class="w3-container">
-						</div>
-						<div id="planSchoolListBot">
-						</div>
-					</div>
-					<br/><br/>
-					<hr>
-					
-					<!-- 계획학과리스트 -->
-					<div>
-						<font style="font-size: 30px;">[학과]</font><br/>
-						<input id="showPlanDeptList" class="w3-btn w3-dark-grey" type="button" value="학과"/>
-					</div>
-					<!-- 추천학과 리스트 보여주기(ajax) -->
-					<div>
-						<div id="planDeptListTop" class="w3-container w3-dark-grey">
-						</div>
-						<div id="planDeptList" class="w3-container">
-						</div>
-						<div id="planDeptListBot">
-						</div>
-					</div>
-					<br/><br/>
-					<hr>
-					
-					<!-- 계획자격증리스트 -->
-					<div>
-						<font style="font-size: 30px;">[자격증]</font><br/>
-						<input id="showPlanCertList" class="w3-btn w3-dark-grey" type="button" value="자격증"/>
-					</div>
-					<!-- 추천자격증 리스트 보여주기(ajax) -->
-					<div>	
-						<div id="planCertListTop" class="w3-container w3-dark-grey">
-						</div>
-						<div id="planCertList" class="w3-container">
-						</div>
-						<div id="planCertListBot">
-						</div>
-					</div>
-					<br/><br/>
-					<hr>
-				</div>
-				
-				
+				</form>
 			</div>
 		</t:putAttribute>
 	</t:insertDefinition>
