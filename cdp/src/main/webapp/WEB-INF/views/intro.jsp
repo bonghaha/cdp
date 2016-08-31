@@ -49,7 +49,7 @@
 		<span><img alt="" src="/resources/image/develop.PNG" width="1000" height="500"></span>
 	</div>
 	<div>
-		<h2>Follow Chart</h2>
+		<h2>Flow Chart</h2>
 		<span><img alt="" src="/resources/image/followChart.PNG" width="1200" height="700"></span>
 	</div>
 	<div>

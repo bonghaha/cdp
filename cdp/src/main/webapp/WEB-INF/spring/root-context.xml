@@ -7,9 +7,9 @@
 	<!--  dataSource -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/bongha825?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
-        <property name="username" value="root" />
-        <property name="password" value="java0000" />  
+        <property name="url" value="jdbc:mysql://bongha825.cafe24.com:3306/bongha825?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="username" value="bongha825" />
+        <property name="password" value="cdppw01!" />  
     </bean>
     <!-- transaction manager -->    
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
