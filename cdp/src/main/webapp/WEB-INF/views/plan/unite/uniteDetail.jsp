@@ -141,7 +141,7 @@
 								+'<input class="goPlanSchoolDetailUpdate w3-btn w3-dark-grey" type="button" value="삭제"/>'
 								+'<input id="'+no+'" class="goPlanSchoolDetailComplete w3-btn w3-dark-grey" type="button" value="완료"/></div>'
 								+'</form>'
-								+'</div><hr>');
+								+'</div>');
 						}
 						if(item.planSchoolDetailCondition == 1){
 							planSchoolDetailList.append(
