@@ -87,10 +87,10 @@ public class RecCertController {
 		map = new HashMap<>();
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
-		System.out.println("RecCertController recCertInsert ����");
+		System.out.println("RecCertController recCertInsert ");
 		List<InfoCert> infoCertList = infoCertService.infoCertList(map);
 		
-		pageHelper.pageSet(infoCertList.size(), linePerPage, clickPage, blockSize);	//������ �����ϱ�
+		pageHelper.pageSet(infoCertList.size(), linePerPage, clickPage, blockSize);
 		System.out.println("pageHelper InfoCertController :" + pageHelper);
 		model.addAttribute("infoCertList", infoCertList);
 		model.addAttribute("infoJob", infoJob);

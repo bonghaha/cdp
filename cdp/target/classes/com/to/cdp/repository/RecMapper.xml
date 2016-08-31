@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO rec_cert (
 			rec_cert_code, 
 			jobdic_seq,
+			job,
 			jm_cd,
 			jm_fld_nm,
 			rec_cert_reason, 
@@ -37,6 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (
 			#{recCertCode}, 
 			#{jobdicSeq}, 
+			#{job},
 			#{jmCd}, 
 			#{jmFldNm},
 			#{recCertReason},
@@ -162,7 +164,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			rec_dept_content, 
 			rec_dept_condition, 
 			rec_dept_registerdate,
-			jobdic_seq
+			jobdic_seq,
+			job
 			)
 		VALUES (
 			#{recDeptCode}, 
@@ -172,7 +175,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{recDeptContent},
 			#{recDeptCondition}, 
 			now(),
-			#{jobdicSeq}
+			#{jobdicSeq},
+			#{job}
 			)
 	</insert>
 		
